@@ -1,0 +1,47 @@
+<footer class="footer" role="contentinfo">
+  <div class="footer__top container">
+
+    <div class="footer__brand">
+      <a href="/" class="footer__logo" aria-label="Seflow home">seflow</a>
+      <p class="footer__tagline">{{ 'footer.tagline' | translate }}</p>
+
+      <div class="footer__social" aria-label="Follow us on social media">
+        <a href="https://facebook.com" mat-icon-button aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+          <app-icon name="facebook" [size]="20" />
+        </a>
+        <a href="https://instagram.com" mat-icon-button aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+          <app-icon name="instagram" [size]="20" />
+        </a>
+        <a href="https://linkedin.com" mat-icon-button aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+          <app-icon name="linkedin" [size]="20" />
+        </a>
+      </div>
+    </div>
+
+    @for (col of columns(); track col.heading) {
+      <nav class="footer__col" [attr.aria-label]="col.heading">
+        <h3 class="footer__col-heading">{{ col.heading }}</h3>
+        <ul role="list">
+          @for (link of col.links; track link.href) {
+            <li>
+              <a [href]="link.href" mat-button class="footer__link">{{ link.label }}</a>
+            </li>
+          }
+        </ul>
+      </nav>
+    }
+
+  </div>
+
+  <div class="footer__bottom">
+    <div class="footer__bottom-inner container">
+      <p class="footer__copyright">{{ 'footer.copyright' | translate }}</p>
+
+      <div class="footer__payments" aria-label="Accepted payment methods">
+        <span class="payment-badge">VISA</span>
+        <span class="payment-badge">Mastercard</span>
+        <span class="payment-badge">Maestro</span>
+      </div>
+    </div>
+  </div>
+</footer>

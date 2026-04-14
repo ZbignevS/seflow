@@ -1,0 +1,13 @@
+<section aria-label="Key metrics">
+  <div class="inner">
+    @for (item of items(); track item.value; let last = $last) {
+      <div class="stat">
+        <span class="stat__value">{{ item.value }}</span>
+        <span class="stat__label">{{ item.label }}</span>
+      </div>
+      @if (!last) {
+        <div class="divider" aria-hidden="true"></div>
+      }
+    }
+  </div>
+</section>

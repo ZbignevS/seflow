@@ -1,0 +1,32 @@
+<section class="hero-section" aria-labelledby="hero-section-heading">
+  <div class="hero-section__inner container">
+    @if (badge()) {
+      <span class="section-label">{{ badge() }}</span>
+    }
+
+    <h1 class="hero-section__heading" id="hero-section-heading">{{ heading() }}</h1>
+    <p class="hero-section__subtext">{{ subtext() }}</p>
+
+    <div class="hero-section__actions">
+      <a mat-raised-button color="primary" class="btn-lg" [href]="primaryCtaHref()">
+        {{ primaryCtaLabel() }}
+      </a>
+      @if (secondaryCtaLabel()) {
+        <a mat-stroked-button color="primary" class="btn-lg" [href]="secondaryCtaHref()!">
+          {{ secondaryCtaLabel() }}
+        </a>
+      }
+    </div>
+
+    @if (notes().length) {
+      <ul class="hero-section__notes" aria-label="Trial benefits" role="list">
+        @for (note of notes(); track note; let last = $last) {
+          <li>{{ note }}</li>
+          @if (!last) {
+            <li aria-hidden="true">·</li>
+          }
+        }
+      </ul>
+    }
+  </div>
+</section>

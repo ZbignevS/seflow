@@ -1,0 +1,31 @@
+<section class="cta-section" aria-labelledby="cta-section-heading">
+  <div class="cta-section__inner container">
+
+    <h2 class="cta-section__heading" id="cta-section-heading">{{ heading() }}</h2>
+
+    @if (subtext()) {
+      <p class="cta-section__subtext">{{ subtext() }}</p>
+    }
+
+    <div class="cta-section__actions">
+      <a
+        mat-flat-button
+        class="cta-section__primary-btn"
+        [href]="primaryCtaHref()"
+      >{{ primaryCtaLabel() }}</a>
+
+      @if (secondaryCtaLabel()) {
+        <a
+          mat-stroked-button
+          class="cta-section__secondary-btn"
+          [href]="secondaryCtaHref()"
+        >{{ secondaryCtaLabel() }}</a>
+      }
+    </div>
+
+    @if (note()) {
+      <p class="cta-section__note">{{ note() }}</p>
+    }
+
+  </div>
+</section>

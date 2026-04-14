@@ -1,0 +1,96 @@
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="hero__inner container">
+
+    <div class="hero__content">
+      <div class="hero__badge">
+        <span class="hero__badge-dot" aria-hidden="true"></span>
+        {{ 'hero.badge' | translate }}
+      </div>
+
+      <h1 class="hero__heading" id="hero-heading">
+        {{ 'hero.heading' | translate }}
+      </h1>
+
+      <p class="hero__subtext">{{ 'hero.subtext' | translate }}</p>
+
+      <div class="hero__actions">
+        <a mat-raised-button color="primary" class="btn-lg" href="/signup">
+          {{ 'hero.startTrial' | translate }}
+        </a>
+        <a mat-stroked-button color="primary" class="btn-lg" href="/demo">
+          {{ 'hero.watchDemo' | translate }}
+        </a>
+      </div>
+
+      <ul class="hero__notes" aria-label="Trial benefits" role="list">
+        <li>{{ 'hero.note1' | translate }}</li>
+        <li aria-hidden="true">·</li>
+        <li>{{ 'hero.note2' | translate }}</li>
+        <li aria-hidden="true">·</li>
+        <li>{{ 'hero.note3' | translate }}</li>
+      </ul>
+    </div>
+
+    <div class="hero__visual" aria-hidden="true">
+      <div class="dashboard">
+        <div class="dashboard__titlebar">
+          <span class="dot dot--red"></span>
+          <span class="dot dot--yellow"></span>
+          <span class="dot dot--green"></span>
+          <span class="dashboard__app-name">seflow dashboard</span>
+        </div>
+
+        <div class="dashboard__body">
+          <div class="dashboard__revenue-block">
+            <p class="dashboard__label">Revenue this month</p>
+            <div class="dashboard__revenue">
+              <span class="dashboard__amount">€3,240.00</span>
+              <span class="dashboard__change">↑ 12%</span>
+            </div>
+          </div>
+
+          <div class="chart">
+            <div class="chart__bars">
+              @for (bar of chartBars; track $index) {
+                <div class="chart__col">
+                  <div
+                    class="chart__bar"
+                    [class.chart__bar--active]="bar.active"
+                    [style.height.%]="bar.height"
+                  ></div>
+                </div>
+              }
+            </div>
+            <div class="chart__labels">
+              @for (label of chartLabels; track label) {
+                <span>{{ label }}</span>
+              }
+            </div>
+          </div>
+
+          <div class="dashboard__transactions">
+            <p class="dashboard__label">Recent transactions</p>
+            <ul class="tx-list" role="list">
+              @for (tx of transactions; track tx.label) {
+                <li class="tx-item">
+                  <span
+                    class="tx-dot"
+                    [class.tx-dot--income]="tx.income"
+                    [class.tx-dot--expense]="!tx.income"
+                  ></span>
+                  <span class="tx-label">{{ tx.label }}</span>
+                  <span
+                    class="tx-amount"
+                    [class.tx-amount--income]="tx.income"
+                    [class.tx-amount--expense]="!tx.income"
+                  >{{ tx.income ? '+' : '−' }}{{ tx.amount }}</span>
+                </li>
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

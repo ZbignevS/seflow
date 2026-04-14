@@ -1,0 +1,54 @@
+:host {
+  display: block;
+}
+
+.hero-section {
+  background: linear-gradient(160deg, var(--color-bg) 30%, var(--color-primary-light) 100%);
+  padding: 96px 0 80px;
+}
+
+.hero-section__inner {
+  text-align: center;
+  max-width: 760px;
+}
+
+.hero-section__heading {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  margin: 16px auto 20px;
+  max-width: 680px;
+}
+
+.hero-section__subtext {
+  font-size: 1.125rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+  max-width: 560px;
+  margin: 0 auto 36px;
+}
+
+.hero-section__actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.hero-section__notes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  color: var(--color-text-light);
+
+  li[aria-hidden='true'] {
+    user-select: none;
+  }
+}

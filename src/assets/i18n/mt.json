@@ -1,0 +1,289 @@
+{
+  "nav": {
+    "individualActivity": "Self Employed",
+    "taxCalculator": "Kalkolutur tat-Taxxa",
+    "demo": "Demo",
+    "getStarted": "Ibda issa"
+  },
+  "hero": {
+    "badge": "Afdat minn aktar minn 5,000 freelancer",
+    "heading": "Kontabbiltà intelliġenti għal min jaħdem għal rasu",
+    "subtext": "Agħmel dak li tagħmel l-aħjar — ħalli l-kontabbiltà f'idejna. Awttomatizza l-fatturar, il-ġurnali u l-kalkoli tat-taxxa f'minuti.",
+    "startTrial": "Ibda prova b'xejn",
+    "watchDemo": "Ara d-demo",
+    "note1": "Prova b'xejn ta' 30 jum",
+    "note2": "M'hemmx bżonn karta ta' kreditu",
+    "note3": "Ikkanċella fil-ħin li trid"
+  },
+  "stats": {
+    "items": [
+      { "value": "5,000+", "label": "Utenti attivi" },
+      { "value": "€12M+", "label": "Fatturi pproċessati" },
+      { "value": "4.9 ★", "label": "Valutazzjoni medja" },
+      { "value": "GDPR", "label": "Konformi u bbażat fl-UE" }
+    ]
+  },
+  "features": {
+    "sectionLabel": "Għaliex seflow",
+    "heading": "Kulma jeħtieġ il-freelancer",
+    "desc": "Imfassla speċifikament għall-professjonisti li jaħdmu għal rashom fl-UE — biex tiffoka fuq ix-xogħol tiegħek, mhux il-kotba.",
+    "items": {
+      "ui": {
+        "title": "Interfaċċja intuitiva",
+        "desc": "M'hemmx bżonn grad f'kontabbiltà. L-esperjenza guidata tagħna tagħmilha sempliċi għal kulħadd."
+      },
+      "security": {
+        "title": "Sigur u kriptografat",
+        "desc": "Id-dejta tiegħek hija protetta b'kriptografija tal-livell bankarju, maħżuna fuq servers tal-UE konformi mal-GDPR."
+      },
+      "automation": {
+        "title": "Ġurnal awtomatiku",
+        "desc": "Id-dħul u l-ispejjeż jiġu kklassifikati u rrekordjati awtomatikament — jiffrankawlek sigħat kull xahar."
+      }
+    }
+  },
+  "howItWorks": {
+    "sectionLabel": "Kif taħdem",
+    "heading": "Tħaddem f'minuti",
+    "steps": [
+      {
+        "title": "Oħloq il-kont tiegħek",
+        "desc": "Irreġistra f'inqas minn 2 minuti. M'hemmx bżonn karta ta' kreditu u l-ebda setup ikkumplikat."
+      },
+      {
+        "title": "Żid l-informazzjoni tan-negozju",
+        "desc": "Daħħal id-dettalji tiegħek, issettja l-istat tal-VAT tiegħek, u bidu tirrekordja d-dħul u l-ispejjeż."
+      },
+      {
+        "title": "Seflow jieħu ħsieb il-bqija",
+        "desc": "Ġurnal awtomatiku, rapporti f'ħin reali, u esportazzjonijiet lesti għat-taxxa — kollox magħmul għalik."
+      }
+    ]
+  },
+  "testimonials": {
+    "sectionLabel": "Testimonjanzi",
+    "heading": "Maħbub minn freelancers madwar l-Ewropa",
+    "items": [
+      {
+        "quote": "Seflow biddel kompletament kif nimmaniġġja l-finanzi tiegħi. Nista' nibgħat fatturi lill-klijenti u nsegwi l-ħlasijiet mingħajr l-ebda għarfien kontabbli.",
+        "author": "Marta K.",
+        "profession": "UX Designer Freelance"
+      },
+      {
+        "quote": "Kont nqatta' Ħadd sħiħ fuq il-kontabbiltà kull xahar. Issa tieħodli 10 minuti. Seflow biddilli l-ħajja.",
+        "author": "Jonas T.",
+        "profession": "Fotografu Professjonali"
+      }
+    ]
+  },
+  "pricing": {
+    "sectionLabel": "Prezzijiet",
+    "heading": "Prezzijiet sempliċi u trasparenti",
+    "desc": "L-ebda tariffi moħbija. L-ebda sorpriżi. Biss prezzar dirett li jikber man-negozju tiegħek.",
+    "monthly": "Kull xahar",
+    "yearly": "Kull sena",
+    "savePercent": "Iffranka 20%",
+    "perMonth": "/xahar",
+    "billedYearly": "imħallas kull sena",
+    "plans": {
+      "mini": {
+        "name": "S-Mini",
+        "description": "Għal dħul annwali taħt €45,000",
+        "features": [
+          "Ġurnal kontabbli awtomatiku",
+          "Fatturar illimitat",
+          "Ġestjoni tal-klijenti",
+          "Kalkoli tal-VAT",
+          "Traċċar tal-ispejjeż",
+          "Prova b'xejn ta' 30 jum"
+        ],
+        "ctaLabel": "Prova S-Mini b'xejn"
+      },
+      "pro": {
+        "name": "S-Pro",
+        "badge": "L-aktar popolari",
+        "description": "Għal dħul annwali fuq €45,000",
+        "features": [
+          "Il-karatteristiċi kollha tas-S-Mini",
+          "Rapporti finanzjarji avvanzati",
+          "Fatturi b'diversi muniti",
+          "Appoġġ prijoritarju",
+          "Aċċess tal-accountant",
+          "Prova b'xejn ta' 30 jum"
+        ],
+        "ctaLabel": "Prova S-Pro b'xejn"
+      }
+    }
+  },
+  "ctaBanner": {
+    "heading": "Ibda l-prova b'xejn ta' 30 jum illum",
+    "subtext": "Ingħaqad ma' aktar minn 5,000 freelancer li ssemplifikaw il-kontabbiltà tagħhom ma' seflow. M'hemmx bżonn karta ta' kreditu.",
+    "cta": "Ibda b'xejn",
+    "note": "Prova ta' 30 jum · Ikkanċella fi kwalunkwe ħin · L-ebda tariffi ta' setup"
+  },
+  "selfEmployed": {
+    "hero": {
+      "badge": "Self Employed",
+      "heading": "Kontabbiltà sempliċi għal min jaħdem għal rasu",
+      "subtext": "Kontabbiltà awtomatika, kalkoli tat-taxxa u tħeġġiġ tal-iskadenza — kollox f'pjattaforma waħda mfassla għal dawk li jaħdmu għal rashom.",
+      "primaryCta": "Ibda b'xejn",
+      "secondaryCta": "Istagħna aktar",
+      "notes": ["B'xejn għal 30 jum", "M'hemmx bżonn karta ta' kreditu", "Ikkanċella fil-ħin li trid"]
+    },
+    "features": {
+      "sectionLabel": "Karatteristiċi",
+      "heading": "Kulma jeħtieġ min jaħdem għal rasu",
+      "description": "Mill-fatturar sal-preżentata tat-taxxa — Seflow ikopri l-ħtiġijiet kollha ta' kontabbiltà.",
+      "items": {
+        "invoicing": {
+          "title": "Oħroġ fatturi mill-ewwel",
+          "description": "Oħloq fatturi professjonali u ibgħathom bħala PDF direttament mill-pjattaforma."
+        },
+        "taxCalc": {
+          "title": "Kalkolu tat-taxxa awtomatiku",
+          "description": "It-taxxa fuq l-income u s-sigurtà soċjali jiġu kkalkolati awtomatikament abbażi tal-qligħ tiegħek."
+        },
+        "scheduling": {
+          "title": "Tħeġġiġ tal-iskadenza",
+          "description": "Irċievi tħeġġiġ fil-ħin għall-iskadenze tal-preżentata, ħlasijiet tat-taxxa u dati oħra importanti."
+        },
+        "reports": {
+          "title": "Rapporti u sommarijiet",
+          "description": "Ħarsa ċara lejn id-dħul u l-ispejjeż, rapporti tal-qligħ u tbassir. Esporta għal Excel jew PDF."
+        },
+        "security": {
+          "title": "Ħażna sigura tad-dejta",
+          "description": "Id-dejta finanzjarja tiegħek hija kriptata u maħżuna f'ċentri tad-dejta Ewropej konformi mal-GDPR."
+        },
+        "automation": {
+          "title": "Importazzjoni awtomatika",
+          "description": "Importa estratti tal-bank u kklassifika d-dħul u l-ispejjeż awtomatikament. Iffrankal sigħat ta' xogħol manwali."
+        }
+      }
+    },
+    "checklist": {
+      "sectionLabel": "X'jinkludi",
+      "heading": "Pakkett sħiħ ta' kontabbiltà",
+      "description": "L-għodod kollha f'post wieħed biex tiffoka fuq in-negozju tiegħek, mhux il-karti.",
+      "items": [
+        "Ħolqien u l-invija tal-fatturi",
+        "Kalkolu awtomatiku tat-taxxa u s-sigurtà soċjali",
+        "Dikjarazzjoni annwali tal-income",
+        "Ċertifikat tal-attività tan-negozju",
+        "Traċċar tad-dħul u l-ispejjeż",
+        "Tħeġġiġ tal-iskadenza tat-taxxa",
+        "Appoġġ ta' muniti multipli",
+        "Esportazzjoni tad-dejta għal Excel / PDF"
+      ]
+    },
+    "steps": {
+      "sectionLabel": "Kif taħdem",
+      "heading": "Ibda fi 4 passi",
+      "items": [
+        {
+          "title": "Irreġistra",
+          "description": "Oħloq kont f'2 minuti. M'hemmx bżonn karta ta' kreditu — l-ewwel xahar huwa b'xejn."
+        },
+        {
+          "title": "Issettja n-negozju tiegħek",
+          "description": "Daħħal it-tip tan-negozju, is-sorsi tad-dħul u l-istat tat-taxxa tiegħek. Is-sistema se tikkonfigura awtomatikament il-kalkoli meħtieġa."
+        },
+        {
+          "title": "Oħroġ l-ewwel fattura",
+          "description": "Oħloq fattura għall-klijent tiegħek u s-sistema se tikkalkola awtomatikament it-taxxa u l-kontribuzzjonijiet soċjali."
+        },
+        {
+          "title": "Segwi l-finanzi tiegħek",
+          "description": "Uża d-dashboard komprensiv, issegwi l-iskadenza tat-taxxa u ħu rakkomandazzjonijiet biex tottimizza t-taxxa tiegħek."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Ibda timmaniġġja l-kontabbiltà tiegħek illum",
+      "subtext": "Ingħaqad ma' eluf ta' persuni li jaħdmu għal rashom u jiffrankaw il-ħin ma' Seflow.",
+      "primaryCta": "Ibda b'xejn",
+      "secondaryCta": "Ara l-prezzijiet",
+      "note": "B'xejn għal 30 jum. M'hemmx bżonn karta ta' kreditu."
+    }
+  },
+  "taxCalculator": {
+    "hero": {
+      "badge": "Malta 2026",
+      "heading": "Kalkolutur tat-Taxxa għal Min Jaħdem għal Rasu",
+      "subtext": "Stima t-taxxa fuq id-dħul u l-kontribuzzjonijiet tas-sigurtà soċjali abbażi tal-liġi tat-taxxa ta' Malta 2026. Bracketti progressivi, reġim tal-impjieg propju."
+    },
+    "form": {
+      "title": "Id-dettalji tad-dħul tiegħek",
+      "incomeLabel": "Dħul gross annwali",
+      "expensesLabel": "Spejjeż deduċibbli",
+      "partTimeLabel": "Ħaddiem part-time",
+      "partTimeDesc": "Rata fissa ta' 10% fuq dħul sa €12,000",
+      "note": "Malta 2026 · Impjieg propju · Persuna waħda"
+    },
+    "result": {
+      "title": "Stima tat-taxxa tiegħek",
+      "netIncomeLabel": "Dħul nett stmat",
+      "effectiveRateLabel": "Rata effettiva",
+      "breakdownLabel": "Tqassim",
+      "grossIncome": "Dħul gross",
+      "expenses": "Spejjeż",
+      "taxableIncome": "Dħul taxxabbli",
+      "incomeTax": "Taxxa fuq id-dħul",
+      "socialSecurity": "Sigurtà soċjali (15%)",
+      "netIncome": "Dħul nett",
+      "taxAndSsc": "Taxxa + SS",
+      "placeholder": "Daħħal id-dħul tiegħek biex tara l-istima"
+    },
+    "info": {
+      "sectionLabel": "Regoli tat-Taxxa ta' Malta 2026",
+      "heading": "Kif tiġi kkalkolata t-taxxa tiegħek",
+      "items": [
+        {
+          "title": "Taxxa fuq id-Dħul (Persuna Waħda)",
+          "desc": "Bracketti progressivi: 0% fuq l-ewwel €12,000 · 15% fuq €12,001–€16,000 · 25% fuq €16,001–€60,000 · 35% fuq €60,000."
+        },
+        {
+          "title": "Sigurtà Soċjali (Klassi 2)",
+          "desc": "Dawk li jaħdmu għal rashom iħallsu 15% tad-dħul nett taxxabbli tagħhom bħala kontribuzzjonijiet tas-sigurtà soċjali. M'hemm l-ebda limitu annwali applikat bħalissa."
+        },
+        {
+          "title": "Reġim Part-time",
+          "desc": "Min jikkwalifika jista' japplika rata fissa ta' 10% fuq dħul part-time sa €12,000 fis-sena, minflok il-bracketti progressivi."
+        }
+      ]
+    }
+  },
+  "footer": {
+    "tagline": "Kontabbiltà moderna għal min jaħdem għal rasu.",
+    "columns": [
+      {
+        "heading": "Prodott",
+        "links": [
+          { "label": "Karatteristiċi" },
+          { "label": "Kif taħdem" },
+          { "label": "Prezzijiet" },
+          { "label": "Sigurtà" }
+        ]
+      },
+      {
+        "heading": "Kumpanija",
+        "links": [
+          { "label": "Dwarna" },
+          { "label": "Blog" },
+          { "label": "Karieri" },
+          { "label": "Stampa" }
+        ]
+      },
+      {
+        "heading": "Appoġġ",
+        "links": [
+          { "label": "Ċentru tal-għajnuna" },
+          { "label": "Ikkuntattjana" },
+          { "label": "Politika tal-privatezza" },
+          { "label": "Termini tas-servizz" }
+        ]
+      }
+    ],
+    "copyright": "© 2026 seflow. Id-drittijiet kollha riżervati."
+  }
+}

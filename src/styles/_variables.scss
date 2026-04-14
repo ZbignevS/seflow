@@ -1,0 +1,55 @@
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-primary-darker: #1e3a8a;
+  --color-primary-bright: #3b82f6;
+  --color-primary-light: #eff6ff;
+  --color-primary-muted: #dbeafe;
+
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-light: #94a3b8;
+
+  --color-white: #ffffff;
+  --color-bg: #ffffff;
+  --color-bg-alt: #f8fafc;
+  --color-bg-dark: #0f172a;
+
+  --color-border: #e2e8f0;
+  --color-border-strong: #cbd5e1;
+
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-success-text: #065f46;
+  --color-warning: #f59e0b;
+  --color-purple: #7c3aed;
+  --color-purple-light: #ede9fe;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+
+  --color-dot-red: #ff5f57;
+  --color-dot-yellow: #ffbd2e;
+  --color-dot-green: #28c841;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --container-max: 1200px;
+  --container-padding: clamp(16px, 4vw, 24px);
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  --shadow-hero: 0 24px 60px color-mix(in srgb, var(--color-primary) 12%, transparent), 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  --transition-fast: 100ms ease;
+  --transition-base: 150ms ease;
+  --transition-smooth: 250ms ease;
+}

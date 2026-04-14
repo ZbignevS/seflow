@@ -1,0 +1,25 @@
+<section id="features" class="features" aria-labelledby="features-heading">
+  <div class="features__inner container">
+
+    <header class="section-header">
+      <span class="section-label">{{ 'features.sectionLabel' | translate }}</span>
+      <h2 class="section-title" id="features-heading">{{ 'features.heading' | translate }}</h2>
+      <p class="section-desc">{{ 'features.desc' | translate }}</p>
+    </header>
+
+    <div class="features__grid">
+      @for (feature of features(); track feature.id) {
+        <mat-card class="feature-card" [class]="'feature-card--' + feature.colorKey" appearance="outlined">
+          <mat-card-content>
+            <div class="feature-card__icon-wrap" aria-hidden="true">
+              <app-icon [name]="feature.iconType" />
+            </div>
+            <h3 class="feature-card__title">{{ feature.title }}</h3>
+            <p class="feature-card__desc">{{ feature.desc }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+
+  </div>
+</section>

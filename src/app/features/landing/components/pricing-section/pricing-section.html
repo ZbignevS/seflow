@@ -1,0 +1,88 @@
+<section id="pricing" class="pricing" aria-labelledby="pricing-heading">
+  <div class="pricing__inner container">
+
+    <header class="section-header">
+      <span class="section-label">{{ 'pricing.sectionLabel' | translate }}</span>
+      <h2 class="section-title" id="pricing-heading">{{ 'pricing.heading' | translate }}</h2>
+      <p class="section-desc">{{ 'pricing.desc' | translate }}</p>
+    </header>
+
+    <div class="pricing__toggle-wrap">
+      <mat-button-toggle-group
+        class="pricing__toggle"
+        [value]="billingYearly() ? 'yearly' : 'monthly'"
+        aria-label="Billing period"
+        hideSingleSelectionIndicator
+      >
+        <mat-button-toggle
+          value="monthly"
+          (click)="billingYearly.set(false)"
+          [attr.aria-pressed]="!billingYearly()"
+        >{{ 'pricing.monthly' | translate }}</mat-button-toggle>
+
+        <mat-button-toggle
+          value="yearly"
+          (click)="billingYearly.set(true)"
+          [attr.aria-pressed]="billingYearly()"
+        >
+          {{ 'pricing.yearly' | translate }}
+          <span class="save-badge" [attr.aria-label]="'pricing.savePercent' | translate">
+            {{ 'pricing.savePercent' | translate }}
+          </span>
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="pricing__grid">
+      @for (plan of plans(); track plan.id) {
+        <mat-card
+          class="plan-card"
+          [class.plan-card--highlighted]="plan.highlighted"
+          [attr.aria-label]="plan.name + ' plan'"
+          appearance="outlined"
+        >
+          @if (plan.badge) {
+            <div class="plan-card__badge" [attr.aria-label]="plan.badge">{{ plan.badge }}</div>
+          }
+
+          <mat-card-header>
+            <mat-card-title class="plan-card__name">{{ plan.name }}</mat-card-title>
+            <mat-card-subtitle class="plan-card__desc">{{ plan.description }}</mat-card-subtitle>
+          </mat-card-header>
+
+          <mat-card-content>
+            <div class="plan-card__price">
+              <span class="plan-card__amount">€{{ displayPrice(plan.id) }}</span>
+              <span class="plan-card__period">{{ 'pricing.perMonth' | translate }}</span>
+            </div>
+
+            @if (billingYearly()) {
+              <p class="plan-card__billing-note">
+                {{ 'pricing.billedYearly' | translate }} · Save €{{ yearlySaving(plan.id) }}
+              </p>
+            }
+
+            <ul class="plan-card__features" role="list">
+              @for (feature of plan.features; track feature) {
+                <li class="plan-card__feature">
+                  <app-icon name="check" [size]="16" />
+                  {{ feature }}
+                </li>
+              }
+            </ul>
+          </mat-card-content>
+
+          <mat-card-actions>
+            <a
+              mat-raised-button
+              [color]="plan.highlighted ? 'primary' : undefined"
+              class="plan-card__cta"
+              [href]="'/signup?plan=' + plan.id"
+            >{{ plan.ctaLabel }}</a>
+          </mat-card-actions>
+        </mat-card>
+      }
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,289 @@
+{
+  "nav": {
+    "individualActivity": "Self Employed",
+    "taxCalculator": "Tax Calculator",
+    "demo": "Demo",
+    "getStarted": "Get started"
+  },
+  "hero": {
+    "badge": "Trusted by 5,000+ freelancers",
+    "heading": "Smart accounting for the self-employed",
+    "subtext": "Do what you do best — leave the accounting to seflow. Automate invoicing, journals, and tax calculations in minutes.",
+    "startTrial": "Start free trial",
+    "watchDemo": "Watch demo",
+    "note1": "30-day free trial",
+    "note2": "No credit card required",
+    "note3": "Cancel anytime"
+  },
+  "stats": {
+    "items": [
+      { "value": "5,000+", "label": "Active users" },
+      { "value": "€12M+", "label": "Invoices processed" },
+      { "value": "4.9 ★", "label": "Average rating" },
+      { "value": "GDPR", "label": "Compliant & EU-hosted" }
+    ]
+  },
+  "features": {
+    "sectionLabel": "Why seflow",
+    "heading": "Everything a freelancer needs",
+    "desc": "Built for self-employed professionals in the EU — so you can focus on your work, not your books.",
+    "items": {
+      "ui": {
+        "title": "Intuitive interface",
+        "desc": "No accounting degree required. Our guided experience makes bookkeeping accessible to everyone."
+      },
+      "security": {
+        "title": "Secure & encrypted",
+        "desc": "Your data is protected with bank-grade encryption, stored on GDPR-compliant EU cloud servers."
+      },
+      "automation": {
+        "title": "Automatic journaling",
+        "desc": "Income and expenses are categorised and recorded automatically — saving you hours every month."
+      }
+    }
+  },
+  "howItWorks": {
+    "sectionLabel": "How it works",
+    "heading": "Up and running in minutes",
+    "steps": [
+      {
+        "title": "Create your account",
+        "desc": "Sign up in under 2 minutes. No credit card needed and no complicated setup."
+      },
+      {
+        "title": "Add your business info",
+        "desc": "Enter your details, set your VAT status, and start logging income and expenses."
+      },
+      {
+        "title": "Seflow handles the rest",
+        "desc": "Automatic journaling, real-time reports, and tax-ready exports — all done for you."
+      }
+    ]
+  },
+  "testimonials": {
+    "sectionLabel": "Testimonials",
+    "heading": "Loved by freelancers across Europe",
+    "items": [
+      {
+        "quote": "Seflow completely changed how I manage my finances. I can invoice clients and track payments without any accounting knowledge.",
+        "author": "Marta K.",
+        "profession": "Freelance UX Designer"
+      },
+      {
+        "quote": "I used to spend an entire Sunday on accounting every month. Now it takes me 10 minutes. Seflow is a game-changer.",
+        "author": "Jonas T.",
+        "profession": "Professional Photographer"
+      }
+    ]
+  },
+  "pricing": {
+    "sectionLabel": "Pricing",
+    "heading": "Simple, transparent pricing",
+    "desc": "No hidden fees. No surprises. Just straightforward pricing that grows with your business.",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "savePercent": "Save 20%",
+    "perMonth": "/mo",
+    "billedYearly": "billed yearly",
+    "plans": {
+      "mini": {
+        "name": "S-Mini",
+        "description": "For annual revenue under €45,000",
+        "features": [
+          "Automated accounting journal",
+          "Unlimited invoicing",
+          "Client management",
+          "VAT calculations",
+          "Expense tracking",
+          "30-day free trial"
+        ],
+        "ctaLabel": "Try S-Mini free"
+      },
+      "pro": {
+        "name": "S-Pro",
+        "badge": "Most popular",
+        "description": "For annual revenue over €45,000",
+        "features": [
+          "All S-Mini features",
+          "Advanced financial reports",
+          "Multi-currency invoices",
+          "Priority support",
+          "Accountant access",
+          "30-day free trial"
+        ],
+        "ctaLabel": "Try S-Pro free"
+      }
+    }
+  },
+  "ctaBanner": {
+    "heading": "Start your free 30-day trial today",
+    "subtext": "Join 5,000+ freelancers who've simplified their accounting with seflow. No credit card required.",
+    "cta": "Get started for free",
+    "note": "30-day free trial · Cancel anytime · No setup fees"
+  },
+  "selfEmployed": {
+    "hero": {
+      "badge": "Self Employed",
+      "heading": "Accounting made simple for the self-employed",
+      "subtext": "Automated bookkeeping, tax calculations and deadline reminders — all in one platform built for self-employed individuals.",
+      "primaryCta": "Start for free",
+      "secondaryCta": "Learn more",
+      "notes": ["Free for 30 days", "No credit card required", "Cancel anytime"]
+    },
+    "features": {
+      "sectionLabel": "Features",
+      "heading": "Everything you need as self-employed",
+      "description": "From invoicing to tax filing — Seflow covers all accounting needs for self-employed individuals.",
+      "items": {
+        "invoicing": {
+          "title": "Issue invoices instantly",
+          "description": "Create professional invoices and send them as PDF directly from the platform."
+        },
+        "taxCalc": {
+          "title": "Automatic tax calculation",
+          "description": "Income tax and social security are calculated automatically based on your earnings. Always know how much to set aside."
+        },
+        "scheduling": {
+          "title": "Deadline reminders",
+          "description": "Get timely reminders for filing deadlines, tax payment dates and other key dates."
+        },
+        "reports": {
+          "title": "Reports and summaries",
+          "description": "Clear income and expense overview, profit reports and forecasts. Export to Excel or PDF."
+        },
+        "security": {
+          "title": "Secure data storage",
+          "description": "Your financial data is encrypted and stored in GDPR-compliant European data centres."
+        },
+        "automation": {
+          "title": "Automatic import",
+          "description": "Import bank statements and auto-categorise income and expenses. Save hours of manual work."
+        }
+      }
+    },
+    "checklist": {
+      "sectionLabel": "What's included",
+      "heading": "Complete self-employed accounting package",
+      "description": "All tools in one place so you can focus on your business, not paperwork.",
+      "items": [
+        "Invoice creation and sending",
+        "Automatic income tax and social security calculation",
+        "Annual income declaration",
+        "Business activity certificate",
+        "Income and expense tracking",
+        "Tax deadline reminders",
+        "Multi-currency support",
+        "Data export to Excel / PDF"
+      ]
+    },
+    "steps": {
+      "sectionLabel": "How it works",
+      "heading": "Get started in 4 steps",
+      "items": [
+        {
+          "title": "Register",
+          "description": "Create an account in 2 minutes. No credit card needed — first month is free."
+        },
+        {
+          "title": "Set up your business",
+          "description": "Enter your business type, income sources and tax status. The system will automatically configure the required calculations."
+        },
+        {
+          "title": "Issue your first invoice",
+          "description": "Create an invoice for your client and the system will automatically calculate your tax and social contributions."
+        },
+        {
+          "title": "Track your finances",
+          "description": "Use the comprehensive dashboard, monitor tax deadlines and get recommendations to optimise your taxes."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Start managing your accounts today",
+      "subtext": "Join thousands of self-employed individuals who save time with Seflow.",
+      "primaryCta": "Start for free",
+      "secondaryCta": "View pricing",
+      "note": "Free for 30 days. No credit card required."
+    }
+  },
+  "taxCalculator": {
+    "hero": {
+      "badge": "Malta 2026",
+      "heading": "Tax Calculator for Self-Employed",
+      "subtext": "Estimate your annual income tax and social security contributions based on Malta tax law 2026. Progressive brackets, self-employed regime."
+    },
+    "form": {
+      "title": "Your income details",
+      "incomeLabel": "Annual gross income",
+      "expensesLabel": "Deductible expenses",
+      "partTimeLabel": "Part-time worker",
+      "partTimeDesc": "10% flat rate on income up to €12,000",
+      "note": "Malta 2026 · Self-employed · Single person"
+    },
+    "result": {
+      "title": "Your tax estimate",
+      "netIncomeLabel": "Estimated net income",
+      "effectiveRateLabel": "Effective rate",
+      "breakdownLabel": "Breakdown",
+      "grossIncome": "Gross income",
+      "expenses": "Expenses",
+      "taxableIncome": "Taxable income",
+      "incomeTax": "Income tax",
+      "socialSecurity": "Social security (15%)",
+      "netIncome": "Net income",
+      "taxAndSsc": "Tax + SSC",
+      "placeholder": "Enter your income above to see your estimate"
+    },
+    "info": {
+      "sectionLabel": "Malta Tax Rules 2026",
+      "heading": "How your tax is calculated",
+      "items": [
+        {
+          "title": "Income Tax (Single Person)",
+          "desc": "Progressive brackets: 0% on first €12,000 · 15% on €12,001–€16,000 · 25% on €16,001–€60,000 · 35% above €60,000."
+        },
+        {
+          "title": "Social Security (Class 2)",
+          "desc": "Self-employed individuals pay 15% of their net taxable income as social security contributions. No annual cap is currently applied."
+        },
+        {
+          "title": "Part-time Regime",
+          "desc": "Eligible self-employed individuals may apply a 10% flat rate on part-time income up to €12,000 per year, instead of progressive brackets."
+        }
+      ]
+    }
+  },
+  "footer": {
+    "tagline": "Modern accounting for the self-employed.",
+    "columns": [
+      {
+        "heading": "Product",
+        "links": [
+          { "label": "Features" },
+          { "label": "How it works" },
+          { "label": "Pricing" },
+          { "label": "Security" }
+        ]
+      },
+      {
+        "heading": "Company",
+        "links": [
+          { "label": "About us" },
+          { "label": "Blog" },
+          { "label": "Careers" },
+          { "label": "Press" }
+        ]
+      },
+      {
+        "heading": "Support",
+        "links": [
+          { "label": "Help centre" },
+          { "label": "Contact us" },
+          { "label": "Privacy policy" },
+          { "label": "Terms of service" }
+        ]
+      }
+    ],
+    "copyright": "© 2026 seflow. All rights reserved."
+  }
+}

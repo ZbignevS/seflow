@@ -1,0 +1,41 @@
+<section class="content-checklist" aria-labelledby="content-checklist-heading">
+  <div class="content-checklist__inner container" [class.content-checklist__inner--reversed]="imageOnLeft()">
+
+    <div class="content-checklist__text">
+      <header class="section-header section-header--left">
+        @if (sectionLabel()) {
+          <span class="section-label">{{ sectionLabel() }}</span>
+        }
+        <h2 class="section-title" id="content-checklist-heading">{{ heading() }}</h2>
+        @if (description()) {
+          <p class="section-desc">{{ description() }}</p>
+        }
+      </header>
+
+      <ul class="checklist" aria-label="Included features">
+        @for (item of items(); track item.id) {
+          <li class="checklist__item">
+            <span class="checklist__icon" aria-hidden="true">
+              <app-icon name="check" [size]="16" />
+            </span>
+            <span>{{ item.text }}</span>
+          </li>
+        }
+      </ul>
+    </div>
+
+    @if (imageSrc()) {
+      <div class="content-checklist__visual" aria-hidden="true">
+        <img
+          class="content-checklist__img"
+          [src]="imageSrc()"
+          [alt]="imageAlt()"
+          loading="lazy"
+          width="560"
+          height="420"
+        />
+      </div>
+    }
+
+  </div>
+</section>

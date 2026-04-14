@@ -1,0 +1,53 @@
+<form [formGroup]="form" novalidate>
+  <div class="form-field">
+    <label class="form-label" for="annual-income">
+      {{ 'taxCalculator.form.incomeLabel' | translate }}
+    </label>
+    <div class="input-wrapper">
+      <span class="input-prefix" aria-hidden="true">€</span>
+      <input
+        id="annual-income"
+        type="number"
+        class="input-control"
+        formControlName="annualIncome"
+        placeholder="0"
+        min="0"
+      />
+    </div>
+  </div>
+
+  <div class="form-field">
+    <label class="form-label" for="expenses">
+      {{ 'taxCalculator.form.expensesLabel' | translate }}
+    </label>
+    <div class="input-wrapper">
+      <span class="input-prefix" aria-hidden="true">€</span>
+      <input
+        id="expenses"
+        type="number"
+        class="input-control"
+        formControlName="expenses"
+        placeholder="0"
+        min="0"
+      />
+    </div>
+  </div>
+
+  <div class="form-toggle">
+    <div class="toggle-text">
+      <span class="toggle-label" id="part-time-label">
+        {{ 'taxCalculator.form.partTimeLabel' | translate }}
+      </span>
+      <span class="toggle-desc" id="part-time-desc">
+        {{ 'taxCalculator.form.partTimeDesc' | translate }}
+      </span>
+    </div>
+    <mat-slide-toggle
+      formControlName="isPartTime"
+      aria-labelledby="part-time-label"
+      aria-describedby="part-time-desc"
+    ></mat-slide-toggle>
+  </div>
+
+  <p class="form-note">{{ 'taxCalculator.form.note' | translate }}</p>
+</form>

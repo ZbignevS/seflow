@@ -1,0 +1,60 @@
+<app-navbar></app-navbar>
+
+<main id="main-content">
+
+  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
+  <section class="calc-hero" aria-labelledby="calc-hero-heading">
+    <div class="container">
+      <span class="section-label">{{ hero().badge }}</span>
+      <h1 class="section-title" id="calc-hero-heading">{{ hero().heading }}</h1>
+      <p class="section-desc">{{ hero().subtext }}</p>
+    </div>
+  </section>
+
+  <!-- ── Calculator ────────────────────────────────────────────────────────── -->
+  <section class="calc-section" aria-label="Tax calculator">
+    <div class="container">
+      <div class="calc-layout">
+
+        <!-- Form panel -->
+        <div class="calc-panel">
+          <header class="panel-header">
+            <h2 class="panel-title">{{ form().title }}</h2>
+          </header>
+          <app-calculator-form (inputChange)="onInputChange($event)"></app-calculator-form>
+        </div>
+
+        <!-- Result panel -->
+        <div class="calc-panel calc-panel--result" aria-live="polite" aria-atomic="true">
+          <header class="panel-header">
+            <h2 class="panel-title">{{ resultLabels().title }}</h2>
+          </header>
+          <app-calculator-result [result]="result$ | async"></app-calculator-result>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Tax info ───────────────────────────────────────────────────────────── -->
+  <section class="calc-info" aria-labelledby="calc-info-heading">
+    <div class="container">
+      <header class="section-header">
+        <span class="section-label">{{ info().sectionLabel }}</span>
+        <h2 class="section-title" id="calc-info-heading">{{ info().heading }}</h2>
+      </header>
+
+      <div class="info-grid">
+        @for (item of info().items; track item.title) {
+          <article class="info-card">
+            <h3 class="info-card__title">{{ item.title }}</h3>
+            <p class="info-card__desc">{{ item.desc }}</p>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<app-site-footer></app-site-footer>

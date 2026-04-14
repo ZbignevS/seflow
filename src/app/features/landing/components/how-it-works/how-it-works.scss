@@ -1,0 +1,73 @@
+.how {
+  background: var(--color-bg);
+  padding: 96px 0;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  list-style: none;
+  position: relative;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.step__connector {
+  position: absolute;
+  top: 24px;
+  left: calc(50% + 36px);
+  width: calc(100% - 24px);
+  height: 2px;
+  background: var(--color-primary-muted);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.step__number {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.125rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.step__body {
+  max-width: 260px;
+}
+
+.step__title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.step__desc {
+  font-size: 0.9375rem;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}

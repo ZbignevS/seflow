@@ -1,0 +1,44 @@
+<section class="testimonials" aria-labelledby="testimonials-heading">
+  <div class="testimonials__inner container">
+
+    <header class="section-header">
+      <span class="section-label">{{ 'testimonials.sectionLabel' | translate }}</span>
+      <h2 class="section-title" id="testimonials-heading">
+        {{ 'testimonials.heading' | translate }}
+      </h2>
+    </header>
+
+    <div class="testimonials__grid">
+      @for (item of testimonials(); track item.id) {
+        <mat-card class="testimonial-card" appearance="outlined">
+          <mat-card-content>
+            <span class="quote-mark" aria-hidden="true">"</span>
+
+            <blockquote class="testimonial-card__quote">
+              {{ item.quote }}
+            </blockquote>
+
+            <div class="testimonial-card__author">
+              <div
+                class="testimonial-card__avatar"
+                [style.background]="item.avatarColor"
+                aria-hidden="true"
+              >{{ item.initials }}</div>
+              <div class="testimonial-card__meta">
+                <span class="testimonial-card__name">{{ item.author }}</span>
+                <span class="testimonial-card__profession">{{ item.profession }}</span>
+              </div>
+            </div>
+
+            <div class="testimonial-card__stars" aria-label="5 out of 5 stars">
+              @for (star of [1,2,3,4,5]; track star) {
+                <span aria-hidden="true">★</span>
+              }
+            </div>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+
+  </div>
+</section>

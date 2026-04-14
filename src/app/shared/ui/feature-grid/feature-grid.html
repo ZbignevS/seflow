@@ -1,0 +1,29 @@
+<section class="feature-grid" aria-labelledby="feature-grid-heading">
+  <div class="feature-grid__inner container">
+
+    <header class="section-header">
+      @if (sectionLabel()) {
+        <span class="section-label">{{ sectionLabel() }}</span>
+      }
+      <h2 class="section-title" id="feature-grid-heading">{{ heading() }}</h2>
+      @if (description()) {
+        <p class="section-desc">{{ description() }}</p>
+      }
+    </header>
+
+    <div class="feature-grid__cards">
+      @for (item of items(); track item.id) {
+        <mat-card class="feature-card" [class]="'feature-card--' + item.colorKey" appearance="outlined">
+          <mat-card-content>
+            <div class="feature-card__icon-wrap" aria-hidden="true">
+              <app-icon [name]="item.icon" />
+            </div>
+            <h3 class="feature-card__title">{{ item.title }}</h3>
+            <p class="feature-card__desc">{{ item.description }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    </div>
+
+  </div>
+</section>

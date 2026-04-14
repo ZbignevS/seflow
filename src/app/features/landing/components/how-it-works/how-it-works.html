@@ -1,0 +1,25 @@
+<section id="how-it-works" class="how" aria-labelledby="how-heading">
+  <div class="how__inner container">
+
+    <header class="section-header">
+      <span class="section-label">{{ 'howItWorks.sectionLabel' | translate }}</span>
+      <h2 class="section-title" id="how-heading">{{ 'howItWorks.heading' | translate }}</h2>
+    </header>
+
+    <ol class="steps" aria-label="Steps to get started">
+      @for (step of steps(); track $index; let last = $last) {
+        <li class="step">
+          @if (!last) {
+            <div class="step__connector" aria-hidden="true"></div>
+          }
+          <div class="step__number" aria-hidden="true">{{ $index + 1 }}</div>
+          <div class="step__body">
+            <h3 class="step__title">{{ step.title }}</h3>
+            <p class="step__desc">{{ step.desc }}</p>
+          </div>
+        </li>
+      }
+    </ol>
+
+  </div>
+</section>

@@ -1,0 +1,33 @@
+<nav aria-label="Main navigation">
+  <a href="/" class="logo" aria-label="Seflow — home">seflow</a>
+
+  <ul class="links" role="list">
+    <li><a mat-button href="/self-employed">{{ 'nav.individualActivity' | translate }}</a></li>
+    <li><a mat-button href="/tax-calculator">{{ 'nav.taxCalculator' | translate }}</a></li>
+  </ul>
+
+  <div class="actions">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button
+        class="lang-btn"
+        [class.lang-btn--active]="locale() === 'en'"
+        (click)="switchLocale('en')"
+        [attr.aria-pressed]="locale() === 'en'"
+        aria-label="English"
+      >EN</button>
+      <span class="lang-divider" aria-hidden="true"></span>
+      <button
+        class="lang-btn"
+        [class.lang-btn--active]="locale() === 'mt'"
+        (click)="switchLocale('mt')"
+        [attr.aria-pressed]="locale() === 'mt'"
+        aria-label="Malti"
+      >MT</button>
+    </div>
+
+    <a mat-button href="/demo">{{ 'nav.demo' | translate }}</a>
+    <a mat-raised-button color="primary" href="/signup">
+      {{ 'nav.getStarted' | translate }}
+    </a>
+  </div>
+</nav>

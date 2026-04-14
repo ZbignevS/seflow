@@ -1,0 +1,47 @@
+:host {
+  display: block;
+}
+
+.banner {
+  background: linear-gradient(135deg, var(--color-primary-darker) 0%, var(--color-primary) 60%, var(--color-primary-bright) 100%);
+  padding: 96px 0;
+}
+
+.inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  text-align: center;
+}
+
+.heading {
+  font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+  font-weight: 700;
+  color: var(--color-white);
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.subtext {
+  font-size: 1.0625rem;
+  color: color-mix(in srgb, var(--color-white) 75%, transparent);
+  max-width: 480px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.note {
+  font-size: 0.875rem;
+  color: color-mix(in srgb, var(--color-white) 60%, transparent);
+  margin-top: 20px;
+}
+
+.mat-mdc-raised-button {
+  --mdc-filled-button-container-color: var(--color-white);
+  --mdc-filled-button-label-text-color: var(--color-primary);
+  height: 48px;
+  padding: 0 28px;
+  font-size: 1rem;
+  border-radius: var(--radius-lg) !important;
+}
