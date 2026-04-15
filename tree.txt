@@ -1,0 +1,362 @@
+.
+├── README.md
+├── apps
+│   ├── api
+│   │   ├── project.json
+│   │   ├── src
+│   │   │   ├── app
+│   │   │   │   ├── app.controller.ts
+│   │   │   │   ├── app.module.ts
+│   │   │   │   ├── app.service.ts
+│   │   │   │   ├── plans
+│   │   │   │   │   ├── plans.controller.ts
+│   │   │   │   │   ├── plans.module.ts
+│   │   │   │   │   └── plans.service.ts
+│   │   │   │   └── tax-rules
+│   │   │   │       ├── tax-rules.controller.ts
+│   │   │   │       ├── tax-rules.module.ts
+│   │   │   │       └── tax-rules.service.ts
+│   │   │   ├── assets
+│   │   │   ├── auth
+│   │   │   │   ├── auth.module.ts
+│   │   │   │   ├── firebase-admin.service.ts
+│   │   │   │   ├── firebase-auth.guard.ts
+│   │   │   │   └── request.types.ts
+│   │   │   ├── main.ts
+│   │   │   └── users
+│   │   │       ├── dto
+│   │   │       │   └── sync-user.request.dto.ts
+│   │   │       ├── users.controller.ts
+│   │   │       ├── users.module.ts
+│   │   │       └── users.service.ts
+│   │   ├── tsconfig.app.json
+│   │   ├── tsconfig.json
+│   │   └── webpack.config.js
+│   └── api-e2e
+│       ├── jest.config.ts
+│       ├── project.json
+│       ├── src
+│       │   ├── api
+│       │   │   └── api.spec.ts
+│       │   └── support
+│       │       ├── global-setup.ts
+│       │       ├── global-teardown.ts
+│       │       └── test-setup.ts
+│       ├── tsconfig.json
+│       └── tsconfig.spec.json
+├── dist
+│   ├── apps
+│   │   └── api
+│   │       ├── assets
+│   │       ├── main.js
+│   │       ├── main.js.map
+│   │       ├── package-lock.json
+│   │       └── package.json
+│   ├── libs
+│   │   ├── contracts
+│   │   │   ├── package.json
+│   │   │   └── src
+│   │   │       ├── index.d.ts
+│   │   │       ├── index.js
+│   │   │       └── lib
+│   │   │           ├── plans.types.d.ts
+│   │   │           ├── plans.types.js
+│   │   │           ├── tax.types.d.ts
+│   │   │           ├── tax.types.js
+│   │   │           ├── users.types.d.ts
+│   │   │           └── users.types.js
+│   │   └── shared
+│   │       └── api-types
+│   │           ├── README.md
+│   │           ├── package.json
+│   │           └── src
+│   │               ├── index.d.ts
+│   │               ├── index.js
+│   │               └── lib
+│   │                   ├── api-types.d.ts
+│   │                   └── api-types.js
+│   └── seflow
+│       ├── browser
+│       │   ├── auth-modal.css.map
+│       │   ├── calculator-form.css.map
+│       │   ├── calculator-result.css.map
+│       │   ├── chunk-5LW7VFZW.js
+│       │   ├── chunk-5LW7VFZW.js.map
+│       │   ├── chunk-DX2DCCDJ.js
+│       │   ├── chunk-DX2DCCDJ.js.map
+│       │   ├── chunk-EDDIFW5B.js
+│       │   ├── chunk-EDDIFW5B.js.map
+│       │   ├── chunk-EDG7GO2X.js
+│       │   ├── chunk-EDG7GO2X.js.map
+│       │   ├── chunk-PQ4VVKPY.js
+│       │   ├── chunk-PQ4VVKPY.js.map
+│       │   ├── chunk-WOH454C5.js
+│       │   ├── chunk-WOH454C5.js.map
+│       │   ├── chunk-WTLQOC7D.js
+│       │   ├── chunk-WTLQOC7D.js.map
+│       │   ├── chunk-XGENMDGP.js
+│       │   ├── chunk-XGENMDGP.js.map
+│       │   ├── content-checklist.css.map
+│       │   ├── cta-banner.css.map
+│       │   ├── cta-section.css.map
+│       │   ├── favicon.ico
+│       │   ├── feature-grid.css.map
+│       │   ├── feature-section.css.map
+│       │   ├── hero-section.css.map
+│       │   ├── hero.css.map
+│       │   ├── how-it-works.css.map
+│       │   ├── index.csr.html
+│       │   ├── main.js
+│       │   ├── main.js.map
+│       │   ├── navbar.css.map
+│       │   ├── pricing-section.css.map
+│       │   ├── process-steps.css.map
+│       │   ├── site-footer.css.map
+│       │   ├── snackbar.css.map
+│       │   ├── stats-bar.css.map
+│       │   ├── styles.css
+│       │   ├── styles.css.map
+│       │   ├── tax-calculator.page.css.map
+│       │   ├── tax-chart.css.map
+│       │   └── testimonials-section.css.map
+│       ├── prerendered-routes.json
+│       └── server
+│           ├── angular-app-engine-manifest.mjs
+│           ├── angular-app-manifest.mjs
+│           ├── assets-chunks
+│           │   ├── index_csr_html.mjs
+│           │   └── index_server_html.mjs
+│           ├── chunk-2N4ZL7DF.mjs
+│           ├── chunk-2N4ZL7DF.mjs.map
+│           ├── chunk-7YYYE4YV.mjs
+│           ├── chunk-7YYYE4YV.mjs.map
+│           ├── chunk-BLHE3SVU.mjs
+│           ├── chunk-BLHE3SVU.mjs.map
+│           ├── chunk-E6JST2BH.mjs
+│           ├── chunk-E6JST2BH.mjs.map
+│           ├── chunk-FJZYZ6CP.mjs
+│           ├── chunk-FJZYZ6CP.mjs.map
+│           ├── chunk-H5E673VU.mjs
+│           ├── chunk-H5E673VU.mjs.map
+│           ├── chunk-IS5L4B3O.mjs
+│           ├── chunk-IS5L4B3O.mjs.map
+│           ├── chunk-LQMXFSVM.mjs
+│           ├── chunk-LQMXFSVM.mjs.map
+│           ├── chunk-ML5XS5HX.mjs
+│           ├── chunk-ML5XS5HX.mjs.map
+│           ├── chunk-MYFWOFZ7.mjs
+│           ├── chunk-MYFWOFZ7.mjs.map
+│           ├── chunk-R3H5DYFO.mjs
+│           ├── chunk-R3H5DYFO.mjs.map
+│           ├── chunk-WGL44MGO.mjs
+│           ├── chunk-WGL44MGO.mjs.map
+│           ├── index.server.html
+│           ├── main.server.mjs
+│           ├── main.server.mjs.map
+│           ├── polyfills.server.mjs
+│           ├── polyfills.server.mjs.map
+│           ├── server.mjs
+│           └── server.mjs.map
+├── eslint.config.mjs
+├── firestore.indexes.json
+├── firestore.rules
+├── jest.config.ts
+├── jest.preset.js
+├── libs
+│   ├── contracts
+│   │   ├── package.json
+│   │   ├── project.json
+│   │   ├── src
+│   │   │   ├── index.ts
+│   │   │   └── lib
+│   │   │       ├── plans.types.ts
+│   │   │       ├── tax.types.ts
+│   │   │       └── users.types.ts
+│   │   ├── tsconfig.json
+│   │   └── tsconfig.lib.json
+│   └── ui
+│       ├── project.json
+│       ├── src
+│       │   ├── index.ts
+│       │   └── lib
+│       │       ├── content-checklist
+│       │       │   ├── content-checklist.html
+│       │       │   ├── content-checklist.scss
+│       │       │   └── content-checklist.ts
+│       │       ├── cta-section
+│       │       │   ├── cta-section.html
+│       │       │   ├── cta-section.scss
+│       │       │   └── cta-section.ts
+│       │       ├── feature-grid
+│       │       │   ├── feature-grid.html
+│       │       │   ├── feature-grid.scss
+│       │       │   └── feature-grid.ts
+│       │       ├── hero-section
+│       │       │   ├── hero-section.html
+│       │       │   ├── hero-section.scss
+│       │       │   └── hero-section.ts
+│       │       ├── icon
+│       │       │   ├── icon.html
+│       │       │   ├── icon.ts
+│       │       │   └── icons.ts
+│       │       ├── layout
+│       │       │   ├── navbar
+│       │       │   │   ├── navbar.html
+│       │       │   │   ├── navbar.scss
+│       │       │   │   └── navbar.ts
+│       │       │   └── site-footer
+│       │       │       ├── site-footer.html
+│       │       │       ├── site-footer.scss
+│       │       │       └── site-footer.ts
+│       │       └── process-steps
+│       │           ├── process-steps.html
+│       │           ├── process-steps.scss
+│       │           └── process-steps.ts
+│       ├── tsconfig.json
+│       ├── tsconfig.lib.json
+│       └── tsconfig.spec.json
+├── nx.json
+├── package-lock.json
+├── package.json
+├── project.json
+├── public
+│   └── favicon.ico
+├── src
+│   ├── app
+│   │   ├── app.config.server.ts
+│   │   ├── app.config.ts
+│   │   ├── app.html
+│   │   ├── app.routes.server.ts
+│   │   ├── app.routes.ts
+│   │   ├── app.scss
+│   │   ├── app.spec.ts
+│   │   ├── app.ts
+│   │   ├── core
+│   │   │   ├── auth
+│   │   │   │   ├── auth-modal
+│   │   │   │   │   ├── auth-modal.html
+│   │   │   │   │   ├── auth-modal.scss
+│   │   │   │   │   └── auth-modal.ts
+│   │   │   │   ├── interceptors
+│   │   │   │   │   └── auth.interceptor.ts
+│   │   │   │   └── services
+│   │   │   │       ├── auth-modal.service.ts
+│   │   │   │       └── auth.service.ts
+│   │   │   ├── i18n
+│   │   │   │   ├── models
+│   │   │   │   │   └── locale.model.ts
+│   │   │   │   ├── pipes
+│   │   │   │   │   └── translate.pipe.ts
+│   │   │   │   └── services
+│   │   │   │       └── translation.service.ts
+│   │   │   └── snackbar
+│   │   │       ├── snackbar.html
+│   │   │       ├── snackbar.scss
+│   │   │       ├── snackbar.service.ts
+│   │   │       └── snackbar.ts
+│   │   ├── public
+│   │   │   ├── individual-activity
+│   │   │   │   ├── content
+│   │   │   │   │   └── individual-activity.content.ts
+│   │   │   │   ├── individual-activity.html
+│   │   │   │   └── individual-activity.ts
+│   │   │   ├── landing
+│   │   │   │   ├── components
+│   │   │   │   │   ├── cta-banner
+│   │   │   │   │   │   ├── cta-banner.html
+│   │   │   │   │   │   ├── cta-banner.scss
+│   │   │   │   │   │   └── cta-banner.ts
+│   │   │   │   │   ├── feature-section
+│   │   │   │   │   │   ├── feature-section.html
+│   │   │   │   │   │   ├── feature-section.scss
+│   │   │   │   │   │   └── feature-section.ts
+│   │   │   │   │   ├── hero
+│   │   │   │   │   │   ├── hero.html
+│   │   │   │   │   │   ├── hero.scss
+│   │   │   │   │   │   └── hero.ts
+│   │   │   │   │   ├── how-it-works
+│   │   │   │   │   │   ├── how-it-works.html
+│   │   │   │   │   │   ├── how-it-works.scss
+│   │   │   │   │   │   └── how-it-works.ts
+│   │   │   │   │   ├── pricing-section
+│   │   │   │   │   │   ├── pricing-section.html
+│   │   │   │   │   │   ├── pricing-section.scss
+│   │   │   │   │   │   └── pricing-section.ts
+│   │   │   │   │   ├── stats-bar
+│   │   │   │   │   │   ├── stats-bar.html
+│   │   │   │   │   │   ├── stats-bar.scss
+│   │   │   │   │   │   └── stats-bar.ts
+│   │   │   │   │   └── testimonials-section
+│   │   │   │   │       ├── testimonials-section.html
+│   │   │   │   │       ├── testimonials-section.scss
+│   │   │   │   │       └── testimonials-section.ts
+│   │   │   │   ├── content
+│   │   │   │   │   ├── landing.content.ts
+│   │   │   │   │   └── plans.content.ts
+│   │   │   │   ├── landing.html
+│   │   │   │   ├── landing.service.ts
+│   │   │   │   ├── landing.ts
+│   │   │   │   ├── models
+│   │   │   │   │   └── landing.models.ts
+│   │   │   │   └── services
+│   │   │   │       └── plans.service.ts
+│   │   │   ├── self-employment-guide
+│   │   │   │   ├── content
+│   │   │   │   │   └── self-employment-guide.content.ts
+│   │   │   │   ├── self-employment-guide.html
+│   │   │   │   └── self-employment-guide.ts
+│   │   │   └── tax-calculator
+│   │   │       ├── components
+│   │   │       │   ├── calculator-form
+│   │   │       │   │   ├── calculator-form.html
+│   │   │       │   │   ├── calculator-form.scss
+│   │   │       │   │   └── calculator-form.ts
+│   │   │       │   ├── calculator-result
+│   │   │       │   │   ├── calculator-result.html
+│   │   │       │   │   ├── calculator-result.scss
+│   │   │       │   │   └── calculator-result.ts
+│   │   │       │   └── tax-chart
+│   │   │       │       ├── tax-chart.html
+│   │   │       │       ├── tax-chart.scss
+│   │   │       │       └── tax-chart.ts
+│   │   │       ├── content
+│   │   │       │   └── tax-rules.content.ts
+│   │   │       ├── models
+│   │   │       │   └── tax.models.ts
+│   │   │       ├── services
+│   │   │       │   └── tax-calculator.service.ts
+│   │   │       ├── tax-calculator.page.html
+│   │   │       ├── tax-calculator.page.scss
+│   │   │       ├── tax-calculator.page.ts
+│   │   │       └── utils
+│   │   │           └── tax-calculations.ts
+│   │   └── shared
+│   ├── assets
+│   │   └── i18n
+│   │       ├── en.json
+│   │       └── mt.json
+│   ├── environments
+│   │   ├── environment.example.ts
+│   │   ├── environment.prod.ts
+│   │   └── environment.ts
+│   ├── index.html
+│   ├── main.server.ts
+│   ├── main.ts
+│   ├── server.ts
+│   ├── styles
+│   │   └── _variables.scss
+│   └── styles.scss
+├── tmp
+│   └── libs
+│       ├── contracts
+│       │   └── build
+│       └── shared
+│           └── api-types
+│               └── build
+├── tree.txt
+├── tsconfig.app.json
+├── tsconfig.base.json
+├── tsconfig.json
+└── tsconfig.spec.json
+
+98 directories, 262 files

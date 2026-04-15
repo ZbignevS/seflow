@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import type { PricingPlanDto } from '@seflow/shared/api-types';
+import type { PricingPlanDto } from '@seflow/contracts';
 import { PlansService } from './plans.service';
 
 @Controller('plans')

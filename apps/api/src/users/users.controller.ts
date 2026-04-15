@@ -3,7 +3,7 @@ import { FirebaseAuthGuard } from '../auth/firebase-auth.guard';
 import type { AuthenticatedRequest } from '../auth/request.types';
 import { SyncUserDto } from './dto/sync-user.request.dto';
 import { UsersService } from './users.service';
-import type { UserDto } from '@seflow/shared/api-types';
+import type { UserDto } from '@seflow/contracts';
 
 @Controller('users')
 @UseGuards(FirebaseAuthGuard)

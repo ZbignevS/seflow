@@ -14,7 +14,14 @@ export default [
         'error',
         {
           enforceBuildableLibDependency: true,
-          allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
+          allow: [
+            '^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$',
+            '@core/.*',
+            '@shared/.*',
+            '@features/.*',
+            '@env',
+            '@assets/.*',
+          ],
           depConstraints: [
             {
               sourceTag: '*',

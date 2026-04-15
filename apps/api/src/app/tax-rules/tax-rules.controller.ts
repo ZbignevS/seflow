@@ -1,5 +1,5 @@
 import { Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
-import type { TaxRulesDto } from '@seflow/shared/api-types';
+import type { TaxRulesDto } from '@seflow/contracts';
 import { TaxRulesService } from './tax-rules.service';
 
 @Controller('tax-rules')

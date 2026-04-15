@@ -7,7 +7,7 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 
 import { routes } from './app.routes';
-import { authInterceptor } from './auth/auth.interceptor';
+import { authInterceptor } from './core/auth/interceptors/auth.interceptor';
 import { environment } from '../environments/environment';
 
 export const appConfig: ApplicationConfig = {

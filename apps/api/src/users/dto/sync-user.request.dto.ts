@@ -1,5 +1,5 @@
 import { IsIn, IsString, MinLength } from 'class-validator';
-import type { AuthProvider, SyncUserRequestDto } from '@seflow/shared/api-types';
+import type { AuthProvider, SyncUserRequestDto } from '@seflow/contracts';
 
 export class SyncUserDto implements SyncUserRequestDto {
   @IsString()

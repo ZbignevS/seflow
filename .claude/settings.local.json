@@ -30,7 +30,11 @@
       "Bash(curl -s -o /dev/null -w \"api: %{http_code}\" http://localhost:3000/api/plans)",
       "Bash(curl -s -o /dev/null -w 'cors-preflight: %{http_code}' -X OPTIONS http://localhost:3000/api/plans -H 'Origin: http://localhost:4200' -H 'Access-Control-Request-Method: GET')",
       "Bash(lsof -ti:4200 -ti:3000)",
-      "Bash(ls /Users/zbignev/seflow/src/styles*)"
+      "Bash(ls /Users/zbignev/seflow/src/styles*)",
+      "Bash(xargs sed *)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('root:', d['root'], '| sourceRoot:', d.get\\('sourceRoot'\\)\\)\")",
+      "Bash(grep -v \"^$\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); serve=d['targets']['serve']; print\\(json.dumps\\(serve, indent=2\\)\\)\")"
     ]
   }
 }

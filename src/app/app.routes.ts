@@ -4,26 +4,26 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () =>
-      import('./features/landing/landing').then((m) => m.LandingComponent),
+      import('./public/landing/landing').then((m) => m.LandingComponent),
   },
   {
     path: 'self-employed',
     loadComponent: () =>
-      import('./features/individual-activity/individual-activity').then(
+      import('./public/individual-activity/individual-activity').then(
         (m) => m.IndividualActivityComponent,
       ),
   },
   {
     path: 'tax-calculator',
     loadComponent: () =>
-      import('./features/tax-calculator/tax-calculator.page').then(
+      import('./public/tax-calculator/tax-calculator.page').then(
         (m) => m.TaxCalculatorPageComponent,
       ),
   },
   {
     path: 'how-to-register',
     loadComponent: () =>
-      import('./features/self-employment-guide/self-employment-guide').then(
+      import('./public/self-employment-guide/self-employment-guide').then(
         (m) => m.SelfEmploymentGuideComponent,
       ),
   },

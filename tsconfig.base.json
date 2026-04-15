@@ -1,0 +1,15 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@core/*": ["src/app/core/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@features/*": ["src/app/public/*"],
+      "@env": ["src/environments/environment"],
+      "@assets/*": ["src/assets/*"],
+      "@seflow/ui": ["libs/ui/src/index.ts"],
+      "@seflow/contracts": ["libs/contracts/src/index.ts"]
+    }
+  }
+}

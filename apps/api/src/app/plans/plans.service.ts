@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import type { PricingPlanDto } from '@seflow/shared/api-types';
+import type { PricingPlanDto } from '@seflow/contracts';
 
 const PLANS: PricingPlanDto[] = [
   {

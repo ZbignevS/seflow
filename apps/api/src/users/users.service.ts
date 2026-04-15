@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import type { AuthProvider, UserDto } from '@seflow/shared/api-types';
+import type { AuthProvider, UserDto } from '@seflow/contracts';
 import { FirebaseAdminService } from '../auth/firebase-admin.service';
 
 const USERS_COLLECTION = 'users';

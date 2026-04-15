@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import type { TaxRulesDto } from '@seflow/shared/api-types';
+import type { TaxRulesDto } from '@seflow/contracts';
 
 const TAX_RULES: TaxRulesDto[] = [
   {
