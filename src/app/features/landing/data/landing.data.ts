@@ -23,34 +23,6 @@ export const TESTIMONIAL_AVATARS: readonly TestimonialAvatar[] = [
   { id: 't2', initials: 'JT', avatarColor: '#7c3aed' },
 ] as const;
 
-export type PlanId = 'mini' | 'pro';
-
-export interface PricingPlanData {
-  readonly id: PlanId;
-  readonly monthlyPrice: number;
-  readonly yearlyPrice: number;
-  readonly yearlyTotal: number;
-  readonly highlighted: boolean;
-}
-
-export const PRICING_PLAN_DATA: Record<PlanId, PricingPlanData> = {
-  mini: {
-    id: 'mini',
-    monthlyPrice: 7.99,
-    yearlyPrice: 6.67,
-    yearlyTotal: 79.99,
-    highlighted: false,
-  },
-  pro: {
-    id: 'pro',
-    monthlyPrice: 15.99,
-    yearlyPrice: 12.83,
-    yearlyTotal: 153.99,
-    highlighted: true,
-  },
-};
-
-export const PLAN_IDS: readonly PlanId[] = ['mini', 'pro'] as const;
 
 export const FOOTER_COL_HREFS: readonly (readonly string[])[] = [
   ['#features', '#how-it-works', '#pricing', '/security'],

@@ -19,7 +19,7 @@ export class CalculatorFormComponent implements OnInit {
   readonly inputChange = output<TaxInput>();
 
   protected readonly form = this.fb.nonNullable.group({
-    annualIncome: [0, [Validators.min(0)]],
+    annualIncome: [10_000, [Validators.min(0)]],
     expenses: [0, [Validators.min(0)]],
     isPartTime: [false],
   });

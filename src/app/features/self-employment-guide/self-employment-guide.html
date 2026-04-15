@@ -1,0 +1,49 @@
+<app-navbar />
+
+<main id="main-content">
+
+  <app-hero-section
+    [badge]="hero().badge"
+    [heading]="hero().heading"
+    [subtext]="hero().subtext"
+    [primaryCtaLabel]="hero().primaryCtaLabel"
+    [primaryCtaHref]="hero().primaryCtaHref"
+    [secondaryCtaLabel]="hero().secondaryCtaLabel"
+    [secondaryCtaHref]="hero().secondaryCtaHref"
+    [notes]="hero().notes"
+  />
+
+  <app-feature-grid
+    id="steps"
+    [sectionLabel]="steps().sectionLabel"
+    [heading]="steps().heading"
+    [description]="steps().description"
+    [items]="steps().items"
+  />
+
+  <app-content-checklist
+    [sectionLabel]="requirements().sectionLabel"
+    [heading]="requirements().heading"
+    [description]="requirements().description"
+    [items]="requirements().items"
+  />
+
+  <app-process-steps
+    [sectionLabel]="notes().sectionLabel"
+    [heading]="notes().heading"
+    [steps]="notes().items"
+  />
+
+  <app-cta-section
+    [heading]="cta().heading"
+    [subtext]="cta().subtext"
+    [primaryCtaLabel]="cta().primaryCtaLabel"
+    [primaryCtaHref]="cta().primaryCtaHref"
+    [secondaryCtaLabel]="cta().secondaryCtaLabel"
+    [secondaryCtaHref]="cta().secondaryCtaHref"
+    [note]="cta().note"
+  />
+
+</main>
+
+<app-site-footer />

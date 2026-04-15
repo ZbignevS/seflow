@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
 import { DecimalPipe, CurrencyPipe } from '@angular/common';
 import { TranslatePipe } from '@shared/i18n/translate.pipe';
-import type { TaxResult } from '../../models/tax.models';
+import { TaxChartComponent } from '../tax-chart/tax-chart';
+import type { TaxResult, ChartItem } from '../../models/tax.models';
 
 @Component({
   selector: 'app-calculator-result',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [DecimalPipe, CurrencyPipe, TranslatePipe],
+  imports: [DecimalPipe, CurrencyPipe, TranslatePipe, TaxChartComponent],
   templateUrl: './calculator-result.html',
   styleUrl: './calculator-result.scss',
 })
@@ -18,13 +19,33 @@ export class CalculatorResultComponent {
     return r !== null && r.grossIncome > 0;
   });
 
-  /** Width % of the "taxes + SSC" slice in the visual bar (0–100). */
-  protected readonly taxBarPct = computed(() => {
+  protected readonly incomeTaxPct = computed(() => {
     const r = this.result();
-    if (!r || r.grossIncome === 0) return 0;
-    return Math.min(100, ((r.incomeTax + r.socialSecurity) / r.grossIncome) * 100);
+    if (!r || r.taxableIncome === 0) return 0;
+    const amount = r.obligations.find((o) => o.type === 'income_tax')?.amount ?? 0;
+    return (amount / r.taxableIncome) * 100;
   });
 
-  /** Width % of the "net income" slice in the visual bar (0–100). */
-  protected readonly netBarPct = computed(() => Math.max(0, 100 - this.taxBarPct()));
+  protected readonly socialSecPct = computed(() => {
+    const r = this.result();
+    if (!r || r.taxableIncome === 0) return 0;
+    const amount = r.obligations.find((o) => o.type === 'social_security')?.amount ?? 0;
+    return (amount / r.taxableIncome) * 100;
+  });
+
+  protected readonly netBarPct = computed(() =>
+    Math.max(0, 100 - this.incomeTaxPct() - this.socialSecPct()),
+  );
+
+  protected readonly chartItems = computed((): ChartItem[] | null => {
+    const r = this.result();
+    if (!r || r.taxableIncome === 0) return null;
+    const incomeTax = r.obligations.find((o) => o.type === 'income_tax')?.amount ?? 0;
+    const ssc = r.obligations.find((o) => o.type === 'social_security')?.amount ?? 0;
+    return [
+      { label: 'Income Tax', value: incomeTax, colorKey: 'red' },
+      { label: 'Social Security', value: ssc, colorKey: 'orange' },
+      { label: 'Net Income', value: r.netIncome, colorKey: 'green' },
+    ];
+  });
 }

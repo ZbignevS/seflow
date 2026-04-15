@@ -46,6 +46,7 @@
           }
 
           <mat-card-header>
+            <span class="plan-card__target-label">{{ plan.targetLabel }}</span>
             <mat-card-title class="plan-card__name">{{ plan.name }}</mat-card-title>
             <mat-card-subtitle class="plan-card__desc">{{ plan.description }}</mat-card-subtitle>
           </mat-card-header>
@@ -60,6 +61,10 @@
               <p class="plan-card__billing-note">
                 {{ 'pricing.billedYearly' | translate }} · Save €{{ yearlySaving(plan.id) }}
               </p>
+            }
+
+            @if (plan.inheritsLabel) {
+              <p class="plan-card__inherits">{{ plan.inheritsLabel }}</p>
             }
 
             <ul class="plan-card__features" role="list">

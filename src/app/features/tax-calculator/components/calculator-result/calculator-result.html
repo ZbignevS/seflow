@@ -16,78 +16,86 @@
       role="img"
       [attr.aria-label]="
         'Income distribution: ' + (netBarPct() | number:'1.0-0') + '% net, '
-        + (taxBarPct() | number:'1.0-0') + '% tax and social security'
+        + (incomeTaxPct() | number:'1.0-0') + '% income tax, '
+        + (socialSecPct() | number:'1.0-0') + '% social security'
       "
     >
-      <div
-        class="dist-bar__segment dist-bar__segment--net"
-        [style.width.%]="netBarPct()"
-      >
+      <div class="dist-bar__segment dist-bar__segment--income-tax" [style.width.%]="incomeTaxPct()">
+        @if (incomeTaxPct() > 8) {
+          <span class="dist-bar__label">{{ incomeTaxPct() | number:'1.0-0' }}%</span>
+        }
+      </div>
+      <div class="dist-bar__segment dist-bar__segment--ssc" [style.width.%]="socialSecPct()">
+        @if (socialSecPct() > 8) {
+          <span class="dist-bar__label">{{ socialSecPct() | number:'1.0-0' }}%</span>
+        }
+      </div>
+      <div class="dist-bar__segment dist-bar__segment--net" [style.width.%]="netBarPct()">
         @if (netBarPct() > 12) {
           <span class="dist-bar__label">{{ netBarPct() | number:'1.0-0' }}%</span>
         }
       </div>
-      <div
-        class="dist-bar__segment dist-bar__segment--tax"
-        [style.width.%]="taxBarPct()"
-      >
-        @if (taxBarPct() > 8) {
-          <span class="dist-bar__label">{{ taxBarPct() | number:'1.0-0' }}%</span>
-        }
-      </div>
     </div>
-
     <div class="dist-legend" aria-hidden="true">
+      <span class="dist-legend__item dist-legend__item--income-tax">
+        {{ 'taxCalculator.result.incomeTaxLabel' | translate }}
+      </span>
+      <span class="dist-legend__item dist-legend__item--ssc">
+        {{ 'taxCalculator.result.socialSecurityLabel' | translate }}
+      </span>
       <span class="dist-legend__item dist-legend__item--net">
         {{ 'taxCalculator.result.netIncome' | translate }}
       </span>
-      <span class="dist-legend__item dist-legend__item--tax">
-        {{ 'taxCalculator.result.taxAndSsc' | translate }}
-      </span>
     </div>
   </div>
 
-  <div class="breakdown">
-    <h3 class="breakdown__heading">{{ 'taxCalculator.result.breakdownLabel' | translate }}</h3>
+  <div class="obligations">
+    <h3 class="obligations__heading">
+      {{ 'taxCalculator.result.obligationsHeading' | translate }}
+    </h3>
 
-    <div class="breakdown-row">
-      <span class="breakdown-row__label">{{ 'taxCalculator.result.grossIncome' | translate }}</span>
-      <span class="breakdown-row__value">{{ r.grossIncome | currency:'EUR':'symbol':'1.0-0' }}</span>
-    </div>
+    @for (ob of r.obligations; track ob.type) {
+      <div class="obligation-row">
+        <div class="obligation-row__meta">
+          <span class="obligation-row__label">{{ ob.label }}</span>
+          <span class="obligation-row__authority">{{ 'taxCalculator.result.payableTo' | translate }} {{ ob.authority }}</span>
+        </div>
+        <span class="obligation-row__amount">
+          {{ ob.amount | currency:'EUR':'symbol':'1.0-0' }}
+        </span>
+      </div>
+    }
 
-    <div class="breakdown-row breakdown-row--sub">
-      <span class="breakdown-row__label">{{ 'taxCalculator.result.expenses' | translate }}</span>
-      <span class="breakdown-row__value breakdown-row__value--deduct">
-        &minus;&thinsp;{{ r.expenses | currency:'EUR':'symbol':'1.0-0' }}
-      </span>
-    </div>
-
-    <div class="breakdown-row breakdown-row--subtotal">
-      <span class="breakdown-row__label">{{ 'taxCalculator.result.taxableIncome' | translate }}</span>
-      <span class="breakdown-row__value">{{ r.taxableIncome | currency:'EUR':'symbol':'1.0-0' }}</span>
-    </div>
-
-    <div class="breakdown-row breakdown-row--sub">
-      <span class="breakdown-row__label">{{ 'taxCalculator.result.incomeTax' | translate }}</span>
-      <span class="breakdown-row__value breakdown-row__value--deduct">
-        &minus;&thinsp;{{ r.incomeTax | currency:'EUR':'symbol':'1.0-0' }}
-      </span>
-    </div>
-
-    <div class="breakdown-row breakdown-row--sub">
-      <span class="breakdown-row__label">{{ 'taxCalculator.result.socialSecurity' | translate }}</span>
-      <span class="breakdown-row__value breakdown-row__value--deduct">
-        &minus;&thinsp;{{ r.socialSecurity | currency:'EUR':'symbol':'1.0-0' }}
-      </span>
-    </div>
-
-    <div class="breakdown-row breakdown-row--net">
-      <span class="breakdown-row__label">{{ 'taxCalculator.result.netIncome' | translate }}</span>
-      <span class="breakdown-row__value breakdown-row__value--net">
-        {{ r.netIncome | currency:'EUR':'symbol':'1.0-0' }}
-      </span>
+    <div class="obligations__total">
+      <span>{{ 'taxCalculator.result.totalDue' | translate }}</span>
+      <span>{{ r.totalDue | currency:'EUR':'symbol':'1.0-0' }}</span>
     </div>
   </div>
+
+  <div class="chart-section">
+    <h3 class="chart-section__heading">{{ 'taxCalculator.result.whereMoneyGoes' | translate }}</h3>
+    <app-tax-chart [items]="chartItems()" />
+    @if (r.expenses > 0) {
+      <p class="chart-section__footnote">
+        {{ 'taxCalculator.result.fromTaxableIncome' | translate }}
+        {{ r.taxableIncome | currency:'EUR':'symbol':'1.0-0' }}
+        ({{ 'taxCalculator.result.grossIncome' | translate }}
+        {{ r.grossIncome | currency:'EUR':'symbol':'1.0-0' }}
+        &minus; {{ 'taxCalculator.result.expenses' | translate }}
+        {{ r.expenses | currency:'EUR':'symbol':'1.0-0' }})
+      </p>
+    }
+  </div>
+
+  @if (r.insights.length > 0) {
+    <div class="insights">
+      <h3 class="insights__heading">{{ 'taxCalculator.result.whyThisResult' | translate }}</h3>
+      @for (key of r.insights; track key) {
+        <p class="insight">{{ key | translate }}</p>
+      }
+    </div>
+  }
+
 } @else {
   <div class="result-placeholder">
     <svg class="placeholder-icon" viewBox="0 0 48 48" fill="none" aria-hidden="true">

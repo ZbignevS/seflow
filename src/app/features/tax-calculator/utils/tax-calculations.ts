@@ -1,21 +1,10 @@
-import type { TaxBracket, TaxInput, TaxResult, TaxRules } from '../models/tax.models';
+import type { TaxBracket, TaxInput, TaxObligation, TaxResult, TaxRules } from '../models/tax.models';
 
-/**
- * Calculates progressive income tax by taxing only the slice of income
- * that falls within each bracket.
- *
- * Example (Malta, income = €20,000):
- *   Bracket 0–12k  @ 0%:  12,000 × 0.00 = €0
- *   Bracket 12–16k @ 15%:  4,000 × 0.15 = €600
- *   Bracket 16–60k @ 25%:  4,000 × 0.25 = €1,000
- *   Total = €1,600
- */
 export function calculateProgressiveTax(
   income: number,
   brackets: readonly TaxBracket[],
 ): number {
   if (income <= 0) return 0;
-
   return brackets.reduce((total, bracket) => {
     const upper = bracket.to ?? Infinity;
     const taxableSlice = Math.max(0, Math.min(income, upper) - bracket.from);
@@ -23,30 +12,63 @@ export function calculateProgressiveTax(
   }, 0);
 }
 
-/**
- * Calculates income tax under the part-time flat-rate regime.
- * The flat rate applies only up to `rules.partTimeIncomeLimit`.
- * Income above the limit is not taxed further under this regime.
- */
 export function calculatePartTimeTax(taxableIncome: number, rules: TaxRules): number {
   if (taxableIncome <= 0) return 0;
   return Math.min(taxableIncome, rules.partTimeIncomeLimit) * rules.partTimeRate;
 }
 
-/**
- * Calculates Social Security contributions.
- * Respects an optional cap: set `rules.sscCap` to a number to enforce it.
- */
 export function calculateSocialSecurity(taxableIncome: number, rules: TaxRules): number {
   if (taxableIncome <= 0) return 0;
   const ssc = taxableIncome * rules.sscRate;
   return rules.sscCap !== null ? Math.min(ssc, rules.sscCap) : ssc;
 }
 
-/**
- * Main entry point — derives a full TaxResult from user input and country rules.
- * All intermediate values are preserved in the result for display purposes.
- */
+export function buildObligations(
+  incomeTax: number,
+  socialSecurity: number,
+): readonly TaxObligation[] {
+  const obligations: TaxObligation[] = [];
+  if (incomeTax > 0) {
+    obligations.push({
+      type: 'income_tax',
+      label: 'Income Tax',
+      authority: 'Commissioner for Revenue',
+      amount: incomeTax,
+    });
+  }
+  if (socialSecurity > 0) {
+    obligations.push({
+      type: 'social_security',
+      label: 'Social Security',
+      authority: 'Social Security Department',
+      amount: socialSecurity,
+    });
+  }
+  return obligations;
+}
+
+export function buildInsights(
+  isPartTime: boolean,
+  taxableIncome: number,
+  incomeTax: number,
+  socialSecurity: number,
+  brackets: readonly TaxBracket[],
+): readonly string[] {
+  if (taxableIncome <= 0) return [];
+  const keys: string[] = [];
+  if (isPartTime) {
+    keys.push('taxCalculator.insights.partTimeRegime');
+  } else if (incomeTax === 0) {
+    keys.push('taxCalculator.insights.belowThreshold');
+  } else {
+    keys.push('taxCalculator.insights.multipleBrackets');
+  }
+  if (socialSecurity > 0) {
+    keys.push('taxCalculator.insights.sscRequired');
+  }
+  return keys;
+}
+
 export function calculateTax(input: TaxInput, rules: TaxRules): TaxResult {
   const grossIncome = Math.max(0, input.annualIncome);
   const expenses = Math.max(0, Math.min(input.expenses, grossIncome));
@@ -57,18 +79,20 @@ export function calculateTax(input: TaxInput, rules: TaxRules): TaxResult {
     : calculateProgressiveTax(taxableIncome, rules.brackets);
 
   const socialSecurity = calculateSocialSecurity(taxableIncome, rules);
-  const netIncome = taxableIncome - incomeTax - socialSecurity;
-
-  const effectiveRate =
-    taxableIncome > 0 ? ((incomeTax + socialSecurity) / taxableIncome) * 100 : 0;
+  const obligations = buildObligations(incomeTax, socialSecurity);
+  const totalDue = obligations.reduce((sum, ob) => sum + ob.amount, 0);
+  const netIncome = taxableIncome - totalDue;
+  const effectiveRate = taxableIncome > 0 ? (totalDue / taxableIncome) * 100 : 0;
+  const insights = buildInsights(input.isPartTime, taxableIncome, incomeTax, socialSecurity, rules.brackets);
 
   return {
     grossIncome,
     expenses,
     taxableIncome,
-    incomeTax,
-    socialSecurity,
+    obligations,
+    totalDue,
     netIncome,
     effectiveRate,
+    insights,
   };
 }

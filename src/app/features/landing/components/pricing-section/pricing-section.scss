@@ -94,6 +94,16 @@
   white-space: nowrap;
 }
 
+.plan-card__target-label {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
 .plan-card__name {
   font-size: 1.25rem !important;
   font-weight: 700 !important;
@@ -130,6 +140,15 @@
   font-size: 0.8125rem;
   color: var(--color-text-light);
   margin-bottom: 16px;
+}
+
+.plan-card__inherits {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  margin: 16px 0 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
 }
 
 .plan-card__features {

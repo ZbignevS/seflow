@@ -20,4 +20,11 @@ export const routes: Routes = [
         (m) => m.TaxCalculatorPageComponent,
       ),
   },
+  {
+    path: 'how-to-register',
+    loadComponent: () =>
+      import('./features/self-employment-guide/self-employment-guide').then(
+        (m) => m.SelfEmploymentGuideComponent,
+      ),
+  },
 ];

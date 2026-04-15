@@ -1,7 +1,8 @@
 {
   "nav": {
-    "individualActivity": "Self Employed",
+    "individualActivity": "Prodott",
     "taxCalculator": "Kalkolutur tat-Taxxa",
+    "selfEmploymentGuide": "Kif Tirreġistra",
     "demo": "Demo",
     "getStarted": "Ibda issa"
   },
@@ -79,39 +80,40 @@
   "pricing": {
     "sectionLabel": "Prezzijiet",
     "heading": "Prezzijiet sempliċi u trasparenti",
-    "desc": "L-ebda tariffi moħbija. L-ebda sorpriżi. Biss prezzar dirett li jikber man-negozju tiegħek.",
+    "desc": "L-ebda tariffi moħbija. Agħżel il-pjan li jaqbel mal-mod kif taħdem.",
     "monthly": "Kull xahar",
     "yearly": "Kull sena",
     "savePercent": "Iffranka 20%",
     "perMonth": "/xahar",
     "billedYearly": "imħallas kull sena",
     "plans": {
-      "mini": {
-        "name": "S-Mini",
-        "description": "Għal dħul annwali taħt €45,000",
+      "starter": {
+        "name": "Starter",
+        "targetLabel": "L-aħjar għal freelancers",
+        "description": "Kontabbiltà sempliċi għal freelancers u min jaħdem waħdu mingħajr VAT.",
         "features": [
-          "Ġurnal kontabbli awtomatiku",
-          "Fatturar illimitat",
-          "Ġestjoni tal-klijenti",
-          "Kalkoli tal-VAT",
-          "Traċċar tal-ispejjeż",
-          "Prova b'xejn ta' 30 jum"
+          "Ħolqien u l-invija tal-fatturi",
+          "Traċċar tad-dħul u l-ispejjeż",
+          "Stima tat-taxxa fuq l-income u s-sigurtà soċjali",
+          "Rapporti finanzjarji sempliċi",
+          "Tħeġġiġ tal-iskadenza tat-taxxa"
         ],
-        "ctaLabel": "Prova S-Mini b'xejn"
+        "ctaLabel": "Ibda b'xejn"
       },
       "pro": {
-        "name": "S-Pro",
+        "name": "Pro",
         "badge": "L-aktar popolari",
-        "description": "Għal dħul annwali fuq €45,000",
+        "targetLabel": "L-aħjar għan-negozji li qed jikbru",
+        "description": "Għal utenti reġistrati għall-VAT u negozji b'volum ogħla ta' tranżazzjonijiet.",
+        "inheritsLabel": "Kulma jinkludi Starter, u wkoll:",
         "features": [
-          "Il-karatteristiċi kollha tas-S-Mini",
-          "Rapporti finanzjarji avvanzati",
-          "Fatturi b'diversi muniti",
-          "Appoġġ prijoritarju",
-          "Aċċess tal-accountant",
-          "Prova b'xejn ta' 30 jum"
+          "Traċċar u kalkoli tal-VAT",
+          "Rapporti u tagħrif avvanzat",
+          "Tqassim tat-taxxa skont il-kategorija",
+          "Esportazzjoni għal PDF u Excel",
+          "Appoġġ prijoritarju"
         ],
-        "ctaLabel": "Prova S-Pro b'xejn"
+        "ctaLabel": "Ibda bil-Pro"
       }
     }
   },
@@ -206,6 +208,76 @@
       "note": "B'xejn għal 30 jum. M'hemmx bżonn karta ta' kreditu."
     }
   },
+  "selfEmploymentGuide": {
+    "hero": {
+      "badge": "Gwida tar-Reġistrazzjoni ta' Malta",
+      "heading": "Irreġistra bħala Self-Employed f'Malta",
+      "subtext": "Gwida pass pass biex tibda l-attività freelance jew tan-negozju tiegħek",
+      "primaryCta": "Ibda issa",
+      "secondaryCta": "Istagħna aktar",
+      "notes": ["Proċess uffiċjali tal-Gvern ta' Malta", "Jobsplus u l-Awtorità tat-Taxxa", "Aġġornat 2026"]
+    },
+    "steps": {
+      "sectionLabel": "Kif tirreġistra",
+      "heading": "4 passi biex issir self-employed",
+      "description": "Segwi dawn il-passi uffiċjali biex tirreġistra l-impjieg tiegħek għal rasek legalment f'Malta.",
+      "items": {
+        "ssn": {
+          "title": "Ikseb in-Numru tas-Sigurtà Soċjali tiegħek",
+          "description": "Meħtieġ biex tħallas il-kontribuzzjonijiet u tirreġistra bħala self-employed. Applika fl-uffiċċju tas-Sigurtà Soċjali f'Malta."
+        },
+        "jobsplus": {
+          "title": "Irreġistra ma' Jobsplus",
+          "description": "Ibgħat il-formola tal-impjieg għal rasek online permezz tal-portal ta' Jobsplus. Dan huwa l-pass mandatorju ewlieni."
+        },
+        "tax": {
+          "title": "Irreġistra għat-Taxxa",
+          "description": "Ikseb in-numru tat-taxxa tiegħek mill-Amministrazzjoni Maltija tat-Taxxa u d-Dwana u ippreparati għar-ritorn annwali tat-taxxa fuq l-income."
+        },
+        "vat": {
+          "title": "Irreġistra għall-VAT (jekk meħtieġ)",
+          "description": "Meħtieġ jekk il-fatturat annwali tiegħek jeċċedi l-limitu tal-VAT. Jiddependi fuq l-attività tan-negozju u d-dħul tiegħek."
+        }
+      }
+    },
+    "requirements": {
+      "sectionLabel": "X'għandek bżonn",
+      "heading": "Rekwiżiti biex tirreġistra",
+      "description": "Kun żgur li għandek dan kollu qabel tibda l-proċess tar-reġistrazzjoni.",
+      "items": [
+        "Karta tal-identità valida jew permess ta' residenza",
+        "Deskrizzjoni tal-attività tan-negozju tiegħek",
+        "Numru tas-Sigurtà Soċjali (jekk għadu ma ngħatax)",
+        "Reġistrazzjoni tal-VAT (jekk id-dħul tiegħek jeċċedi l-limitu)",
+        "Kont bankarju Malti għall-ħlasijiet tat-taxxa"
+      ]
+    },
+    "notes": {
+      "sectionLabel": "Importanti",
+      "heading": "Obbligi ewlenin bħala self-employed",
+      "items": [
+        {
+          "title": "Tapplika t-taxxa fuq l-income",
+          "description": "Trid tippreżenta ritorn annwali tat-taxxa fuq l-income. Malta tuża bracketti progressivi li jibdew minn 0% fuq l-ewwel €12,000."
+        },
+        {
+          "title": "Kontribuzzjonijiet tas-sigurtà soċjali",
+          "description": "Dawk li jaħdmu għal rashom iħallsu kontribuzzjonijiet tal-Klassi 2 — 15% tad-dħul nett taxxabbli. Jitħallsu fl-uffiċċju tas-Sigurtà Soċjali."
+        },
+        {
+          "title": "Il-VAT tiddependi fuq id-dħul",
+          "description": "Ir-reġistrazzjoni tal-VAT hija meħtieġa meta l-fatturat annwali tiegħek jeċċedi l-limitu applikabbli għall-kategorija tan-negozju tiegħek."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Ibda l-vjaġġ tiegħek bħala self-employed",
+      "subtext": "Irreġistra uffiċjalment ma' Jobsplus u kseb in-numru tat-taxxa tiegħek illum.",
+      "primaryCta": "Mur għal Jobsplus",
+      "secondaryCta": "Ara l-kalkolutur tat-taxxa",
+      "note": "Portal uffiċjali tar-reġistrazzjoni tal-Gvern Malti"
+    }
+  },
   "taxCalculator": {
     "hero": {
       "badge": "Malta 2026",
@@ -224,31 +296,44 @@
       "title": "Stima tat-taxxa tiegħek",
       "netIncomeLabel": "Dħul nett stmat",
       "effectiveRateLabel": "Rata effettiva",
-      "breakdownLabel": "Tqassim",
       "grossIncome": "Dħul gross",
       "expenses": "Spejjeż",
       "taxableIncome": "Dħul taxxabbli",
-      "incomeTax": "Taxxa fuq id-dħul",
-      "socialSecurity": "Sigurtà soċjali (15%)",
       "netIncome": "Dħul nett",
+      "incomeTaxLabel": "Taxxa fuq id-Dħul",
+      "socialSecurityLabel": "Sigurtà Soċjali",
       "taxAndSsc": "Taxxa + SS",
+      "obligationsHeading": "Inti obbligat tħallas",
+      "payableTo": "Pagabbli lil",
+      "totalDue": "Total obbligazzjonijiet",
+      "whereMoneyGoes": "Sommarju tal-flus tiegħek",
+      "toGovernment": "Tmur lill-gvern",
+      "youKeep": "Żżomm int",
+      "fromTaxableIncome": "Abbażi ta' dħul taxxabbli ta'",
+      "whyThisResult": "Għaliex dan huwa r-riżultat tiegħek",
       "placeholder": "Daħħal id-dħul tiegħek biex tara l-istima"
     },
+    "insights": {
+      "belowThreshold": "Id-dħul tiegħek jaqa' fil-bracket tat-taxxa ta' 0% — ma tiġi imposta l-ebda taxxa fuq id-dħul f'Malta taħt €12,000.",
+      "sscRequired": "Il-kontribuzzjonijiet tas-Sigurtà Soċjali (Klassi 2, 15%) huma obbligatorji għall-individwi kollha li jaħdmu għal rashom f'Malta.",
+      "partTimeRegime": "Id-dħul tiegħek jiġi taxxat bir-rata fissa part-time ta' 10%, applikata fuq dħul sa €12,000.",
+      "multipleBrackets": "Id-dħul tiegħek jiġi taxxat progressivament — kull porzjon jaqa' fil-bracket applikabbli tiegħu u jiġi taxxat b'dik ir-rata biss."
+    },
     "info": {
-      "sectionLabel": "Regoli tat-Taxxa ta' Malta 2026",
-      "heading": "Kif tiġi kkalkolata t-taxxa tiegħek",
+      "sectionLabel": "Malta 2026",
+      "heading": "Kif inħisbet l-istima tiegħek",
       "items": [
         {
-          "title": "Taxxa fuq id-Dħul (Persuna Waħda)",
-          "desc": "Bracketti progressivi: 0% fuq l-ewwel €12,000 · 15% fuq €12,001–€16,000 · 25% fuq €16,001–€60,000 · 35% fuq €60,000."
+          "title": "Taxxa fuq id-Dħul Progressiva",
+          "desc": "Malta tapplika erba' bracketti: 0% fuq l-ewwel €12,000, 15% fuq €12,001–€16,000, 25% fuq €16,001–€60,000, u 35% fuq €60,000. Biss il-porzjon tad-dħul f'kull bracket jiġi taxxat b'dik ir-rata."
         },
         {
-          "title": "Sigurtà Soċjali (Klassi 2)",
-          "desc": "Dawk li jaħdmu għal rashom iħallsu 15% tad-dħul nett taxxabbli tagħhom bħala kontribuzzjonijiet tas-sigurtà soċjali. M'hemm l-ebda limitu annwali applikat bħalissa."
+          "title": "Sigurtà Soċjali — Klassi 2",
+          "desc": "Bħala individwu li jaħdem għal rasu, 15% tad-dħul taxxabbli tiegħek imur lis-Sigurtà Soċjali bħala kontribuzzjonijiet tal-Klassi 2. Ma japplika l-ebda limitu annwali."
         },
         {
           "title": "Reġim Part-time",
-          "desc": "Min jikkwalifika jista' japplika rata fissa ta' 10% fuq dħul part-time sa €12,000 fis-sena, minflok il-bracketti progressivi."
+          "desc": "Jekk għażilt part-time, ġiet applikata rata fissa ta' 10% fuq dħul sa €12,000 minflok il-bracketti progressivi."
         }
       ]
     }

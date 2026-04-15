@@ -1,7 +1,8 @@
 {
   "nav": {
-    "individualActivity": "Self Employed",
+    "individualActivity": "Product",
     "taxCalculator": "Tax Calculator",
+    "selfEmploymentGuide": "How to Register",
     "demo": "Demo",
     "getStarted": "Get started"
   },
@@ -79,39 +80,40 @@
   "pricing": {
     "sectionLabel": "Pricing",
     "heading": "Simple, transparent pricing",
-    "desc": "No hidden fees. No surprises. Just straightforward pricing that grows with your business.",
+    "desc": "No hidden fees. Pick the plan that fits how you work.",
     "monthly": "Monthly",
     "yearly": "Yearly",
     "savePercent": "Save 20%",
     "perMonth": "/mo",
     "billedYearly": "billed yearly",
     "plans": {
-      "mini": {
-        "name": "S-Mini",
-        "description": "For annual revenue under €45,000",
+      "starter": {
+        "name": "Starter",
+        "targetLabel": "Best for freelancers",
+        "description": "Simple accounting for freelancers and sole traders not dealing with VAT.",
         "features": [
-          "Automated accounting journal",
-          "Unlimited invoicing",
-          "Client management",
-          "VAT calculations",
-          "Expense tracking",
-          "30-day free trial"
+          "Invoice creation & sending",
+          "Income & expense tracking",
+          "Income Tax & Social Security estimates",
+          "Simple financial reports",
+          "Tax deadline reminders"
         ],
-        "ctaLabel": "Try S-Mini free"
+        "ctaLabel": "Get started free"
       },
       "pro": {
-        "name": "S-Pro",
+        "name": "Pro",
         "badge": "Most popular",
-        "description": "For annual revenue over €45,000",
+        "targetLabel": "Best for growing businesses",
+        "description": "For VAT-registered users and businesses with higher transaction volume.",
+        "inheritsLabel": "Everything in Starter, plus:",
         "features": [
-          "All S-Mini features",
-          "Advanced financial reports",
-          "Multi-currency invoices",
-          "Priority support",
-          "Accountant access",
-          "30-day free trial"
+          "VAT tracking & calculations",
+          "Advanced reporting & insights",
+          "Tax breakdown by category",
+          "Export to PDF & Excel",
+          "Priority support"
         ],
-        "ctaLabel": "Try S-Pro free"
+        "ctaLabel": "Start with Pro"
       }
     }
   },
@@ -206,6 +208,76 @@
       "note": "Free for 30 days. No credit card required."
     }
   },
+  "selfEmploymentGuide": {
+    "hero": {
+      "badge": "Malta Registration Guide",
+      "heading": "Register as Self-Employed in Malta",
+      "subtext": "Step-by-step guide to starting your freelance or business activity",
+      "primaryCta": "Get started",
+      "secondaryCta": "Learn more",
+      "notes": ["Official Malta government process", "Jobsplus & Tax Authority", "Updated 2026"]
+    },
+    "steps": {
+      "sectionLabel": "How to register",
+      "heading": "4 steps to become self-employed",
+      "description": "Follow these official steps to legally register your self-employment in Malta.",
+      "items": {
+        "ssn": {
+          "title": "Get your Social Security Number",
+          "description": "Required to pay contributions and register as self-employed. Apply at the Social Security office in Malta."
+        },
+        "jobsplus": {
+          "title": "Register with Jobsplus",
+          "description": "Submit the self-employment engagement form online via the Jobsplus portal. This is the main mandatory step."
+        },
+        "tax": {
+          "title": "Register for Tax",
+          "description": "Obtain your tax number from the Malta Tax and Customs Administration and prepare for annual income tax returns."
+        },
+        "vat": {
+          "title": "Register for VAT (if required)",
+          "description": "Required if your annual turnover exceeds the VAT threshold. Depends on your business activity and income."
+        }
+      }
+    },
+    "requirements": {
+      "sectionLabel": "What you need",
+      "heading": "Requirements to register",
+      "description": "Make sure you have the following before starting the registration process.",
+      "items": [
+        "Valid ID card or residence permit",
+        "Description of your business activity",
+        "Social Security Number (if not yet assigned)",
+        "VAT registration (if your income exceeds the threshold)",
+        "Maltese bank account for tax payments"
+      ]
+    },
+    "notes": {
+      "sectionLabel": "Important",
+      "heading": "Key obligations as self-employed",
+      "items": [
+        {
+          "title": "Income tax applies",
+          "description": "You must file an annual income tax return. Malta uses progressive brackets starting from 0% on the first €12,000."
+        },
+        {
+          "title": "Social security contributions",
+          "description": "Self-employed individuals pay Class 2 contributions — 15% of net taxable income. Payable to the Social Security office."
+        },
+        {
+          "title": "VAT depends on your income",
+          "description": "VAT registration is required once your annual turnover exceeds the applicable threshold for your business category."
+        }
+      ]
+    },
+    "cta": {
+      "heading": "Start your self-employment journey",
+      "subtext": "Register officially with Jobsplus and get your tax number today.",
+      "primaryCta": "Go to Jobsplus",
+      "secondaryCta": "View tax calculator",
+      "note": "Official Maltese government registration portal"
+    }
+  },
   "taxCalculator": {
     "hero": {
       "badge": "Malta 2026",
@@ -224,31 +296,44 @@
       "title": "Your tax estimate",
       "netIncomeLabel": "Estimated net income",
       "effectiveRateLabel": "Effective rate",
-      "breakdownLabel": "Breakdown",
       "grossIncome": "Gross income",
       "expenses": "Expenses",
       "taxableIncome": "Taxable income",
-      "incomeTax": "Income tax",
-      "socialSecurity": "Social security (15%)",
       "netIncome": "Net income",
+      "incomeTaxLabel": "Income Tax",
+      "socialSecurityLabel": "Social Security",
       "taxAndSsc": "Tax + SSC",
+      "obligationsHeading": "You are required to pay",
+      "payableTo": "Payable to",
+      "totalDue": "Total obligations",
+      "whereMoneyGoes": "Your money breakdown",
+      "toGovernment": "Goes to government",
+      "youKeep": "You keep",
+      "fromTaxableIncome": "Based on taxable income of",
+      "whyThisResult": "Why this is your result",
       "placeholder": "Enter your income above to see your estimate"
     },
+    "insights": {
+      "belowThreshold": "Your income falls within the 0% tax bracket — no income tax is due in Malta below €12,000.",
+      "sscRequired": "Social Security contributions (Class 2, 15%) are mandatory for all self-employed individuals in Malta.",
+      "partTimeRegime": "Your income is taxed under the part-time flat rate of 10%, applied on income up to €12,000.",
+      "multipleBrackets": "Your income is taxed progressively — each portion falls into its applicable bracket and is taxed at that rate only."
+    },
     "info": {
-      "sectionLabel": "Malta Tax Rules 2026",
-      "heading": "How your tax is calculated",
+      "sectionLabel": "Malta 2026",
+      "heading": "How your estimate was calculated",
       "items": [
         {
-          "title": "Income Tax (Single Person)",
-          "desc": "Progressive brackets: 0% on first €12,000 · 15% on €12,001–€16,000 · 25% on €16,001–€60,000 · 35% above €60,000."
+          "title": "Progressive Income Tax",
+          "desc": "Malta applies four brackets: 0% on the first €12,000, 15% on €12,001–€16,000, 25% on €16,001–€60,000, and 35% above €60,000. Only the slice of income in each bracket is taxed at that rate."
         },
         {
-          "title": "Social Security (Class 2)",
-          "desc": "Self-employed individuals pay 15% of their net taxable income as social security contributions. No annual cap is currently applied."
+          "title": "Social Security — Class 2",
+          "desc": "As a self-employed individual, 15% of your taxable income is paid to the Social Security Department as Class 2 contributions. No annual cap applies."
         },
         {
           "title": "Part-time Regime",
-          "desc": "Eligible self-employed individuals may apply a 10% flat rate on part-time income up to €12,000 per year, instead of progressive brackets."
+          "desc": "If you selected part-time, a flat 10% rate was applied on income up to €12,000 instead of the progressive brackets."
         }
       ]
     }

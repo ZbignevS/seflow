@@ -2,8 +2,6 @@
   display: block;
 }
 
-// ── Hero (net income summary) ────────────────────────────────────────────────
-
 .result-hero {
   display: flex;
   flex-direction: column;
@@ -42,8 +40,6 @@
   }
 }
 
-// ── Distribution bar ─────────────────────────────────────────────────────────
-
 .dist-bar-wrap {
   padding: 16px 20px 12px;
   background: var(--color-bg-alt);
@@ -65,19 +61,23 @@
   overflow: hidden;
   transition: width var(--transition-smooth);
 
-  &--net {
-    background: var(--color-success);
+  &--income-tax {
+    background: var(--color-error);
   }
 
-  &--tax {
-    background: var(--color-primary-bright);
+  &--ssc {
+    background: var(--color-warning);
+  }
+
+  &--net {
+    background: var(--color-success);
   }
 }
 
 .dist-bar__label {
   font-size: 0.6875rem;
   font-weight: 700;
-  color: #fff;
+  color: var(--color-white);
   white-space: nowrap;
   padding: 0 4px;
 }
@@ -103,22 +103,25 @@
     flex-shrink: 0;
   }
 
+  &--income-tax::before {
+    background: var(--color-error);
+  }
+
+  &--ssc::before {
+    background: var(--color-warning);
+  }
+
   &--net::before {
     background: var(--color-success);
   }
-
-  &--tax::before {
-    background: var(--color-primary-bright);
-  }
 }
 
-// ── Breakdown table ───────────────────────────────────────────────────────────
-
-.breakdown {
-  padding: 20px 20px 8px;
+.obligations {
+  padding: 20px 20px 0;
+  border-bottom: 1px solid var(--color-border);
 }
 
-.breakdown__heading {
+.obligations__heading {
   font-size: 0.6875rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -127,59 +130,103 @@
   margin-bottom: 12px;
 }
 
-.breakdown-row {
+.obligation-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.obligation-row__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.obligation-row__label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.obligation-row__authority {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.obligation-row__amount {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-error);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.obligations__total {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
   gap: 12px;
-  padding: 9px 0;
+  padding: 12px 0 20px;
   font-size: 0.875rem;
+  font-weight: 700;
   color: var(--color-text);
+}
+
+.chart-section {
+  padding: 20px 20px 4px;
   border-bottom: 1px solid var(--color-border);
-
-  &:last-child {
-    border-bottom: none;
-  }
-
-  &--sub .breakdown-row__label {
-    padding-left: 14px;
-    color: var(--color-text-muted);
-    font-size: 0.8125rem;
-
-    &::before {
-      content: '−  ';
-      color: var(--color-text-light);
-    }
-  }
-
-  &--subtotal {
-    font-weight: 600;
-    border-bottom: 2px solid var(--color-border-strong);
-    padding-bottom: 12px;
-  }
-
-  &--net {
-    font-weight: 700;
-    font-size: 0.9375rem;
-    padding-top: 12px;
-  }
 }
 
-.breakdown-row__value {
-  font-weight: 500;
-  white-space: nowrap;
-
-  &--deduct {
-    color: var(--color-error);
-  }
-
-  &--net {
-    color: var(--color-success);
-    font-weight: 700;
-  }
+.chart-section__heading {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
 }
 
-// ── Placeholder ───────────────────────────────────────────────────────────────
+.chart-section__footnote {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin: 8px 0 16px;
+  line-height: 1.5;
+}
+
+.insights {
+  padding: 16px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.insights__heading {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+
+.insight {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-primary-bright);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 9px 12px;
+  margin: 0;
+  line-height: 1.5;
+}
 
 .result-placeholder {
   display: flex;

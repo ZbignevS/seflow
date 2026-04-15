@@ -1,0 +1,28 @@
+<div
+  class="chart"
+  role="img"
+  [attr.aria-label]="
+    'Tax breakdown: ' +
+    bars()[0]?.label + ' ' + (bars()[0]?.value | currency:'EUR':'symbol':'1.0-0') + ', ' +
+    bars()[1]?.label + ' ' + (bars()[1]?.value | currency:'EUR':'symbol':'1.0-0') + ', ' +
+    bars()[2]?.label + ' ' + (bars()[2]?.value | currency:'EUR':'symbol':'1.0-0')
+  "
+>
+  @for (bar of bars(); track bar.label) {
+    <div class="chart__col">
+      <span class="chart__value">
+        {{ bar.value | currency:'EUR':'symbol':'1.0-0' }}
+      </span>
+
+      <div class="chart__track">
+        <div
+          class="chart__bar"
+          [class]="'chart__bar--' + bar.colorKey"
+          [style.height.%]="bar.pct"
+        ></div>
+      </div>
+
+      <span class="chart__label">{{ bar.label }}</span>
+    </div>
+  }
+</div>

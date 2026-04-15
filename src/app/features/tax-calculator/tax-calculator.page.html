@@ -2,7 +2,6 @@
 
 <main id="main-content">
 
-  <!-- ── Hero ─────────────────────────────────────────────────────────────── -->
   <section class="calc-hero" aria-labelledby="calc-hero-heading">
     <div class="container">
       <span class="section-label">{{ hero().badge }}</span>
@@ -11,12 +10,10 @@
     </div>
   </section>
 
-  <!-- ── Calculator ────────────────────────────────────────────────────────── -->
   <section class="calc-section" aria-label="Tax calculator">
     <div class="container">
       <div class="calc-layout">
 
-        <!-- Form panel -->
         <div class="calc-panel">
           <header class="panel-header">
             <h2 class="panel-title">{{ form().title }}</h2>
@@ -24,7 +21,6 @@
           <app-calculator-form (inputChange)="onInputChange($event)"></app-calculator-form>
         </div>
 
-        <!-- Result panel -->
         <div class="calc-panel calc-panel--result" aria-live="polite" aria-atomic="true">
           <header class="panel-header">
             <h2 class="panel-title">{{ resultLabels().title }}</h2>
@@ -36,7 +32,6 @@
     </div>
   </section>
 
-  <!-- ── Tax info ───────────────────────────────────────────────────────────── -->
   <section class="calc-info" aria-labelledby="calc-info-heading">
     <div class="container">
       <header class="section-header">

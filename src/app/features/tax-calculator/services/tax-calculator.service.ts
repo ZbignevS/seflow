@@ -5,7 +5,7 @@ import { MALTA_TAX_RULES_2026 } from '../data/tax-rules.data';
 import { calculateTax } from '../utils/tax-calculations';
 
 const DEFAULT_INPUT: TaxInput = {
-  annualIncome: 0,
+  annualIncome: 10_000,
   expenses: 0,
   isPartTime: false,
 };

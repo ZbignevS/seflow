@@ -5,8 +5,8 @@ import { MatCardModule } from '@angular/material/card';
 import { TranslatePipe } from '@shared/i18n/translate.pipe';
 import { TranslationService } from '@shared/i18n/translation.service';
 import { IconComponent } from '@shared/ui/icon/icon';
-import { PLAN_IDS, PRICING_PLAN_DATA } from '../../data/landing.data';
-import type { PlanId } from '../../data/landing.data';
+import { PLAN_IDS, PRICING_PLAN_DATA } from '../../data/plans';
+import type { PlanId } from '../../data/plans';
 
 @Component({
   selector: 'app-pricing-section',
@@ -20,14 +20,23 @@ export class PricingSectionComponent {
 
   protected readonly billingYearly = signal(false);
 
-  protected readonly plans = computed(() =>
-    PLAN_IDS.map((id) => {
+  protected readonly plans = computed(() => {
+    const t = this.ts.t().pricing;
+    return PLAN_IDS.map((id) => {
       const data = PRICING_PLAN_DATA[id];
-      const text = this.ts.t().pricing.plans[id];
-      const badge = id === 'pro' ? (this.ts.t().pricing.plans.pro as { badge: string }).badge : null;
-      return { ...data, ...text, badge };
-    }),
-  );
+      const text = t.plans[id];
+      return {
+        ...data,
+        name: text.name,
+        targetLabel: text.targetLabel,
+        description: text.description,
+        features: text.features,
+        ctaLabel: text.ctaLabel,
+        badge: 'badge' in text ? text.badge : null,
+        inheritsLabel: 'inheritsLabel' in text ? text.inheritsLabel : null,
+      };
+    });
+  });
 
   protected displayPrice(id: PlanId): string {
     const prices = PRICING_PLAN_DATA[id];
