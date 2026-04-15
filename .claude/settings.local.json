@@ -13,7 +13,24 @@
       "Bash(xargs -I{} node -e \"const p=require\\('{}'\\); console.log\\(p.version\\)\")",
       "Bash(node -e \"const fs=require\\('fs'\\); const d=JSON.parse\\(fs.readFileSync\\('/dev/stdin','utf8'\\)\\); console.log\\(JSON.stringify\\({...d.dependencies,...d.devDependencies},null,2\\)\\)\")",
       "Bash(npm install *)",
-      "Bash(grep -rn \"setRules\\\\|MALTA_TAX_RULES\\\\|activeRules\\\\$\" /Users/zbignev/seflow/src/app/features/tax-calculator/)"
+      "Bash(grep -rn \"setRules\\\\|MALTA_TAX_RULES\\\\|activeRules\\\\$\" /Users/zbignev/seflow/src/app/features/tax-calculator/)",
+      "Bash(node -e \"console.log\\('@angular/fire:', require\\('@angular/fire/package.json'\\).version\\); console.log\\('firebase:', require\\('firebase/package.json'\\).version\\); console.log\\('firebase-admin:', require\\('firebase-admin/package.json'\\).version\\);\")",
+      "Bash(npm run *)",
+      "Bash(jobs -l)",
+      "Bash(kill %1)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\" http://localhost:4200)",
+      "Read(//tmp/**)",
+      "Bash(lsof -ti:4200)",
+      "Bash(xargs kill *)",
+      "Bash(pkill -f \"nx run api\")",
+      "Bash(node -e \"require\\('dotenv/config'\\); const {initializeApp,cert,getApps} = require\\('firebase-admin/app'\\); try { initializeApp\\({credential: cert\\({projectId: process.env.FIREBASE_PROJECT_ID, clientEmail: process.env.FIREBASE_CLIENT_EMAIL, privateKey: process.env.FIREBASE_PRIVATE_KEY?.replace\\(/\\\\\\\\\\\\\\\\n/g,'\\\\n'\\)}\\)}\\); console.log\\('Firebase Admin OK'\\); } catch\\(e\\){ console.error\\('Firebase Admin FAIL:', e.message\\); }\")",
+      "Bash(lsof -ti:3000 -ti:4200)",
+      "Bash(lsof -ti:3000)",
+      "Bash(curl -s -o /dev/null -w \"web: %{http_code}\" http://localhost:4200)",
+      "Bash(curl -s -o /dev/null -w \"api: %{http_code}\" http://localhost:3000/api/plans)",
+      "Bash(curl -s -o /dev/null -w 'cors-preflight: %{http_code}' -X OPTIONS http://localhost:3000/api/plans -H 'Origin: http://localhost:4200' -H 'Access-Control-Request-Method: GET')",
+      "Bash(lsof -ti:4200 -ti:3000)",
+      "Bash(ls /Users/zbignev/seflow/src/styles*)"
     ]
   }
 }

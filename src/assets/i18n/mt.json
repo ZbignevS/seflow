@@ -4,6 +4,7 @@
     "taxCalculator": "Kalkolutur tat-Taxxa",
     "selfEmploymentGuide": "Kif Tirreġistra",
     "demo": "Demo",
+    "login": "Idħol",
     "getStarted": "Ibda issa"
   },
   "hero": {
@@ -337,6 +338,11 @@
         }
       ]
     }
+  },
+  "notifications": {
+    "loginSuccess": "Merhba lura!",
+    "registerSuccess": "Kont maħluq. Merhba seflow!",
+    "logoutSuccess": "Ħriġt mill-kont."
   },
   "footer": {
     "tagline": "Kontabbiltà moderna għal min jaħdem għal rasu.",

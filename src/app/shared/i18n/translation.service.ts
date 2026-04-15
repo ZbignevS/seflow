@@ -1,8 +1,8 @@
 import { Injectable, PLATFORM_ID, computed, inject, signal } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import type { Locale } from './models/translations.model';
-import EN from '../../../assets/i18n/en.json';
-import MT from '../../../assets/i18n/mt.json';
+import EN from '@assets/i18n/en.json';
+import MT from '@assets/i18n/mt.json';
 
 type TranslationData = typeof EN;
 

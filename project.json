@@ -70,6 +70,12 @@
     },
     "serve": {
       "executor": "@angular/build:dev-server",
+      "options": {
+        "headers": {
+          "Cross-Origin-Opener-Policy": "unsafe-none",
+          "Cross-Origin-Embedder-Policy": "unsafe-none"
+        }
+      },
       "configurations": {
         "production": {
           "buildTarget": "web:build:production"

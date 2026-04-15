@@ -1,0 +1,210 @@
+// ── Panel wrapper ──────────────────────────────────────────────────────────────
+
+.auth-panel {
+  padding: 28px 28px 24px;
+  width: 100%;
+}
+
+// ── Header ─────────────────────────────────────────────────────────────────────
+
+.auth-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.auth-title {
+  // Overrides mat-dialog-title margin reset
+  margin: 0 !important;
+  font-size: 1.375rem;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: -0.03em;
+  line-height: 1.25;
+}
+
+.auth-close {
+  // Align with top of title
+  margin-top: -6px;
+  margin-right: -8px;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+// ── Tabs ───────────────────────────────────────────────────────────────────────
+
+.tabs {
+  display: flex;
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 3px;
+  margin-bottom: 20px;
+  gap: 2px;
+}
+
+.tabs__btn {
+  flex: 1;
+  padding: 7px 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  border: none;
+  background: transparent;
+  border-radius: calc(var(--radius) - 2px);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: background var(--transition-base), color var(--transition-base),
+    box-shadow var(--transition-base);
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+}
+
+.tabs__btn--active {
+  background: var(--color-white);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
+// ── Inline Firebase error ──────────────────────────────────────────────────────
+
+.auth-alert {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--color-error-light);
+  color: var(--color-error);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+
+  &::before {
+    content: '⚠';
+    flex-shrink: 0;
+  }
+}
+
+// ── Material form field overrides ──────────────────────────────────────────────
+
+.full-width {
+  width: 100%;
+}
+
+// Tighten bottom margin on mat-form-field
+mat-form-field {
+  display: block;
+  margin-bottom: 4px;
+}
+
+// ── Submit button ──────────────────────────────────────────────────────────────
+
+.submit-btn {
+  margin-top: 8px;
+  height: 44px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+
+  // Use design-system primary color
+  --mdc-filled-button-container-color: var(--color-primary);
+  --mdc-filled-button-label-text-color: #fff;
+
+  &:hover:not([disabled]) {
+    --mdc-filled-button-container-color: var(--color-primary-dark);
+  }
+}
+
+// ── Loading spinner ────────────────────────────────────────────────────────────
+
+.spinner {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.65s linear infinite;
+  flex-shrink: 0;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg) }
+}
+
+// ── Divider ────────────────────────────────────────────────────────────────────
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  color: var(--color-text-light);
+  font-size: 0.8125rem;
+
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--color-border);
+  }
+}
+
+// ── Google button ──────────────────────────────────────────────────────────────
+
+.google-btn {
+  height: 44px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  gap: 10px;
+  border-color: var(--color-border-strong) !important;
+
+  &:hover:not([disabled]) {
+    background: var(--color-bg-alt);
+  }
+}
+
+// ── Switch hint ────────────────────────────────────────────────────────────────
+
+.switch-hint {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+.switch-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-primary);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+
+  &:hover {
+    color: var(--color-primary-dark);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+// ── Responsive ─────────────────────────────────────────────────────────────────
+
+@media (max-width: 480px) {
+  .auth-panel {
+    padding: 20px 16px 20px;
+  }
+}

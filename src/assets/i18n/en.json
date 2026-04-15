@@ -4,6 +4,7 @@
     "taxCalculator": "Tax Calculator",
     "selfEmploymentGuide": "How to Register",
     "demo": "Demo",
+    "login": "Log in",
     "getStarted": "Get started"
   },
   "hero": {
@@ -337,6 +338,11 @@
         }
       ]
     }
+  },
+  "notifications": {
+    "loginSuccess": "Welcome back!",
+    "registerSuccess": "Account created. Welcome to seflow!",
+    "logoutSuccess": "You've been signed out."
   },
   "footer": {
     "tagline": "Modern accounting for the self-employed.",

@@ -26,9 +26,22 @@
       >MT</button>
     </div>
 
-    <a mat-button href="/demo">{{ 'nav.demo' | translate }}</a>
-    <a mat-raised-button color="primary" href="/signup">
-      {{ 'nav.getStarted' | translate }}
-    </a>
+    @if (currentUser()) {
+      <!-- Authenticated state -->
+      <div class="user-menu" role="group" aria-label="User menu">
+        <span class="user-name" aria-label="Signed in as {{ currentUser()!.email }}">
+          {{ currentUser()!.displayName ?? currentUser()!.email }}
+        </span>
+        <button class="sign-out-btn" type="button" (click)="signOut()">Sign out</button>
+      </div>
+    } @else {
+      <!-- Unauthenticated state -->
+      <button mat-button type="button" (click)="openLogin()">
+        {{ 'nav.login' | translate }}
+      </button>
+      <button mat-raised-button color="primary" type="button" (click)="openRegister()">
+        {{ 'nav.getStarted' | translate }}
+      </button>
+    }
   </div>
 </nav>

@@ -4,7 +4,7 @@ import { BehaviorSubject, combineLatest, map, shareReplay, type Observable } fro
 import type { TaxRulesDto } from '@seflow/shared/api-types';
 import type { TaxInput, TaxResult } from '../models/tax.models';
 import { calculateTax } from '../utils/tax-calculations';
-import { environment } from '../../../../environments/environment';
+import { environment } from '@env';
 
 const DEFAULT_INPUT: TaxInput = {
   annualIncome: 10_000,

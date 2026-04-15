@@ -1,0 +1,109 @@
+:host {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 3000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  max-width: 400px;
+  width: calc(100vw - 48px);
+}
+
+// ── Individual toast ───────────────────────────────────────────────────────────
+
+.toast {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 14px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  pointer-events: all;
+  animation: toast-in var(--transition-smooth) both;
+  border-left: 3px solid transparent;
+}
+
+.toast--out {
+  animation: toast-out 220ms ease both;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toast-out {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(24px); }
+}
+
+// ── Variants ──────────────────────────────────────────────────────────────────
+
+.toast--success {
+  background: var(--color-success-light);
+  color: var(--color-success-text);
+  border-left-color: var(--color-success);
+}
+
+.toast--error {
+  background: var(--color-error-light);
+  color: var(--color-error);
+  border-left-color: var(--color-error);
+}
+
+.toast--info {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-left-color: var(--color-primary);
+}
+
+// ── Parts ─────────────────────────────────────────────────────────────────────
+
+.toast__icon {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.toast__message {
+  flex: 1;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.toast__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity var(--transition-base);
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  :host {
+    right: 12px;
+    left: 12px;
+    bottom: 16px;
+    width: auto;
+    max-width: none;
+  }
+}

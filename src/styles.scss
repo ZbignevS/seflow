@@ -22,6 +22,22 @@ html {
   --mdc-filled-button-container-color: var(--color-primary);
 }
 
+// ── Auth dialog panel ──────────────────────────────────────────────────────────
+
+.auth-dialog {
+  .mat-mdc-dialog-container {
+    .mdc-dialog__surface {
+      border-radius: 20px;
+      padding: 0;
+      overflow: visible;
+    }
+
+    .mat-mdc-dialog-inner-container {
+      overflow: visible;
+    }
+  }
+}
+
 *,
 *::before,
 *::after {

@@ -17,6 +17,9 @@
     "paths": {
       "@features/*": ["src/app/features/*"],
       "@shared/*": ["src/app/shared/*"],
+      "@auth/*": ["src/app/auth/*"],
+      "@env": ["src/environments/environment"],
+      "@assets/*": ["src/assets/*"],
       "@seflow/shared/api-types": ["libs/shared/api-types/src/index.ts"]
     }
   },
