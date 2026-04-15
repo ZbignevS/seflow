@@ -1,0 +1,21 @@
+[debug] [2026-04-15T11:52:51.197Z] ----------------------------------------------------------------------
+[debug] [2026-04-15T11:52:51.198Z] Command:       /Users/zbignev/.nvm/versions/node/v20.19.2/bin/node /usr/local/bin/firebase init
+[debug] [2026-04-15T11:52:51.199Z] CLI Version:   11.2.1
+[debug] [2026-04-15T11:52:51.199Z] Platform:      darwin
+[debug] [2026-04-15T11:52:51.199Z] Node Version:  v20.19.2
+[debug] [2026-04-15T11:52:51.199Z] Time:          Wed Apr 15 2026 13:52:51 GMT+0200 (Central European Summer Time)
+[debug] [2026-04-15T11:52:51.199Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-04-15T11:52:51.202Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2026-04-15T11:52:51.202Z] > authorizing via signed-in user (zbignev.stank@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/zbignev/seflow
+

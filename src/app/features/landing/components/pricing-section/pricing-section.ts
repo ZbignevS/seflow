@@ -1,12 +1,13 @@
 import { Component, ChangeDetectionStrategy, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
 import { TranslatePipe } from '@shared/i18n/translate.pipe';
 import { TranslationService } from '@shared/i18n/translation.service';
 import { IconComponent } from '@shared/ui/icon/icon';
-import { PLAN_IDS, PRICING_PLAN_DATA } from '../../data/plans';
-import type { PlanId } from '../../data/plans';
+import { PlansService } from '../../services/plans.service';
+import type { PlanId } from '@seflow/shared/api-types';
 
 @Component({
   selector: 'app-pricing-section',
@@ -17,14 +18,16 @@ import type { PlanId } from '../../data/plans';
 })
 export class PricingSectionComponent {
   private readonly ts = inject(TranslationService);
+  private readonly plansService = inject(PlansService);
 
   protected readonly billingYearly = signal(false);
 
+  private readonly planData = toSignal(this.plansService.getPlans(), { initialValue: [] });
+
   protected readonly plans = computed(() => {
     const t = this.ts.t().pricing;
-    return PLAN_IDS.map((id) => {
-      const data = PRICING_PLAN_DATA[id];
-      const text = t.plans[id];
+    return this.planData().map((data) => {
+      const text = t.plans[data.id];
       return {
         ...data,
         name: text.name,
@@ -39,12 +42,14 @@ export class PricingSectionComponent {
   });
 
   protected displayPrice(id: PlanId): string {
-    const prices = PRICING_PLAN_DATA[id];
-    return (this.billingYearly() ? prices.yearlyPrice : prices.monthlyPrice).toFixed(2);
+    const plan = this.planData().find((p) => p.id === id);
+    if (!plan) return '—';
+    return (this.billingYearly() ? plan.yearlyPrice : plan.monthlyPrice).toFixed(2);
   }
 
   protected yearlySaving(id: PlanId): number {
-    const p = PRICING_PLAN_DATA[id];
-    return Math.round(p.monthlyPrice * 12 - p.yearlyTotal);
+    const plan = this.planData().find((p) => p.id === id);
+    if (!plan) return 0;
+    return Math.round(plan.monthlyPrice * 12 - plan.yearlyTotal);
   }
 }

@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, type Observable } from 'rxjs';
-import type { TaxInput, TaxResult, TaxRules } from '../models/tax.models';
-import { MALTA_TAX_RULES_2026 } from '../data/tax-rules.data';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject, combineLatest, map, shareReplay, type Observable } from 'rxjs';
+import type { TaxRulesDto } from '@seflow/shared/api-types';
+import type { TaxInput, TaxResult } from '../models/tax.models';
 import { calculateTax } from '../utils/tax-calculations';
+import { environment } from '../../../../environments/environment';
 
 const DEFAULT_INPUT: TaxInput = {
   annualIncome: 10_000,
@@ -12,26 +14,24 @@ const DEFAULT_INPUT: TaxInput = {
 
 /**
  * Provided at the page level (not root) so its state resets on navigation.
- * To support additional countries, call setRules() with a different TaxRules object.
+ * Rules are fetched once from the API and cached via shareReplay.
  */
 @Injectable()
 export class TaxCalculatorService {
+  private readonly http = inject(HttpClient);
   private readonly input$ = new BehaviorSubject<TaxInput>(DEFAULT_INPUT);
-  private readonly rules$ = new BehaviorSubject<TaxRules>(MALTA_TAX_RULES_2026);
+
+  /** Fetched once; replays the cached value to all late subscribers. */
+  readonly activeRules$: Observable<TaxRulesDto> = this.http
+    .get<TaxRulesDto>(`${environment.apiUrl}/tax-rules?country=MT&year=2026`)
+    .pipe(shareReplay(1));
 
   /** Emits a fresh TaxResult whenever input or rules change. */
-  readonly result$: Observable<TaxResult> = combineLatest([this.input$, this.rules$]).pipe(
+  readonly result$: Observable<TaxResult> = combineLatest([this.input$, this.activeRules$]).pipe(
     map(([input, rules]) => calculateTax(input, rules)),
   );
 
-  /** Exposes active rules for display (country, year, etc.). */
-  readonly activeRules$: Observable<TaxRules> = this.rules$.asObservable();
-
   updateInput(input: TaxInput): void {
     this.input$.next(input);
-  }
-
-  setRules(rules: TaxRules): void {
-    this.rules$.next(rules);
   }
 }
