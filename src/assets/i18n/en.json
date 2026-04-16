@@ -87,6 +87,8 @@
     "savePercent": "Save 20%",
     "perMonth": "/mo",
     "billedYearly": "billed yearly",
+    "currentPlan": "Current plan",
+    "upgradePlan": "Upgrade plan",
     "plans": {
       "starter": {
         "name": "Starter",
@@ -345,6 +347,7 @@
       "newInvoice": "New Invoice",
       "incomeExpenses": "Income / Expenses",
       "clients": "Clients",
+      "profile": "Profile",
       "signOut": "Sign out"
     },
     "dashboard": {
@@ -384,12 +387,41 @@
       "recentActivity": {
         "heading": "Recent activity"
       }
+    },
+    "profile": {
+      "title": "Profile",
+      "fullName": "Full name",
+      "email": "Email",
+      "phone": "Phone number",
+      "changePassword": "Change password",
+      "signInMethod": "Sign-in method",
+      "googleAccount": "Google account",
+      "googleAuthMessage": "Your account is connected via Google. Password is managed by your provider.",
+      "newPassword": "New password",
+      "repeatPassword": "Repeat password",
+      "save": "Save settings",
+      "subscriptionBilling": "Subscription & Billing",
+      "plan": "Current plan",
+      "planNote": "Upgrade your plan to unlock more features.",
+      "promoCode": "Promo code",
+      "promoApply": "Apply",
+      "deleteAccount": "Delete account",
+      "warningDelete": "Deleting your account will permanently remove all data.",
+      "deleteConfirmTitle": "Are you sure?",
+      "deleteConfirmText": "This action cannot be undone. Your account and all associated data will be permanently deleted.",
+      "deleteConfirm": "Yes, delete my account",
+      "deleteCancel": "Cancel",
+      "passwordMismatch": "Passwords do not match",
+      "passwordMinLength": "Password must be at least 6 characters",
+      "saveSuccess": "Settings saved",
+      "passwordChanged": "Password updated"
     }
   },
   "notifications": {
     "loginSuccess": "Welcome back!",
     "registerSuccess": "Account created. Welcome to seflow!",
-    "logoutSuccess": "You've been signed out."
+    "logoutSuccess": "You've been signed out.",
+    "genericError": "Something went wrong. Please try again."
   },
   "footer": {
     "tagline": "Modern accounting for the self-employed.",

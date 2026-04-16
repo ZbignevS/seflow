@@ -87,6 +87,8 @@
     "savePercent": "Iffranka 20%",
     "perMonth": "/xahar",
     "billedYearly": "imħallas kull sena",
+    "currentPlan": "Pjan attwali",
+    "upgradePlan": "Aġġorna l-pjan",
     "plans": {
       "starter": {
         "name": "Starter",
@@ -345,6 +347,7 @@
       "newInvoice": "Fattura ġdida",
       "incomeExpenses": "Dħul / Spejjeż",
       "clients": "Klijenti",
+      "profile": "Profil",
       "signOut": "Oħroġ"
     },
     "dashboard": {
@@ -384,12 +387,41 @@
       "recentActivity": {
         "heading": "Attività riċenti"
       }
+    },
+    "profile": {
+      "title": "Profil",
+      "fullName": "Isem sħiħ",
+      "email": "Email",
+      "phone": "Numru tat-telefon",
+      "changePassword": "Ibdel il-password",
+      "signInMethod": "Metodu ta' dħul",
+      "googleAccount": "Kont Google",
+      "googleAuthMessage": "Il-kont tiegħek huwa konnettjat permezz ta' Google. Il-password hija ġestita mill-fornitur tiegħek.",
+      "newPassword": "Password ġdida",
+      "repeatPassword": "Erġa' daħħal il-password",
+      "save": "Issejvja s-settings",
+      "subscriptionBilling": "Abbonament u Ħlas",
+      "plan": "Pjan attwali",
+      "planNote": "Aġġorna l-pjan tiegħek biex tiftaħ aktar karatteristiċi.",
+      "promoCode": "Kodiċi promozzjonali",
+      "promoApply": "Applika",
+      "deleteAccount": "Ħassar il-kont",
+      "warningDelete": "Il-ħassar tal-kont tiegħek se jneħħi d-dejta kollha b'mod permanenti.",
+      "deleteConfirmTitle": "Ċert?",
+      "deleteConfirmText": "Din l-azzjoni ma tistax tiġi rriversjata. Il-kont tiegħek u d-dejta kollha assoċjata se jiġu mħassra b'mod permanenti.",
+      "deleteConfirm": "Iva, ħassar il-kont tiegħi",
+      "deleteCancel": "Ikkanċella",
+      "passwordMismatch": "Il-passwords ma jaqblux",
+      "passwordMinLength": "Il-password għandha jkollha mill-inqas 6 karattri",
+      "saveSuccess": "Settings issejvjati",
+      "passwordChanged": "Password aġġornata"
     }
   },
   "notifications": {
     "loginSuccess": "Merhba lura!",
     "registerSuccess": "Kont maħluq. Merhba seflow!",
-    "logoutSuccess": "Ħriġt mill-kont."
+    "logoutSuccess": "Ħriġt mill-kont.",
+    "genericError": "Xi ħaġa marret ħażin. Erġa' ipprova."
   },
   "footer": {
     "tagline": "Kontabbiltà moderna għal min jaħdem għal rasu.",

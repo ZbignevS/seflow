@@ -35,6 +35,13 @@ export const portalRoutes: Routes = [
             (m) => m.ClientsPageComponent,
           ),
       },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./profile/profile.page').then(
+            (m) => m.ProfilePageComponent,
+          ),
+      },
     ],
   },
 ];

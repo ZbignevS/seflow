@@ -48,4 +48,36 @@ export class UsersService {
 
     return snap.exists ? (snap.data() as UserDto) : null;
   }
+
+  async updateUser(
+    firebaseUid: string,
+    data: { fullName?: string; phone?: string },
+  ): Promise<UserDto> {
+    const ref = this.firebaseAdmin.firestore
+      .collection(USERS_COLLECTION)
+      .doc(firebaseUid);
+
+    const updates: Record<string, string> = {};
+    if (data.fullName !== undefined) updates['fullName'] = data.fullName;
+    if (data.phone !== undefined) updates['phone'] = data.phone;
+
+    if (Object.keys(updates).length > 0) {
+      await ref.update(updates);
+    }
+
+    const snap = await ref.get();
+    return snap.data() as UserDto;
+  }
+
+  async changePassword(firebaseUid: string, newPassword: string): Promise<void> {
+    await this.firebaseAdmin.auth.updateUser(firebaseUid, { password: newPassword });
+  }
+
+  async deleteUser(firebaseUid: string): Promise<void> {
+    await this.firebaseAdmin.auth.deleteUser(firebaseUid);
+    await this.firebaseAdmin.firestore
+      .collection(USERS_COLLECTION)
+      .doc(firebaseUid)
+      .delete();
+  }
 }

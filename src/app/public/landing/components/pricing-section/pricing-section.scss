@@ -182,4 +182,75 @@
     --mdc-filled-button-label-text-color: var(--color-primary);
     border: 2px solid var(--color-primary);
   }
+
+  &--current {
+    opacity: 0.65;
+    cursor: default;
+  }
+}
+
+// ─── Active plan card (portal mode) ──────────────────────────────────────────
+
+.plan-card--active {
+  &.mat-mdc-card {
+    border-color: var(--color-success) !important;
+    border-width: 2px !important;
+  }
+
+  .plan-card__badge--active {
+    background: var(--color-success);
+  }
+}
+
+.plan-card__badge--active {
+  background: var(--color-success);
+}
+
+// ─── Portal mode overrides ────────────────────────────────────────────────────
+
+.pricing--portal {
+  background: transparent;
+  padding: 0;
+
+  .pricing__toggle-wrap {
+    justify-content: flex-start;
+    margin-bottom: 28px;
+  }
+
+  .pricing__grid {
+    max-width: none;
+    gap: 16px;
+  }
+
+  .plan-card {
+    mat-card-header {
+      padding: 20px 20px 0 !important;
+    }
+
+    mat-card-content {
+      padding: 12px 20px 0 !important;
+    }
+
+    mat-card-actions {
+      padding: 16px 20px 20px !important;
+    }
+  }
+
+  .plan-card__amount {
+    font-size: 2rem;
+  }
+}
+
+// ─── Screen-reader only ───────────────────────────────────────────────────────
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

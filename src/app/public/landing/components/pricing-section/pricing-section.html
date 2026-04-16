@@ -1,11 +1,21 @@
-<section id="pricing" class="pricing" aria-labelledby="pricing-heading">
-  <div class="pricing__inner container">
+<section
+  id="pricing"
+  aria-labelledby="pricing-heading"
+  class="pricing"
+  [class.pricing--portal]="mode() === 'portal'"
+>
+  <div [class]="mode() === 'public' ? 'pricing__inner container' : 'pricing__inner'">
 
-    <header class="section-header">
-      <span class="section-label">{{ 'pricing.sectionLabel' | translate }}</span>
-      <h2 class="section-title" id="pricing-heading">{{ 'pricing.heading' | translate }}</h2>
-      <p class="section-desc">{{ 'pricing.desc' | translate }}</p>
-    </header>
+    @if (mode() === 'public') {
+      <header class="section-header">
+        <span class="section-label">{{ 'pricing.sectionLabel' | translate }}</span>
+        <h2 class="section-title" id="pricing-heading">{{ 'pricing.heading' | translate }}</h2>
+        <p class="section-desc">{{ 'pricing.desc' | translate }}</p>
+      </header>
+    } @else {
+      <!-- Visually hidden anchor for skip-links, keeps id="pricing-heading" valid -->
+      <span id="pricing-heading" class="sr-only">{{ 'pricing.heading' | translate }}</span>
+    }
 
     <div class="pricing__toggle-wrap">
       <mat-button-toggle-group
@@ -37,11 +47,17 @@
       @for (plan of plans(); track plan.id) {
         <mat-card
           class="plan-card"
-          [class.plan-card--highlighted]="plan.highlighted"
+          [class.plan-card--highlighted]="plan.highlighted && mode() === 'public'"
+          [class.plan-card--active]="mode() === 'portal' && plan.id === currentPlan()"
           [attr.aria-label]="plan.name + ' plan'"
           appearance="outlined"
         >
-          @if (plan.badge) {
+          <!-- Badge: "Current plan" in portal mode, marketing badge in public mode -->
+          @if (mode() === 'portal' && plan.id === currentPlan()) {
+            <div class="plan-card__badge plan-card__badge--active" aria-label="Current plan">
+              {{ 'pricing.currentPlan' | translate }}
+            </div>
+          } @else if (mode() === 'public' && plan.badge) {
             <div class="plan-card__badge" [attr.aria-label]="plan.badge">{{ plan.badge }}</div>
           }
 
@@ -78,12 +94,28 @@
           </mat-card-content>
 
           <mat-card-actions>
-            <a
-              mat-raised-button
-              [color]="plan.highlighted ? 'primary' : undefined"
-              class="plan-card__cta"
-              [href]="'/signup?plan=' + plan.id"
-            >{{ plan.ctaLabel }}</a>
+            @if (mode() === 'public') {
+              <a
+                mat-raised-button
+                [color]="plan.highlighted ? 'primary' : undefined"
+                class="plan-card__cta"
+                [href]="'/signup?plan=' + plan.id"
+              >{{ plan.ctaLabel }}</a>
+
+            } @else if (plan.id === currentPlan()) {
+              <button mat-stroked-button disabled class="plan-card__cta plan-card__cta--current">
+                {{ 'pricing.currentPlan' | translate }}
+              </button>
+
+            } @else {
+              <button
+                mat-raised-button
+                color="primary"
+                class="plan-card__cta"
+                type="button"
+                (click)="requestUpgrade(plan.id)"
+              >{{ 'pricing.upgradePlan' | translate }}</button>
+            }
           </mat-card-actions>
         </mat-card>
       }

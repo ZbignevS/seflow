@@ -1,4 +1,12 @@
-import { Component, ChangeDetectionStrategy, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -19,6 +27,15 @@ import type { PlanId } from '@seflow/contracts';
 export class PricingSectionComponent {
   private readonly ts = inject(TranslationService);
   private readonly plansService = inject(PlansService);
+
+  /** 'public' = marketing landing page (default). 'portal' = authenticated portal. */
+  readonly mode = input<'public' | 'portal'>('public');
+
+  /** The plan ID the current user is subscribed to. Only relevant in portal mode. */
+  readonly currentPlan = input<PlanId | null>(null);
+
+  /** Emitted when the user clicks "Upgrade" on a plan in portal mode. */
+  readonly upgradeRequested = output<PlanId>();
 
   protected readonly billingYearly = signal(false);
 
@@ -51,5 +68,9 @@ export class PricingSectionComponent {
     const plan = this.planData().find((p) => p.id === id);
     if (!plan) return 0;
     return Math.round(plan.monthlyPrice * 12 - plan.yearlyTotal);
+  }
+
+  protected requestUpgrade(id: PlanId): void {
+    this.upgradeRequested.emit(id);
   }
 }

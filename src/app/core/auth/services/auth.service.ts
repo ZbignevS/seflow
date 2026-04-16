@@ -11,10 +11,11 @@ import {
   user,
 } from '@angular/fire/auth';
 import type { User } from '@angular/fire/auth';
-import { catchError, from, Observable, switchMap, throwError } from 'rxjs';
+import { catchError, from, Observable, switchMap, tap, throwError } from 'rxjs';
 
 import { environment } from '@env';
 import type { AuthProvider, SyncUserRequestDto, UserDto } from '@seflow/contracts';
+import { UserStore } from '../../../portal/state/user.store';
 
 /** Synthetic error code emitted when the user's email is registered via Google only. */
 export const WRONG_PROVIDER_GOOGLE = 'auth/provider-mismatch-google';
@@ -24,6 +25,7 @@ export class AuthService {
   private readonly auth = inject(Auth);
   private readonly http = inject(HttpClient);
   private readonly injector = inject(Injector);
+  private readonly userStore = inject(UserStore);
 
   /**
    * Emits the current Firebase user (null when signed out).
@@ -91,7 +93,9 @@ export class AuthService {
   }
 
   signOut(): Observable<void> {
-    return from(signOut(this.auth));
+    return from(signOut(this.auth)).pipe(
+      tap(() => this.userStore.clearUser()),
+    );
   }
 
   private syncUser(firebaseUser: User, name: string, provider: AuthProvider): Observable<UserDto> {
@@ -102,6 +106,9 @@ export class AuthService {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ),
+      // Seed the store immediately so portal pages never need a separate
+      // GET /users/me call after a fresh login.
+      tap(userDto => this.userStore.setUser(userDto)),
     );
   }
 }
