@@ -339,6 +339,53 @@
       ]
     }
   },
+  "portal": {
+    "nav": {
+      "home": "Paġna ewlenija",
+      "newInvoice": "Fattura ġdida",
+      "incomeExpenses": "Dħul / Spejjeż",
+      "clients": "Klijenti",
+      "signOut": "Oħroġ"
+    },
+    "dashboard": {
+      "welcome": "Merhba lura",
+      "subtitle": "Dan huwa s-sommarju tal-impjieg tiegħek għal April 2026",
+      "quickActions": {
+        "heading": "Azzjonijiet rapidi",
+        "createInvoice": "Oħloq fattura",
+        "addExpense": "Żid spiża",
+        "manageClients": "Immaniġġja l-klijenti"
+      },
+      "stats": {
+        "heading": "Dan ix-xahar",
+        "income": "Dħul ta' kull xahar",
+        "expenses": "Spejjeż",
+        "estimatedTax": "Taxxa stmata",
+        "netProfit": "Qligħ nett"
+      },
+      "recentInvoices": {
+        "heading": "Fatturi riċenti",
+        "columns": {
+          "number": "Fattura #",
+          "client": "Klijent",
+          "amount": "Ammont",
+          "status": "Status",
+          "date": "Data"
+        }
+      },
+      "recentClients": {
+        "heading": "Klijenti",
+        "columns": {
+          "name": "Isem",
+          "email": "Email",
+          "invoices": "Fatturi"
+        }
+      },
+      "recentActivity": {
+        "heading": "Attività riċenti"
+      }
+    }
+  },
   "notifications": {
     "loginSuccess": "Merhba lura!",
     "registerSuccess": "Kont maħluq. Merhba seflow!",

@@ -1,0 +1,48 @@
+<nav aria-label="Portal navigation">
+  <a routerLink="/portal/dashboard" class="logo" aria-label="seflow — go to dashboard">seflow</a>
+
+  <ul class="nav-links" role="list">
+    <li>
+      <a mat-button routerLink="/portal/dashboard" routerLinkActive="active">
+        {{ 'portal.nav.home' | translate }}
+      </a>
+    </li>
+    <li>
+      <a mat-button routerLink="/portal/invoices" routerLinkActive="active">
+        {{ 'portal.nav.newInvoice' | translate }}
+      </a>
+    </li>
+    <li>
+      <a mat-button routerLink="/portal/income-expenses" routerLinkActive="active">
+        {{ 'portal.nav.incomeExpenses' | translate }}
+      </a>
+    </li>
+    <li>
+      <a mat-button routerLink="/portal/clients" routerLinkActive="active">
+        {{ 'portal.nav.clients' | translate }}
+      </a>
+    </li>
+  </ul>
+
+  <div class="user-area">
+    @if (currentUser()) {
+      <div class="user-info">
+        <div class="avatar" aria-hidden="true">
+          {{ (currentUser()!.displayName ?? currentUser()!.email ?? '?').charAt(0).toUpperCase() }}
+        </div>
+        <span
+          class="user-name"
+          [attr.aria-label]="'Signed in as ' + (currentUser()!.displayName ?? currentUser()!.email)"
+        >
+          {{ currentUser()!.displayName ?? currentUser()!.email }}
+        </span>
+      </div>
+      <button
+        mat-button
+        type="button"
+        class="sign-out-btn"
+        (click)="signOut()"
+      >{{ 'portal.nav.signOut' | translate }}</button>
+    }
+  </div>
+</nav>

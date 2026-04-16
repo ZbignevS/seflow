@@ -1,0 +1,171 @@
+<div class="dashboard">
+
+  <!-- Page header -->
+  <header class="page-header">
+    <div>
+      <h1 class="welcome-heading">
+        {{ 'portal.dashboard.welcome' | translate }}@if (currentUser()?.displayName) {, {{ currentUser()!.displayName }}}
+      </h1>
+      <p class="welcome-subtitle">{{ 'portal.dashboard.subtitle' | translate }}</p>
+    </div>
+    <a mat-raised-button color="primary" routerLink="/portal/invoices">
+      + {{ 'portal.dashboard.quickActions.createInvoice' | translate }}
+    </a>
+  </header>
+
+  <!-- Quick actions -->
+  <section aria-labelledby="quick-actions-heading">
+    <h2 id="quick-actions-heading" class="section-heading">
+      {{ 'portal.dashboard.quickActions.heading' | translate }}
+    </h2>
+    <div class="quick-actions-grid">
+      <a routerLink="/portal/invoices" class="action-card">
+        <div class="action-icon action-icon--blue" aria-hidden="true">
+          <app-icon name="file-text" [size]="20" />
+        </div>
+        <span class="action-label">{{ 'portal.dashboard.quickActions.createInvoice' | translate }}</span>
+      </a>
+      <a routerLink="/portal/income-expenses" class="action-card">
+        <div class="action-icon action-icon--green" aria-hidden="true">
+          <app-icon name="trending-up" [size]="20" />
+        </div>
+        <span class="action-label">{{ 'portal.dashboard.quickActions.addExpense' | translate }}</span>
+      </a>
+      <a routerLink="/portal/clients" class="action-card">
+        <div class="action-icon action-icon--purple" aria-hidden="true">
+          <app-icon name="layout" [size]="20" />
+        </div>
+        <span class="action-label">{{ 'portal.dashboard.quickActions.manageClients' | translate }}</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section aria-labelledby="stats-heading">
+    <h2 id="stats-heading" class="section-heading">
+      {{ 'portal.dashboard.stats.heading' | translate }}
+    </h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">{{ 'portal.dashboard.stats.income' | translate }}</span>
+        <span class="stat-value stat-value--income">
+          {{ stats.monthlyIncome | currency:'EUR':'symbol':'1.0-0' }}
+        </span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">{{ 'portal.dashboard.stats.expenses' | translate }}</span>
+        <span class="stat-value stat-value--expense">
+          {{ stats.expenses | currency:'EUR':'symbol':'1.0-0' }}
+        </span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">{{ 'portal.dashboard.stats.estimatedTax' | translate }}</span>
+        <span class="stat-value stat-value--tax">
+          {{ stats.estimatedTax | currency:'EUR':'symbol':'1.0-0' }}
+        </span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">{{ 'portal.dashboard.stats.netProfit' | translate }}</span>
+        <span class="stat-value stat-value--profit">
+          {{ stats.netProfit | currency:'EUR':'symbol':'1.0-0' }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tables row -->
+  <div class="tables-row">
+
+    <!-- Recent invoices -->
+    <section class="table-card" aria-labelledby="invoices-heading">
+      <h2 id="invoices-heading" class="card-heading">
+        {{ 'portal.dashboard.recentInvoices.heading' | translate }}
+      </h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.number' | translate }}</th>
+              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.client' | translate }}</th>
+              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.amount' | translate }}</th>
+              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.status' | translate }}</th>
+              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.date' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (invoice of invoices; track invoice.id) {
+              <tr>
+                <td class="invoice-number">{{ invoice.number }}</td>
+                <td>{{ invoice.client }}</td>
+                <td class="amount">{{ invoice.amount | currency:'EUR' }}</td>
+                <td>
+                  <span [class]="'status-badge status-badge--' + invoice.status">
+                    {{ statusLabel(invoice.status) }}
+                  </span>
+                </td>
+                <td class="date">{{ invoice.date | date:'mediumDate' }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Recent clients -->
+    <section class="table-card" aria-labelledby="clients-heading">
+      <h2 id="clients-heading" class="card-heading">
+        {{ 'portal.dashboard.recentClients.heading' | translate }}
+      </h2>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">{{ 'portal.dashboard.recentClients.columns.name' | translate }}</th>
+              <th scope="col">{{ 'portal.dashboard.recentClients.columns.email' | translate }}</th>
+              <th scope="col">{{ 'portal.dashboard.recentClients.columns.invoices' | translate }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (client of clients; track client.id) {
+              <tr>
+                <td>
+                  <div class="client-info">
+                    <span class="client-avatar" aria-hidden="true">{{ client.name.charAt(0) }}</span>
+                    <span>{{ client.name }}</span>
+                  </div>
+                </td>
+                <td class="client-email">{{ client.email }}</td>
+                <td>{{ client.totalInvoices }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Recent activity -->
+  <section aria-labelledby="activity-heading">
+    <h2 id="activity-heading" class="section-heading">
+      {{ 'portal.dashboard.recentActivity.heading' | translate }}
+    </h2>
+    <ul class="activity-feed" role="list">
+      @for (item of activity; track item.id) {
+        <li class="activity-item">
+          <div [class]="'activity-dot activity-dot--' + item.type" aria-hidden="true"></div>
+          <div class="activity-content">
+            <p class="activity-desc">{{ item.description }}</p>
+            <div class="activity-meta">
+              @if (item.amount) {
+                <span class="activity-amount">{{ item.amount | currency:'EUR' }}</span>
+              }
+              <span class="activity-date">{{ item.date | date:'mediumDate' }}</span>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+  </section>
+
+</div>

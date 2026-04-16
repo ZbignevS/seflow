@@ -339,6 +339,53 @@
       ]
     }
   },
+  "portal": {
+    "nav": {
+      "home": "Home",
+      "newInvoice": "New Invoice",
+      "incomeExpenses": "Income / Expenses",
+      "clients": "Clients",
+      "signOut": "Sign out"
+    },
+    "dashboard": {
+      "welcome": "Welcome back",
+      "subtitle": "Here's your self-employment overview for April 2026",
+      "quickActions": {
+        "heading": "Quick actions",
+        "createInvoice": "Create invoice",
+        "addExpense": "Add expense",
+        "manageClients": "Manage clients"
+      },
+      "stats": {
+        "heading": "This month",
+        "income": "Monthly income",
+        "expenses": "Expenses",
+        "estimatedTax": "Estimated tax",
+        "netProfit": "Net profit"
+      },
+      "recentInvoices": {
+        "heading": "Recent invoices",
+        "columns": {
+          "number": "Invoice #",
+          "client": "Client",
+          "amount": "Amount",
+          "status": "Status",
+          "date": "Date"
+        }
+      },
+      "recentClients": {
+        "heading": "Clients",
+        "columns": {
+          "name": "Name",
+          "email": "Email",
+          "invoices": "Invoices"
+        }
+      },
+      "recentActivity": {
+        "heading": "Recent activity"
+      }
+    }
+  },
   "notifications": {
     "loginSuccess": "Welcome back!",
     "registerSuccess": "Account created. Welcome to seflow!",

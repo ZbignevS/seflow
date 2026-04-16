@@ -11,6 +11,7 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 
 import { AuthService, WRONG_PROVIDER_GOOGLE } from '../services/auth.service';
 import { SnackbarService } from '../../snackbar/snackbar.service';
@@ -37,6 +38,7 @@ export class AuthModalComponent {
   private readonly authService = inject(AuthService);
   private readonly snackbar = inject(SnackbarService);
   private readonly ts = inject(TranslationService);
+  private readonly router = inject(Router);
   private readonly destroyRef = inject(DestroyRef);
 
   protected readonly activeTab = signal<AuthTab>(this.data.initialTab ?? 'login');
@@ -74,6 +76,7 @@ export class AuthModalComponent {
         next: () => {
           this.snackbar.success(this.ts.t().notifications.loginSuccess);
           this.dialogRef.close();
+          this.router.navigate(['/portal/dashboard']);
         },
         error: (err: { code?: string }) => {
           this.isLoading.set(false);
@@ -97,6 +100,7 @@ export class AuthModalComponent {
         next: () => {
           this.snackbar.success(this.ts.t().notifications.registerSuccess);
           this.dialogRef.close();
+          this.router.navigate(['/portal/dashboard']);
         },
         error: (err: { code?: string }) => {
           this.isLoading.set(false);
@@ -116,6 +120,7 @@ export class AuthModalComponent {
         next: () => {
           this.snackbar.success(this.ts.t().notifications.loginSuccess);
           this.dialogRef.close();
+          this.router.navigate(['/portal/dashboard']);
         },
         error: (err: { code?: string }) => {
           this.isLoading.set(false);
