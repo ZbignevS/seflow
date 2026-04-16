@@ -1,0 +1,288 @@
+<div class="clients-layout">
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       LEFT PANEL — client list
+       ═══════════════════════════════════════════════════════════════ -->
+  <aside class="clients-sidebar" aria-label="Clients list">
+
+    <div class="sidebar-header">
+      <h1 class="sidebar-title">{{ 'portal.clients.title' | translate }}</h1>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="button"
+        class="add-btn"
+        (click)="startNewClient()"
+        [attr.aria-label]="'portal.clients.addNew' | translate"
+      >
+        <mat-icon aria-hidden="true">add</mat-icon>
+        {{ 'portal.clients.addNew' | translate }}
+      </button>
+
+      <mat-form-field appearance="outline" class="search-field" subscriptSizing="dynamic">
+        <mat-label>{{ 'portal.clients.search' | translate }}</mat-label>
+        <mat-icon matPrefix aria-hidden="true">search</mat-icon>
+        <input
+          matInput
+          type="search"
+          autocomplete="off"
+          [value]="searchQuery()"
+          (input)="searchQuery.set($any($event.target).value)"
+          [attr.aria-label]="'portal.clients.search' | translate"
+        />
+        @if (searchQuery()) {
+          <button
+            matSuffix
+            mat-icon-button
+            type="button"
+            (click)="searchQuery.set('')"
+            aria-label="Clear search"
+          >
+            <mat-icon aria-hidden="true">close</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Loading state -->
+    @if (loading()) {
+      <div class="list-loading" role="status" [attr.aria-label]="'portal.clients.loading' | translate">
+        <mat-spinner diameter="32" />
+      </div>
+    }
+
+    <!-- Error state -->
+    @if (error() && !loading()) {
+      <p class="list-error" role="alert">{{ error() }}</p>
+    }
+
+    <!-- Empty — no clients at all -->
+    @if (!loading() && !error() && clients().length === 0) {
+      <div class="list-empty">
+        <mat-icon aria-hidden="true" class="empty-icon">people_outline</mat-icon>
+        <p>{{ 'portal.clients.empty' | translate }}</p>
+      </div>
+    }
+
+    <!-- Empty — search returned nothing -->
+    @if (!loading() && clients().length > 0 && groupedClients().length === 0) {
+      <div class="list-empty">
+        <mat-icon aria-hidden="true" class="empty-icon">search_off</mat-icon>
+        <p>{{ 'portal.clients.noResults' | translate }}</p>
+      </div>
+    }
+
+    <!-- Alphabetically grouped list -->
+    @if (!loading() && groupedClients().length > 0) {
+      <div class="client-list" role="list">
+        @for (group of groupedClients(); track group.letter) {
+          <div class="alpha-group" role="group" [attr.aria-label]="group.letter">
+            <div class="alpha-group__letter" aria-hidden="true">{{ group.letter }}</div>
+            @for (client of group.items; track client.id) {
+              <div
+                class="client-item"
+                [class.client-item--active]="selectedClient()?.id === client.id"
+                role="listitem"
+              >
+                <button
+                  class="client-item__btn"
+                  type="button"
+                  (click)="selectClient(client)"
+                  [attr.aria-current]="selectedClient()?.id === client.id ? 'true' : null"
+                  [attr.aria-label]="client.name"
+                >
+                  <span class="client-item__name">{{ client.name }}</span>
+                  <span
+                    class="client-item__badge"
+                    [class.client-item__badge--unpaid]="client.invoiceSummary.unpaidAmount > 0"
+                    [attr.aria-label]="client.invoiceSummary.totalInvoicesCount + ' invoices'"
+                  >
+                    {{ client.invoiceSummary.totalInvoicesCount }}
+                  </span>
+                </button>
+              </div>
+            }
+          </div>
+        }
+      </div>
+    }
+
+  </aside>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       RIGHT PANEL — client detail + edit form
+       ═══════════════════════════════════════════════════════════════ -->
+  <main class="clients-detail" aria-live="polite">
+
+    @if (!showPanel()) {
+      <div class="detail-placeholder">
+        <mat-icon aria-hidden="true" class="placeholder-icon">person_search</mat-icon>
+        <p>{{ 'portal.clients.selectHint' | translate }}</p>
+      </div>
+    }
+
+    @if (showPanel()) {
+      <!-- ── Summary header ─────────────────────────────────────────── -->
+      @if (selectedClient(); as client) {
+        <header
+          class="detail-header"
+          [class.detail-header--unpaid]="hasUnpaid()"
+          aria-labelledby="client-detail-heading"
+        >
+          <div class="detail-header__left">
+            <h2 id="client-detail-heading" class="detail-header__name">{{ client.name }}</h2>
+            <span class="detail-header__meta">
+              {{ 'portal.clients.type.' + client.clientType | translate }}
+              &middot;
+              {{ 'portal.clients.residency.' + client.taxResidency | translate }}
+            </span>
+          </div>
+          <div class="detail-header__stats" role="group" [attr.aria-label]="'portal.clients.invoiceSummary' | translate">
+            <div class="stat">
+              <span class="stat__value">{{ client.invoiceSummary.totalInvoicesCount }}</span>
+              <span class="stat__label">{{ 'portal.clients.stats.invoices' | translate }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat__value">€{{ client.invoiceSummary.totalAmount | number:'1.2-2' }}</span>
+              <span class="stat__label">{{ 'portal.clients.stats.total' | translate }}</span>
+            </div>
+            <div class="stat" [class.stat--danger]="client.invoiceSummary.unpaidAmount > 0">
+              <span class="stat__value">€{{ client.invoiceSummary.unpaidAmount | number:'1.2-2' }}</span>
+              <span class="stat__label">{{ 'portal.clients.stats.unpaid' | translate }}</span>
+            </div>
+          </div>
+        </header>
+      }
+
+      @if (isNewClientMode()) {
+        <header class="detail-header" aria-labelledby="new-client-heading">
+          <h2 id="new-client-heading" class="detail-header__name">
+            {{ 'portal.clients.newClient' | translate }}
+          </h2>
+        </header>
+      }
+
+      <!-- ── Edit form ─────────────────────────────────────────────── -->
+      <form
+        class="detail-form"
+        [formGroup]="clientForm"
+        (ngSubmit)="saveClient()"
+        novalidate
+        aria-label="Client details form"
+      >
+        <div class="form-grid">
+
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>{{ 'portal.clients.fields.name' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              type="text"
+              autocomplete="organization"
+              [attr.aria-label]="'portal.clients.fields.name' | translate"
+              [attr.aria-required]="true"
+            />
+            @if (clientForm.get('name')?.invalid && clientForm.get('name')?.touched) {
+              <mat-error>{{ 'portal.clients.fields.nameRequired' | translate }}</mat-error>
+            }
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>{{ 'portal.clients.fields.address' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="address"
+              type="text"
+              autocomplete="street-address"
+              [attr.aria-label]="'portal.clients.fields.address' | translate"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'portal.clients.fields.companyCode' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="companyCode"
+              type="text"
+              [attr.aria-label]="'portal.clients.fields.companyCode' | translate"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'portal.clients.fields.vatCode' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="vatCode"
+              type="text"
+              [attr.aria-label]="'portal.clients.fields.vatCode' | translate"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'portal.clients.fields.phone' | translate }}</mat-label>
+            <input
+              matInput
+              formControlName="phone"
+              type="tel"
+              autocomplete="tel"
+              [attr.aria-label]="'portal.clients.fields.phone' | translate"
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{ 'portal.clients.fields.clientType' | translate }}</mat-label>
+            <mat-select
+              formControlName="clientType"
+              [attr.aria-label]="'portal.clients.fields.clientType' | translate"
+              [attr.aria-required]="true"
+            >
+              <mat-option value="company">{{ 'portal.clients.type.company' | translate }}</mat-option>
+              <mat-option value="individual">{{ 'portal.clients.type.individual' | translate }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="field-full">
+            <mat-label>{{ 'portal.clients.fields.taxResidency' | translate }}</mat-label>
+            <mat-select
+              formControlName="taxResidency"
+              [attr.aria-label]="'portal.clients.fields.taxResidency' | translate"
+              [attr.aria-required]="true"
+            >
+              <mat-option value="domestic">{{ 'portal.clients.residency.domestic' | translate }}</mat-option>
+              <mat-option value="foreign">{{ 'portal.clients.residency.foreign' | translate }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="form-actions">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="clientForm.invalid || isSaving()"
+            [attr.aria-busy]="isSaving()"
+          >
+            {{ isSaving() ? ('portal.clients.saving' | translate) : ('portal.clients.save' | translate) }}
+          </button>
+
+          @if (selectedClient()) {
+            <button
+              mat-stroked-button
+              color="warn"
+              type="button"
+              [disabled]="isDeleting()"
+              [attr.aria-busy]="isDeleting()"
+              (click)="deleteClient()"
+            >
+              {{ 'portal.clients.delete' | translate }}
+            </button>
+          }
+        </div>
+      </form>
+    }
+
+  </main>
+
+</div>

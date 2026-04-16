@@ -388,6 +388,46 @@
         "heading": "Recent activity"
       }
     },
+    "clients": {
+      "title": "Clients",
+      "addNew": "Add new client",
+      "loading": "Loading clients",
+      "empty": "No clients yet. Add your first one.",
+      "noResults": "No clients match your search.",
+      "search": "Search clients",
+      "selectHint": "Select a client or add a new one.",
+      "newClient": "New client",
+      "invoiceSummary": "Invoice summary",
+      "save": "Save",
+      "saving": "Saving…",
+      "delete": "Delete client",
+      "createSuccess": "Client created",
+      "updateSuccess": "Client updated",
+      "deleteSuccess": "Client deleted",
+      "type": {
+        "company": "Company",
+        "individual": "Individual"
+      },
+      "residency": {
+        "domestic": "Domestic",
+        "foreign": "Foreign"
+      },
+      "fields": {
+        "name": "Name",
+        "nameRequired": "Name is required",
+        "address": "Address",
+        "companyCode": "Company code",
+        "vatCode": "VAT number",
+        "phone": "Phone",
+        "clientType": "Client type",
+        "taxResidency": "Tax residency"
+      },
+      "stats": {
+        "invoices": "Invoices",
+        "total": "Total billed",
+        "unpaid": "Unpaid"
+      }
+    },
     "profile": {
       "title": "Profile",
       "fullName": "Full name",

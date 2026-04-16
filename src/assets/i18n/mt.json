@@ -388,6 +388,46 @@
         "heading": "Attività riċenti"
       }
     },
+    "clients": {
+      "title": "Klijenti",
+      "addNew": "Żid klijent ġdid",
+      "loading": "Qed jillowdja l-klijenti",
+      "empty": "L-ebda klijent għalissa. Żid l-ewwel wieħed.",
+      "noResults": "L-ebda klijent ma jaqbel mat-tiftxija tiegħek.",
+      "search": "Fittex klijenti",
+      "selectHint": "Agħżel klijent jew żid wieħed ġdid.",
+      "newClient": "Klijent ġdid",
+      "invoiceSummary": "Sommarju tal-fatturi",
+      "save": "Issejvja",
+      "saving": "Qed tissejvja…",
+      "delete": "Ħassar il-klijent",
+      "createSuccess": "Klijent maħluq",
+      "updateSuccess": "Klijent aġġornat",
+      "deleteSuccess": "Klijent imħassar",
+      "type": {
+        "company": "Kumpanija",
+        "individual": "Individwu"
+      },
+      "residency": {
+        "domestic": "Domestiku",
+        "foreign": "Barrani"
+      },
+      "fields": {
+        "name": "Isem",
+        "nameRequired": "L-isem huwa meħtieġ",
+        "address": "Indirizz",
+        "companyCode": "Kodiċi tal-kumpanija",
+        "vatCode": "Numru tal-VAT",
+        "phone": "Telefown",
+        "clientType": "Tip ta' klijent",
+        "taxResidency": "Residenza fiskali"
+      },
+      "stats": {
+        "invoices": "Fatturi",
+        "total": "Total fatturati",
+        "unpaid": "Mhux imħallsa"
+      }
+    },
     "profile": {
       "title": "Profil",
       "fullName": "Isem sħiħ",
