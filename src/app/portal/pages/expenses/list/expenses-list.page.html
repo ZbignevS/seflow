@@ -1,0 +1,221 @@
+<div class="expenses-shell">
+
+  <!-- ── Page header ─────────────────────────────────────────────── -->
+  <header class="page-header" role="banner">
+    <div class="header-text">
+      <h1 class="page-title">{{ 'portal.expenses.title' | translate }}</h1>
+      <p class="page-subtitle">{{ 'portal.expenses.subtitle' | translate }}</p>
+    </div>
+    <button mat-flat-button color="primary" (click)="openAddExpense()"
+            [disabled]="loading()"
+            [attr.aria-label]="'portal.expenses.addExpense' | translate">
+      <mat-icon aria-hidden="true">add</mat-icon>
+      {{ 'portal.expenses.addExpense' | translate }}
+    </button>
+  </header>
+
+  <!-- ── Stats bar ───────────────────────────────────────────────── -->
+  <div class="stats-bar" role="region" aria-label="Expense statistics">
+    <div class="stat-card">
+      <span class="stat-label">{{ 'portal.expenses.stats.totalExpenses' | translate }}</span>
+      <span class="stat-value">€ {{ filteredTotal() | number:'1.2-2' }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">{{ 'portal.expenses.stats.records' | translate }}</span>
+      <span class="stat-value">{{ filteredItems().length }}</span>
+    </div>
+    <div class="stat-card stat-card--paid">
+      <span class="stat-label">{{ 'portal.expenses.stats.paid' | translate }}</span>
+      <span class="stat-value">{{ paidCount() }}</span>
+    </div>
+    <div class="stat-card stat-card--unpaid">
+      <span class="stat-label">{{ 'portal.expenses.stats.unpaid' | translate }}</span>
+      <span class="stat-value">{{ unpaidCount() }}</span>
+    </div>
+  </div>
+
+  <!-- ── Filters ─────────────────────────────────────────────────── -->
+  <div class="filters-row" role="region" aria-label="Filter expenses">
+
+    <div class="filter-group">
+      <span class="filter-label">{{ 'portal.expenses.filter.typeLabel' | translate }}</span>
+      <div class="chip-group" role="group" [attr.aria-label]="'portal.expenses.filter.typeLabel' | translate">
+        @for (opt of typeFilterOptions; track opt.value) {
+          <button class="chip"
+                  [class.chip-active]="filters().type === opt.value"
+                  (click)="setTypeFilter(opt.value)"
+                  [attr.aria-pressed]="filters().type === opt.value">
+            {{ opt.labelKey | translate }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <span class="filter-label">{{ 'portal.expenses.filter.dateLabel' | translate }}</span>
+      <div class="chip-group" role="group" [attr.aria-label]="'portal.expenses.filter.dateLabel' | translate">
+        @for (opt of dateFilterOptions; track opt.value) {
+          <button class="chip"
+                  [class.chip-active]="filters().dateFilter === opt.value"
+                  (click)="setDateFilter(opt.value)"
+                  [attr.aria-pressed]="filters().dateFilter === opt.value">
+            {{ opt.labelKey | translate }}
+          </button>
+        }
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Loading ─────────────────────────────────────────────────── -->
+  @if (loading()) {
+    <div class="list-loading" role="status"
+         [attr.aria-label]="'portal.expenses.loading' | translate">
+      <mat-spinner diameter="36" />
+    </div>
+  }
+
+  <!-- ── Content ────────────────────────────────────────────────── -->
+  @if (!loading()) {
+
+    <!-- Empty state -->
+    @if (filteredItems().length === 0) {
+      <div class="empty-state" role="status">
+        <div class="empty-illustration" aria-hidden="true">
+          <mat-icon class="empty-icon">receipt_long</mat-icon>
+          <div class="empty-lines">
+            <span class="empty-line empty-line--wide"></span>
+            <span class="empty-line empty-line--medium"></span>
+            <span class="empty-line empty-line--narrow"></span>
+          </div>
+        </div>
+        <p class="empty-heading">
+          @if (items().length === 0) {
+            {{ 'portal.expenses.empty.title' | translate }}
+          } @else {
+            {{ 'portal.expenses.empty.noResults' | translate }}
+          }
+        </p>
+        <p class="empty-sub">
+          @if (items().length === 0) {
+            {{ 'portal.expenses.empty.subtitle' | translate }}
+          }
+        </p>
+        @if (items().length === 0) {
+          <button mat-flat-button color="primary" (click)="openAddExpense()">
+            <mat-icon aria-hidden="true">add</mat-icon>
+            {{ 'portal.expenses.addExpense' | translate }}
+          </button>
+        }
+      </div>
+    } @else {
+
+      <!-- Expenses ledger list -->
+      <div class="ledger" role="list" aria-label="Expenses list">
+
+        <!-- Column headers (accounting style) -->
+        <div class="ledger-header" role="row" aria-hidden="true">
+          <span class="col-date">{{ 'portal.expenses.col.date' | translate }}</span>
+          <span class="col-supplier">{{ 'portal.expenses.col.supplier' | translate }}</span>
+          <span class="col-type">{{ 'portal.expenses.col.type' | translate }}</span>
+          <span class="col-name">{{ 'portal.expenses.col.description' | translate }}</span>
+          <span class="col-receipt">{{ 'portal.expenses.col.receipt' | translate }}</span>
+          <span class="col-vat">{{ 'portal.expenses.col.vat' | translate }}</span>
+          <span class="col-amount">{{ 'portal.expenses.col.total' | translate }}</span>
+          <span class="col-status">{{ 'portal.expenses.col.status' | translate }}</span>
+          <span class="col-actions" aria-label="Actions"></span>
+        </div>
+
+        @for (exp of filteredItems(); track exp.id) {
+          <article class="ledger-row"
+                   role="listitem"
+                   [class.ledger-row--paid]="exp.isPaid"
+                   [class.ledger-row--large]="exp.totalAmount >= 1000"
+                   [attr.aria-label]="exp.supplierName + ', ' + exp.name + ', €' + exp.totalAmount">
+
+            <!-- Date -->
+            <span class="col-date ledger-date">
+              {{ exp.date | date:'d MMM' }}
+              <span class="ledger-year">{{ exp.date | date:'yyyy' }}</span>
+            </span>
+
+            <!-- Supplier -->
+            <span class="col-supplier ledger-supplier">{{ exp.supplierName || '—' }}</span>
+
+            <!-- Type badge -->
+            <span class="col-type">
+              <span class="type-badge type-badge--{{ exp.type }}">
+                {{ 'portal.expenses.type.' + exp.type | translate }}
+              </span>
+            </span>
+
+            <!-- Description -->
+            <span class="col-name ledger-name">{{ exp.name || '—' }}</span>
+
+            <!-- Receipt # -->
+            <span class="col-receipt ledger-receipt mono">{{ exp.receiptNumber || '—' }}</span>
+
+            <!-- VAT -->
+            <span class="col-vat ledger-vat">
+              @if (exp.vatAmount > 0) {
+                <span class="vat-amount">€ {{ exp.vatAmount | number:'1.2-2' }}</span>
+              } @else {
+                <span class="vat-none">—</span>
+              }
+            </span>
+
+            <!-- Total -->
+            <span class="col-amount ledger-total mono">€ {{ exp.totalAmount | number:'1.2-2' }}</span>
+
+            <!-- Status -->
+            <span class="col-status">
+              <button class="status-pill"
+                      [class.status-pill--paid]="exp.isPaid"
+                      [class.status-pill--unpaid]="!exp.isPaid"
+                      [disabled]="togglingId() === exp.id"
+                      (click)="togglePaid(exp, $event)"
+                      [attr.aria-label]="(exp.isPaid ? 'portal.expenses.markUnpaid' : 'portal.expenses.markPaid') | translate">
+                @if (togglingId() === exp.id) {
+                  <mat-spinner diameter="12" />
+                } @else {
+                  {{ (exp.isPaid ? 'portal.expenses.status.paid' : 'portal.expenses.status.unpaid') | translate }}
+                }
+              </button>
+            </span>
+
+            <!-- Actions -->
+            <span class="col-actions ledger-actions">
+              <button mat-icon-button class="action-btn"
+                      (click)="openEditExpense(exp, $event)"
+                      [attr.aria-label]="'portal.expenses.edit' | translate">
+                <mat-icon aria-hidden="true">edit</mat-icon>
+              </button>
+              <button mat-icon-button class="action-btn action-btn--delete"
+                      [disabled]="deletingId() === exp.id"
+                      (click)="deleteExpense(exp, $event)"
+                      [attr.aria-label]="'portal.expenses.delete' | translate">
+                @if (deletingId() === exp.id) {
+                  <mat-spinner diameter="16" />
+                } @else {
+                  <mat-icon aria-hidden="true">delete_outline</mat-icon>
+                }
+              </button>
+            </span>
+
+          </article>
+        }
+
+        <!-- Ledger footer totals -->
+        <div class="ledger-footer" role="row" aria-label="Totals">
+          <span class="footer-label col-date col-supplier col-type col-name col-receipt col-vat">
+            {{ 'portal.expenses.totalLabel' | translate }}
+          </span>
+          <span class="footer-total col-amount mono">€ {{ filteredTotal() | number:'1.2-2' }}</span>
+          <span class="col-status col-actions"></span>
+        </div>
+
+      </div>
+    }
+  }
+
+</div>

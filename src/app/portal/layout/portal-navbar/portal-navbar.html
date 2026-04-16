@@ -13,7 +13,7 @@
       </a>
     </li>
     <li>
-      <a mat-button routerLink="/portal/income-expenses" routerLinkActive="active">
+      <a mat-button routerLink="/portal/expenses" routerLinkActive="active">
         {{ 'portal.nav.incomeExpenses' | translate }}
       </a>
     </li>
@@ -30,6 +30,16 @@
   </ul>
 
   <div class="user-area">
+    <button
+      mat-icon-button
+      type="button"
+      class="theme-toggle"
+      (click)="themeService.toggle()"
+      [attr.aria-label]="themeService.isDark() ? ('portal.nav.switchToLight' | translate) : ('portal.nav.switchToDark' | translate)"
+    >
+      <mat-icon>{{ themeService.isDark() ? 'light_mode' : 'dark_mode' }}</mat-icon>
+    </button>
+
     @if (currentUser()) {
       <div class="user-info">
         <div class="avatar" aria-hidden="true">

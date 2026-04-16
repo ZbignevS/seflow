@@ -25,7 +25,7 @@
         </div>
         <span class="action-label">{{ 'portal.dashboard.quickActions.createInvoice' | translate }}</span>
       </a>
-      <a routerLink="/portal/income-expenses" class="action-card">
+      <a routerLink="/portal/expenses" class="action-card">
         <div class="action-icon action-icon--green" aria-hidden="true">
           <app-icon name="trending-up" [size]="20" />
         </div>
@@ -48,28 +48,59 @@
     <div class="stats-grid">
       <div class="stat-card">
         <span class="stat-label">{{ 'portal.dashboard.stats.income' | translate }}</span>
-        <span class="stat-value stat-value--income">
-          {{ stats.monthlyIncome | currency:'EUR':'symbol':'1.0-0' }}
-        </span>
+        @if (loading()) {
+          <span class="stat-skeleton" aria-hidden="true"></span>
+        } @else {
+          <span class="stat-value stat-value--income">
+            {{ totalRevenue() | currency:'EUR':'symbol':'1.0-2' }}
+          </span>
+        }
       </div>
       <div class="stat-card">
         <span class="stat-label">{{ 'portal.dashboard.stats.expenses' | translate }}</span>
-        <span class="stat-value stat-value--expense">
-          {{ stats.expenses | currency:'EUR':'symbol':'1.0-0' }}
-        </span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-label">{{ 'portal.dashboard.stats.estimatedTax' | translate }}</span>
-        <span class="stat-value stat-value--tax">
-          {{ stats.estimatedTax | currency:'EUR':'symbol':'1.0-0' }}
-        </span>
+        @if (loading()) {
+          <span class="stat-skeleton" aria-hidden="true"></span>
+        } @else {
+          <span class="stat-value stat-value--expense">
+            {{ totalExpenses() | currency:'EUR':'symbol':'1.0-2' }}
+          </span>
+        }
       </div>
       <div class="stat-card">
         <span class="stat-label">{{ 'portal.dashboard.stats.netProfit' | translate }}</span>
-        <span class="stat-value stat-value--profit">
-          {{ stats.netProfit | currency:'EUR':'symbol':'1.0-0' }}
-        </span>
+        @if (loading()) {
+          <span class="stat-skeleton" aria-hidden="true"></span>
+        } @else {
+          <span [class]="'stat-value ' + (netProfit() >= 0 ? 'stat-value--profit' : 'stat-value--expense')">
+            {{ netProfit() | currency:'EUR':'symbol':'1.0-2' }}
+          </span>
+        }
       </div>
+      <div class="stat-card">
+        <span class="stat-label">{{ 'portal.dashboard.stats.clients' | translate }}</span>
+        @if (loading()) {
+          <span class="stat-skeleton" aria-hidden="true"></span>
+        } @else {
+          <span class="stat-value stat-value--clients">{{ clientCount() }}</span>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Combined overview chart -->
+  <section aria-labelledby="charts-heading">
+    <h2 id="charts-heading" class="section-heading">
+      {{ 'portal.dashboard.charts.heading' | translate }}
+    </h2>
+    <div class="overview-chart-card">
+      <canvas
+        baseChart
+        [data]="overviewChartData()"
+        [options]="overviewChartOptions"
+        type="line"
+        role="img"
+        aria-label="Overview trends chart showing revenue, expenses, net profit and active clients over the last 6 months"
+      ></canvas>
     </div>
   </section>
 
@@ -82,32 +113,42 @@
         {{ 'portal.dashboard.recentInvoices.heading' | translate }}
       </h2>
       <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.number' | translate }}</th>
-              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.client' | translate }}</th>
-              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.amount' | translate }}</th>
-              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.status' | translate }}</th>
-              <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.date' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (invoice of invoices; track invoice.id) {
-              <tr>
-                <td class="invoice-number">{{ invoice.number }}</td>
-                <td>{{ invoice.client }}</td>
-                <td class="amount">{{ invoice.amount | currency:'EUR' }}</td>
-                <td>
-                  <span [class]="'status-badge status-badge--' + invoice.status">
-                    {{ statusLabel(invoice.status) }}
-                  </span>
-                </td>
-                <td class="date">{{ invoice.date | date:'mediumDate' }}</td>
-              </tr>
+        @if (loading()) {
+          <div class="table-loading" aria-label="Loading invoices" role="status">
+            @for (_ of [1, 2, 3]; track $index) {
+              <div class="row-skeleton"></div>
             }
-          </tbody>
-        </table>
+          </div>
+        } @else if (recentInvoices().length === 0) {
+          <p class="empty-state">{{ 'portal.dashboard.recentInvoices.empty' | translate }}</p>
+        } @else {
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.number' | translate }}</th>
+                <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.client' | translate }}</th>
+                <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.amount' | translate }}</th>
+                <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.status' | translate }}</th>
+                <th scope="col">{{ 'portal.dashboard.recentInvoices.columns.date' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (invoice of recentInvoices(); track invoice.id) {
+                <tr>
+                  <td class="invoice-number">{{ invoice.serialNumber }}</td>
+                  <td>{{ invoice.receiverName || '—' }}</td>
+                  <td class="amount">{{ invoice.total | currency:invoice.currency }}</td>
+                  <td>
+                    <span [class]="'status-badge status-badge--' + invoice.status">
+                      {{ statusLabel(invoice.status) }}
+                    </span>
+                  </td>
+                  <td class="date">{{ invoice.issueDate | date:'mediumDate' }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
       </div>
     </section>
 
@@ -117,29 +158,43 @@
         {{ 'portal.dashboard.recentClients.heading' | translate }}
       </h2>
       <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">{{ 'portal.dashboard.recentClients.columns.name' | translate }}</th>
-              <th scope="col">{{ 'portal.dashboard.recentClients.columns.email' | translate }}</th>
-              <th scope="col">{{ 'portal.dashboard.recentClients.columns.invoices' | translate }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (client of clients; track client.id) {
-              <tr>
-                <td>
-                  <div class="client-info">
-                    <span class="client-avatar" aria-hidden="true">{{ client.name.charAt(0) }}</span>
-                    <span>{{ client.name }}</span>
-                  </div>
-                </td>
-                <td class="client-email">{{ client.email }}</td>
-                <td>{{ client.totalInvoices }}</td>
-              </tr>
+        @if (loading()) {
+          <div class="table-loading" aria-label="Loading clients" role="status">
+            @for (_ of [1, 2, 3]; track $index) {
+              <div class="row-skeleton"></div>
             }
-          </tbody>
-        </table>
+          </div>
+        } @else if (recentClients().length === 0) {
+          <p class="empty-state">{{ 'portal.dashboard.recentClients.empty' | translate }}</p>
+        } @else {
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">{{ 'portal.dashboard.recentClients.columns.name' | translate }}</th>
+                <th scope="col">{{ 'portal.dashboard.recentClients.columns.type' | translate }}</th>
+                <th scope="col">{{ 'portal.dashboard.recentClients.columns.invoices' | translate }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (client of recentClients(); track client.id) {
+                <tr>
+                  <td>
+                    <div class="client-info">
+                      <span class="client-avatar" aria-hidden="true">{{ client.name.charAt(0) }}</span>
+                      <span>{{ client.name }}</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span [class]="'type-badge type-badge--' + client.clientType">
+                      {{ clientTypeLabel(client.clientType) }}
+                    </span>
+                  </td>
+                  <td>{{ client.invoiceSummary.totalInvoicesCount }}</td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        }
       </div>
     </section>
 
@@ -150,22 +205,30 @@
     <h2 id="activity-heading" class="section-heading">
       {{ 'portal.dashboard.recentActivity.heading' | translate }}
     </h2>
-    <ul class="activity-feed" role="list">
-      @for (item of activity; track item.id) {
-        <li class="activity-item">
-          <div [class]="'activity-dot activity-dot--' + item.type" aria-hidden="true"></div>
-          <div class="activity-content">
-            <p class="activity-desc">{{ item.description }}</p>
-            <div class="activity-meta">
-              @if (item.amount) {
+    @if (loading()) {
+      <div class="activity-feed activity-feed--loading" aria-label="Loading activity" role="status">
+        @for (_ of [1, 2, 3, 4]; track $index) {
+          <div class="activity-skeleton"></div>
+        }
+      </div>
+    } @else if (recentActivity().length === 0) {
+      <p class="empty-state empty-state--padded">{{ 'portal.dashboard.recentActivity.empty' | translate }}</p>
+    } @else {
+      <ul class="activity-feed" role="list">
+        @for (item of recentActivity(); track item.id) {
+          <li class="activity-item">
+            <div [class]="'activity-dot activity-dot--' + item.type" aria-hidden="true"></div>
+            <div class="activity-content">
+              <p class="activity-desc">{{ item.description }}</p>
+              <div class="activity-meta">
                 <span class="activity-amount">{{ item.amount | currency:'EUR' }}</span>
-              }
-              <span class="activity-date">{{ item.date | date:'mediumDate' }}</span>
+                <span class="activity-date">{{ item.date | date:'mediumDate' }}</span>
+              </div>
             </div>
-          </div>
-        </li>
-      }
-    </ul>
+          </li>
+        }
+      </ul>
+    }
   </section>
 
 </div>

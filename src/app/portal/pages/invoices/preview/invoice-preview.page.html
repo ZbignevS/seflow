@@ -1,0 +1,206 @@
+@if (loading()) {
+  <div class="preview-loading" role="status"
+       [attr.aria-label]="'portal.invoices.loadingInvoice' | translate">
+    <mat-spinner diameter="48" />
+  </div>
+}
+
+@if (error()) {
+  <div class="preview-error" role="alert">
+    <mat-icon aria-hidden="true">error_outline</mat-icon>
+    <p>{{ error() }}</p>
+    <button mat-button (click)="goBack()">
+      {{ 'portal.invoices.preview.backToEditor' | translate }}
+    </button>
+  </div>
+}
+
+@if (payload(); as p) {
+  <!-- Print toolbar -->
+  <div class="print-toolbar" role="toolbar" aria-label="Preview actions">
+    <button mat-button (click)="goBack()"
+            [attr.aria-label]="'portal.invoices.preview.backToEditor' | translate">
+      <mat-icon aria-hidden="true">arrow_back</mat-icon>
+      {{ 'portal.invoices.preview.backToEditor' | translate }}
+    </button>
+    <div class="toolbar-spacer"></div>
+    <span class="serial-label">{{ p.invoice.serialNumber }}</span>
+    <button mat-flat-button color="primary" (click)="print()"
+            [attr.aria-label]="'portal.invoices.preview.print' | translate">
+      <mat-icon aria-hidden="true">print</mat-icon>
+      {{ 'portal.invoices.preview.print' | translate }}
+    </button>
+  </div>
+
+  <!-- A4 Invoice -->
+  <article class="a4-preview" [attr.aria-label]="p.invoice.serialNumber">
+
+    <!-- ── HEADER ── -->
+    <header class="pv-header" role="banner">
+      <div class="pv-title-block">
+        <h1 class="pv-title">
+          {{ 'portal.invoices.type.' + p.invoice.type | translate }}
+        </h1>
+        @if (p.invoice.vatStatus.label) {
+          <span class="vat-label-pill">{{ p.invoice.vatStatus.label }}</span>
+        }
+      </div>
+
+      <div class="pv-meta-block">
+        <dl class="meta-list">
+          <div class="meta-row">
+            <dt>{{ 'portal.invoices.preview.invoiceNo' | translate }}</dt>
+            <dd class="mono">{{ p.invoice.serialNumber }}</dd>
+          </div>
+          <div class="meta-row">
+            <dt>{{ 'portal.invoices.preview.issueDate' | translate }}</dt>
+            <dd>{{ p.invoice.issueDate | date:'d MMMM yyyy' }}</dd>
+          </div>
+          @if (p.invoice.dueDate) {
+            <div class="meta-row">
+              <dt>{{ 'portal.invoices.preview.dueDate' | translate }}</dt>
+              <dd>{{ p.invoice.dueDate | date:'d MMMM yyyy' }}</dd>
+            </div>
+          }
+          <div class="meta-row">
+            <dt>{{ 'portal.invoices.preview.currency' | translate }}</dt>
+            <dd>{{ p.invoice.currency }}</dd>
+          </div>
+          <div class="meta-row">
+            <dt>{{ 'portal.invoices.preview.status' | translate }}</dt>
+            <dd class="status-{{ p.invoice.status }}">
+              {{ 'portal.invoices.status.' + p.invoice.status | translate }}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </header>
+
+    <hr class="pv-divider" aria-hidden="true" />
+
+    <!-- ── PARTIES ── -->
+    <section class="pv-parties" aria-label="Parties">
+      <div class="pv-party">
+        <h2 class="pv-party-label">{{ 'portal.invoices.preview.from' | translate }}</h2>
+        <p class="pv-party-name">{{ p.sellerName }}</p>
+        <p class="pv-party-detail">{{ p.sellerEmail }}</p>
+        @if (p.sellerVatNumber) {
+          <p class="pv-party-detail">VAT: {{ p.sellerVatNumber }}</p>
+        }
+        @if (p.sellerBankAccount) {
+          <p class="pv-party-detail">IBAN: {{ p.sellerBankAccount }}</p>
+        }
+      </div>
+
+      <div class="pv-party">
+        <h2 class="pv-party-label">{{ 'portal.invoices.preview.to' | translate }}</h2>
+        <p class="pv-party-name">{{ p.invoice.receiver.name }}</p>
+        @if (p.invoice.receiver.address) {
+          <p class="pv-party-detail">{{ p.invoice.receiver.address }}</p>
+        }
+        @if (p.invoice.receiver.companyCode) {
+          <p class="pv-party-detail">Reg: {{ p.invoice.receiver.companyCode }}</p>
+        }
+        @if (p.invoice.receiver.vatNumber) {
+          <p class="pv-party-detail">VAT: {{ p.invoice.receiver.vatNumber }}</p>
+        }
+      </div>
+    </section>
+
+    <hr class="pv-divider" aria-hidden="true" />
+
+    <!-- ── ITEMS ── -->
+    <section class="pv-items" aria-label="Invoice items">
+      <table class="pv-table" role="table">
+        <thead>
+          <tr>
+            <th class="col-desc" scope="col">{{ 'portal.invoices.preview.colDescription' | translate }}</th>
+            <th class="col-unit" scope="col">{{ 'portal.invoices.preview.colUnit' | translate }}</th>
+            <th class="col-num" scope="col">{{ 'portal.invoices.preview.colQty' | translate }}</th>
+            <th class="col-num" scope="col">{{ 'portal.invoices.preview.colUnitPrice' | translate }}</th>
+            <th class="col-num" scope="col">{{ 'portal.invoices.preview.colDisc' | translate }}</th>
+            <th class="col-num" scope="col">{{ 'portal.invoices.preview.colNet' | translate }}</th>
+            <th class="col-num" scope="col">{{ 'portal.invoices.preview.colVat' | translate }}</th>
+            <th class="col-num" scope="col">{{ 'portal.invoices.preview.colTotal' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of p.invoice.items; track item.id) {
+            <tr class="pv-item-row">
+              <td class="col-desc">{{ item.title }}</td>
+              <td class="col-unit">{{ item.unit }}</td>
+              <td class="col-num">{{ item.quantity | number:'1.0-2' }}</td>
+              <td class="col-num mono">{{ item.price | number:'1.2-2' }}</td>
+              <td class="col-num">{{ item.discount }}%</td>
+              <td class="col-num mono">{{ item.subtotal | number:'1.2-2' }}</td>
+              <td class="col-num mono">{{ item.vatAmount | number:'1.2-2' }}</td>
+              <td class="col-num mono"><strong>{{ item.total | number:'1.2-2' }}</strong></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ── TOTALS ── -->
+    <section class="pv-totals-section" aria-label="Totals">
+      <div class="pv-totals-block" role="table" aria-label="Financial summary">
+
+        <div class="pv-totals-row" role="row">
+          <span role="rowheader">{{ 'portal.invoices.preview.subtotalNet' | translate }}</span>
+          <span role="cell" class="mono">
+            {{ p.invoice.currency }} {{ p.invoice.totals.subtotal | number:'1.2-2' }}
+          </span>
+        </div>
+
+        @if (p.invoice.totals.discountTotal > 0) {
+          <div class="pv-totals-row discount-row" role="row">
+            <span role="rowheader">{{ 'portal.invoices.preview.totalDiscount' | translate }}</span>
+            <span role="cell" class="mono">
+              − {{ p.invoice.currency }} {{ p.invoice.totals.discountTotal | number:'1.2-2' }}
+            </span>
+          </div>
+        }
+
+        @for (line of p.invoice.totals.vatBreakdown; track line.rate) {
+          <div class="pv-totals-row vat-row" role="row">
+            <span role="rowheader">
+              @if (line.label) { {{ line.label }} }
+              @else { VAT {{ line.rate }}% ({{ p.invoice.currency }} {{ line.taxableAmount | number:'1.2-2' }}) }
+            </span>
+            <span role="cell" class="mono">
+              {{ p.invoice.currency }} {{ line.vatAmount | number:'1.2-2' }}
+            </span>
+          </div>
+        }
+
+        <div class="pv-totals-row pv-total-row" role="row">
+          <span role="rowheader">
+            <strong>{{ 'portal.invoices.preview.amountDue' | translate }}</strong>
+          </span>
+          <span role="cell" class="mono pv-grand-total">
+            <strong>{{ p.invoice.currency }} {{ p.invoice.totals.total | number:'1.2-2' }}</strong>
+          </span>
+        </div>
+      </div>
+
+      <p class="pv-words">{{ amountInWords(p.invoice.totals.total, p.invoice.currency) }}</p>
+    </section>
+
+    <hr class="pv-divider" aria-hidden="true" />
+
+    <!-- ── FOOTER ── -->
+    <footer class="pv-footer" role="contentinfo">
+      @if (p.invoice.notes) {
+        <div class="pv-notes">
+          <h3 class="pv-notes-label">{{ 'portal.invoices.preview.notes' | translate }}</h3>
+          <p>{{ p.invoice.notes }}</p>
+        </div>
+      }
+      <p class="pv-generated">
+        {{ 'portal.invoices.preview.generated' | translate }}
+        {{ p.generatedAt | date:'d MMM yyyy, HH:mm' }}
+      </p>
+    </footer>
+
+  </article>
+}

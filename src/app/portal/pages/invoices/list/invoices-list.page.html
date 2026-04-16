@@ -1,0 +1,155 @@
+<div class="invoices-shell">
+
+  <!-- ── Page header ─────────────────────────────────────────────── -->
+  <header class="page-header" role="banner">
+    <div class="header-text">
+      <h1 class="page-title">{{ 'portal.invoices.title' | translate }}</h1>
+      <p class="page-subtitle">{{ 'portal.invoices.subtitle' | translate }}</p>
+    </div>
+    <button mat-flat-button color="primary" (click)="newInvoice()"
+            [disabled]="loading() || creating()"
+            [attr.aria-label]="'portal.invoices.newInvoice' | translate">
+      @if (creating()) {
+        <mat-spinner diameter="16" />
+      } @else {
+        <mat-icon aria-hidden="true">add</mat-icon>
+      }
+      {{ 'portal.invoices.newInvoice' | translate }}
+    </button>
+  </header>
+
+  <!-- ── Stats bar ───────────────────────────────────────────────── -->
+  <div class="stats-bar" role="region" aria-label="Invoice statistics">
+    <div class="stat-card">
+      <span class="stat-label">{{ 'portal.invoices.list.totalRevenue' | translate }}</span>
+      <span class="stat-value">{{ totalRevenue() | number:'1.2-2' }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">{{ 'portal.invoices.list.finalized' | translate }}</span>
+      <span class="stat-value">{{ finalizedCount() }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">{{ 'portal.invoices.list.drafts' | translate }}</span>
+      <span class="stat-value">{{ draftCount() }}</span>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">{{ 'portal.invoices.list.total' | translate }}</span>
+      <span class="stat-value">{{ items().length }}</span>
+    </div>
+  </div>
+
+  <!-- ── Filters ─────────────────────────────────────────────────── -->
+  <div class="filters-bar" role="search" aria-label="Filter invoices">
+    <div class="filter-chips" role="group" aria-label="Status filter">
+      <button class="chip" [class.chip-active]="filterStatus() === 'all'"
+              (click)="setFilter('all')" [attr.aria-pressed]="filterStatus() === 'all'">
+        {{ 'portal.invoices.list.filterAll' | translate }}
+      </button>
+      <button class="chip" [class.chip-active]="filterStatus() === 'draft'"
+              (click)="setFilter('draft')" [attr.aria-pressed]="filterStatus() === 'draft'">
+        {{ 'portal.invoices.list.filterDrafts' | translate }}
+      </button>
+      <button class="chip" [class.chip-active]="filterStatus() === 'issued'"
+              (click)="setFilter('issued')" [attr.aria-pressed]="filterStatus() === 'issued'">
+        {{ 'portal.invoices.list.filterIssued' | translate }}
+      </button>
+      <button class="chip" [class.chip-active]="filterStatus() === 'finalized'"
+              (click)="setFilter('finalized')" [attr.aria-pressed]="filterStatus() === 'finalized'">
+        {{ 'portal.invoices.list.filterFinalized' | translate }}
+      </button>
+    </div>
+
+    <div class="search-wrap">
+      <mat-icon class="search-icon" aria-hidden="true">search</mat-icon>
+      <input class="search-input" type="search"
+             [placeholder]="'portal.invoices.list.searchPlaceholder' | translate"
+             [value]="searchQuery()"
+             (input)="onSearch($event)"
+             aria-label="Search invoices" />
+    </div>
+  </div>
+
+  <!-- ── Loading ─────────────────────────────────────────────────── -->
+  @if (loading()) {
+    <div class="list-loading" role="status"
+         [attr.aria-label]="'portal.invoices.loadingInvoices' | translate">
+      <mat-spinner diameter="36" />
+    </div>
+  }
+
+  <!-- ── Invoice list ────────────────────────────────────────────── -->
+  @if (!loading()) {
+    @if (filtered().length === 0) {
+      <div class="empty-state" role="status">
+        <mat-icon aria-hidden="true" class="empty-icon">receipt_long</mat-icon>
+        <p class="empty-text">
+          @if (items().length === 0) {
+            {{ 'portal.invoices.list.empty' | translate }}
+          } @else {
+            {{ 'portal.invoices.list.noResults' | translate }}
+          }
+        </p>
+        @if (items().length === 0) {
+          <button mat-flat-button color="primary" (click)="newInvoice()"
+                  [disabled]="creating()">
+            @if (creating()) { <mat-spinner diameter="16" /> }
+            {{ 'portal.invoices.list.createFirst' | translate }}
+          </button>
+        }
+      </div>
+    } @else {
+      <div class="invoice-list" role="list" aria-label="Invoice list">
+        @for (inv of filtered(); track inv.id) {
+          <article class="invoice-card" role="listitem"
+                   (click)="openInvoice(inv)"
+                   (keydown.enter)="openInvoice(inv)"
+                   tabindex="0"
+                   [attr.aria-label]="inv.serialNumber + ' — ' + inv.receiverName">
+
+            <div class="card-left">
+              <div class="card-top">
+                <span class="card-serial mono">{{ inv.serialNumber }}</span>
+                <span class="status-badge status-{{ inv.status }}">
+                  {{ 'portal.invoices.status.' + inv.status | translate }}
+                </span>
+                <span class="type-badge">
+                  {{ 'portal.invoices.type.' + inv.type | translate }}
+                </span>
+              </div>
+              <p class="card-client">{{ inv.receiverName || '—' }}</p>
+              <p class="card-dates">
+                {{ inv.issueDate | date:'d MMM yyyy' }}
+                @if (inv.dueDate) { · {{ inv.dueDate | date:'d MMM yyyy' }} }
+              </p>
+            </div>
+
+            <div class="card-right">
+              <span class="card-total">
+                {{ inv.currency }} {{ inv.total | number:'1.2-2' }}
+              </span>
+              <div class="card-actions">
+                <button mat-icon-button (click)="openPreview(inv, $event)"
+                        [attr.aria-label]="'portal.invoices.previewAction' | translate">
+                  <mat-icon aria-hidden="true">visibility</mat-icon>
+                </button>
+                @if (inv.status === 'draft') {
+                  <button mat-icon-button class="delete-btn"
+                          (click)="deleteInvoice(inv, $event)"
+                          [disabled]="deletingId() === inv.id"
+                          [attr.aria-label]="'portal.invoices.list.deleteInvoice' | translate">
+                    @if (deletingId() === inv.id) {
+                      <mat-spinner diameter="16" />
+                    } @else {
+                      <mat-icon aria-hidden="true">delete_outline</mat-icon>
+                    }
+                  </button>
+                }
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  }
+
+</div>

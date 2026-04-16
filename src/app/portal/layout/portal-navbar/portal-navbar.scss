@@ -80,6 +80,10 @@ nav {
   white-space: nowrap;
 }
 
+.theme-toggle {
+  color: var(--color-text-muted);
+}
+
 .sign-out-btn {
   font-size: 0.8125rem !important;
   color: var(--color-text-muted) !important;

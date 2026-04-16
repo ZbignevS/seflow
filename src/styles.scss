@@ -12,8 +12,27 @@ $seflow-theme: mat.define-theme(
   )
 );
 
+$seflow-dark-theme: mat.define-theme(
+  (
+    color: (
+      theme-type: dark,
+      primary: mat.$azure-palette,
+    ),
+  )
+);
+
 html {
   @include mat.all-component-themes($seflow-theme);
+}
+
+html[data-theme='dark'] {
+  @include mat.all-component-colors($seflow-dark-theme);
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme='light']) {
+    @include mat.all-component-colors($seflow-dark-theme);
+  }
 }
 
 .mat-mdc-raised-button.mat-primary,
@@ -138,6 +157,21 @@ button {
   max-width: 540px;
   margin: 0 auto;
   line-height: 1.7;
+}
+
+// mat-spinner inside a button renders as a block div by default, pushing
+// the label to the next line. Force it inline so icon + text stay on one row.
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-flat-button,
+.mat-mdc-outlined-button,
+.mat-mdc-unelevated-button,
+.mat-mdc-icon-button {
+  mat-progress-spinner,
+  mat-spinner {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 .btn-lg {

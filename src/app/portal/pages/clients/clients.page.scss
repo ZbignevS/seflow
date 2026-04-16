@@ -1,321 +1,632 @@
-// ─────────────────────────────────────────────────────────────────────────────
-// Layout
-// ─────────────────────────────────────────────────────────────────────────────
-
+// ── Layout ─────────────────────────────────────────────────────────────────────
 .clients-layout {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  min-height: calc(100vh - 64px); // subtract navbar height
+  grid-template-columns: 300px 1fr;
+  height: calc(100vh - 64px);
   overflow: hidden;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Left sidebar — client list
-// ─────────────────────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// LEFT SIDEBAR
+// ════════════════════════════════════════════════════════════
 
 .clients-sidebar {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--color-border, #e0e0e0);
-  background: var(--color-surface, #fafafa);
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
   overflow-y: auto;
 }
 
-.sidebar-header {
+// ── Sticky top bar (mirrors editor-topbar) ─────────────────────────────────────
+.sidebar-topbar {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
   gap: 12px;
-  padding: 24px 16px 16px;
-  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  background: var(--color-surface);
+  z-index: 10;
 }
 
 .sidebar-title {
-  font-size: 1.1rem;
+  font-size: 0.875rem;
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
 }
 
-.add-btn {
-  width: 100%;
+// ── Search (mirrors invoice search-wrap) ───────────────────────────────────────
+.search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 6px 12px;
+  flex-shrink: 0;
+
+  &:focus-within { border-color: var(--color-primary); }
 }
 
-.search-field {
-  width: 100%;
+.search-icon {
+  color: var(--color-text-light);
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
-// ─── List states ──────────────────────────────────────────────────────────────
+.search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background: transparent;
+  min-width: 0;
 
+  &::placeholder { color: var(--color-placeholder); }
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-light);
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+
+  mat-icon { font-size: 16px; width: 16px; height: 16px; }
+  &:hover { color: var(--color-text-secondary); }
+}
+
+// ── List states ────────────────────────────────────────────────────────────────
 .list-loading {
   display: flex;
   justify-content: center;
-  padding: 40px 0;
+  padding: 48px;
 }
 
 .list-error {
   padding: 16px;
-  color: var(--color-error, #d32f2f);
   font-size: 0.875rem;
+  color: var(--color-error-text);
 }
 
 .list-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 48px 16px;
+  gap: 10px;
+  padding: 48px 24px;
+  text-align: center;
   color: var(--color-text-muted);
   font-size: 0.875rem;
-  text-align: center;
 }
 
 .empty-icon {
-  font-size: 2.5rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  opacity: 0.4;
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  color: var(--color-border-strong);
 }
 
-// ─── Alpha-grouped list ───────────────────────────────────────────────────────
+// ── Alpha groups (mirrors party-label) ────────────────────────────────────────
+.client-list { flex: 1; }
 
-.client-list {
-  padding: 8px 0;
+.alpha-letter {
+  padding: 10px 16px 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
 }
 
-.alpha-group {
-  &__letter {
-    padding: 6px 16px 2px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-  }
-}
-
-// ─── Client list items ────────────────────────────────────────────────────────
-
-.client-item {
-  list-style: none;
-
-  &--active .client-item__btn {
-    background: color-mix(in srgb, var(--color-primary, #1976d2) 10%, transparent);
-    color: var(--color-primary, #1976d2);
-    font-weight: 600;
-  }
-}
-
-.client-item__btn {
+// ── Client rows (mirrors invoice-card feel, sidebar-adapted) ───────────────────
+.client-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 12px 16px;
+  padding: 10px 16px;
   border: none;
-  background: transparent;
+  border-bottom: 1px solid var(--color-divider);
+  border-left: 3px solid transparent;
+  background: var(--color-surface);
   cursor: pointer;
   text-align: left;
-  color: var(--color-text);
-  font-size: 0.9rem;
-  transition: background 0.15s;
+  gap: 10px;
+  transition: background 0.12s, border-color 0.12s;
 
-  &:hover {
-    background: color-mix(in srgb, currentColor 6%, transparent);
-  }
+  &:hover { background: var(--color-bg-alt); }
 
   &:focus-visible {
-    outline: 2px solid var(--color-primary, #1976d2);
+    outline: 2px solid var(--color-primary);
     outline-offset: -2px;
+  }
+
+  &--active {
+    background: color-mix(in srgb, var(--color-primary) 7%, var(--color-surface));
+    border-left-color: var(--color-primary);
+
+    .client-row__name { color: var(--color-primary); font-weight: 600; }
   }
 }
 
-.client-item__name {
+.client-row__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
   flex: 1;
+  min-width: 0;
+}
+
+.client-row__name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.client-item__badge {
+.client-row__meta {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+// ── Invoice count badge (mirrors status-badge) ─────────────────────────────────
+.inv-count {
   flex-shrink: 0;
-  min-width: 24px;
-  height: 24px;
+  min-width: 22px;
+  height: 22px;
   padding: 0 6px;
-  border-radius: 12px;
-  background: var(--color-text-muted, #9e9e9e);
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 600;
-  line-height: 24px;
+  border-radius: 11px;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 22px;
   text-align: center;
 
   &--unpaid {
-    background: var(--color-error, #d32f2f);
+    background: var(--color-warning-light);
+    color: var(--color-warning-text);
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Right panel — detail
-// ─────────────────────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════════════
+// RIGHT DETAIL PANEL
+// ════════════════════════════════════════════════════════════
 
+// Shell background (matches editor-shell)
 .clients-detail {
+  background: var(--color-bg-alt);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
-  background: var(--color-background, #fff);
 }
 
-// ─── Empty placeholder ────────────────────────────────────────────────────────
-
+// ── Empty selection placeholder ────────────────────────────────────────────────
 .detail-placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  height: 100%;
-  min-height: 300px;
+  flex: 1;
   color: var(--color-text-muted);
   font-size: 0.9rem;
+  min-height: 300px;
 }
 
 .placeholder-icon {
-  font-size: 3rem;
-  width: 3rem;
-  height: 3rem;
-  opacity: 0.35;
+  font-size: 64px;
+  width: 64px;
+  height: 64px;
+  color: var(--color-border-strong);
 }
 
-// ─── Summary header ───────────────────────────────────────────────────────────
+// ── Client sheet (mirrors a4-sheet) ───────────────────────────────────────────
+.client-sheet {
+  width: calc(100% - 64px);
+  max-width: 680px;
+  margin: 32px auto;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
+  border-radius: 2px;
+}
 
-.detail-header {
+// ── Sheet header (mirrors inv-header) ─────────────────────────────────────────
+.sheet-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: flex-start;
   gap: 24px;
-  padding: 24px 32px;
-  background: var(--color-surface, #fafafa);
-  border-bottom: 1px solid var(--color-border, #e0e0e0);
+  padding: 28px 32px;
   flex-wrap: wrap;
-
-  &--unpaid {
-    background: color-mix(in srgb, var(--color-error, #d32f2f) 8%, transparent);
-    border-bottom-color: color-mix(in srgb, var(--color-error, #d32f2f) 30%, transparent);
-  }
 }
 
-.detail-header__left {
+.sheet-title-block {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 10px;
 }
 
-.detail-header__name {
-  font-size: 1.4rem;
+.sheet-title {
+  font-size: 2rem;
   font-weight: 700;
   color: var(--color-text);
   margin: 0;
+  letter-spacing: -0.02em;
 }
 
-.detail-header__meta {
-  font-size: 0.8rem;
-  color: var(--color-text-muted);
-}
-
-.detail-header__stats {
+.sheet-badges {
   display: flex;
-  gap: 32px;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
-.stat {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 2px;
+// Pills mirror status-badge
+.type-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: var(--color-info-light);
+  color: var(--color-info);
 
-  &--danger .stat__value {
-    color: var(--color-error, #d32f2f);
-    font-weight: 700;
+  &--residency {
+    background: var(--color-purple-bg);
+    color: var(--color-purple-text);
   }
 }
 
-.stat__value {
-  font-size: 1.1rem;
+// ── Stats block (mirrors totals-block / totals-row) ───────────────────────────
+.stats-block {
+  display: flex;
+  flex-direction: column;
+  min-width: 210px;
+}
+
+.stats-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 0.875rem;
+  border-bottom: 1px solid var(--color-divider);
+
+  &:last-child { border-bottom: none; }
+
+  &--unpaid {
+    .stats-label { color: var(--color-warning-text); }
+    .stats-value { color: var(--color-warning-text); font-weight: 700; }
+  }
+}
+
+.stats-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.stats-value {
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-text);
 }
 
-.stat__label {
-  font-size: 0.75rem;
+// ── Divider (mirrors invoice divider) ─────────────────────────────────────────
+.divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: 0;
+}
+
+// ── Form shell ────────────────────────────────────────────────────────────────
+.sheet-form { padding: 0 32px 28px; }
+
+.form-section { padding: 20px 0; }
+
+// Section heading (mirrors party-label)
+.section-heading {
+  font-size: 0.7rem;
+  font-weight: 700;
   color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 14px;
 }
 
-// ─── Edit form ────────────────────────────────────────────────────────────────
-
-.detail-form {
-  padding: 28px 32px;
-}
-
-.form-grid {
+// ── Field rows (mirrors meta-row) ─────────────────────────────────────────────
+.field-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0 16px;
+  grid-template-columns: 130px 1fr;
+  align-items: start;
+  gap: 8px;
+  margin-bottom: 10px;
 
-  .field-full {
-    grid-column: 1 / -1;
+  &:last-child { margin-bottom: 0; }
+}
+
+.field-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-top: 5px; // align with input text baseline
+}
+
+.field-control {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.field-error {
+  font-size: 0.72rem;
+  color: var(--color-error-text);
+}
+
+// ── Document inputs (mirrors cell-input from invoice editor) ──────────────────
+.doc-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--color-border-strong);
+  border-radius: 0;
+  background: transparent;
+  font-size: 0.9rem;
+  color: var(--color-text);
+  padding: 4px 2px;
+  font-family: inherit;
+  transition: border-color 0.15s;
+
+  &::placeholder { color: var(--color-placeholder); }
+
+  &:hover:not(:focus) { border-bottom-color: var(--color-border-strong); }
+
+  &:focus {
+    outline: none;
+    border-bottom-color: var(--color-primary);
   }
 
-  mat-form-field {
-    width: 100%;
+  &--error { border-bottom-color: var(--color-error-text); }
+}
+
+// ── Document selects — mat-select without mat-form-field wrapper ──────────────
+// Mirrors doc-input appearance: transparent bg, subtle bottom border only.
+// Matches how the invoice editor uses bare mat-select inside meta-rows.
+.doc-select {
+  display: block;
+  width: 100%;
+  border-bottom: 1px solid var(--color-border-strong);
+  transition: border-color 0.15s;
+
+  // Size the trigger to match doc-input padding
+  .mat-mdc-select-trigger {
+    padding: 4px 2px;
+  }
+
+  // Match doc-input typography
+  .mat-mdc-select-value,
+  .mat-mdc-select-placeholder {
+    font-size: 0.9rem;
+    font-family: inherit;
+    color: var(--color-text);
+  }
+
+  .mat-mdc-select-placeholder { color: var(--color-placeholder); }
+
+  // Remove MDC underline & ripple decorations that appear without mat-form-field
+  .mdc-line-ripple,
+  .mat-mdc-select-ripple { display: none; }
+
+  &:hover:not(.mat-mdc-select-disabled) {
+    border-bottom-color: var(--color-border-strong);
+  }
+
+  &.mat-mdc-select-focused {
+    border-bottom-color: var(--color-primary);
   }
 }
 
+// ── Form actions ──────────────────────────────────────────────────────────────
 .form-actions {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 8px;
+  padding-top: 20px;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Responsive — collapse sidebar on narrow screens
-// ─────────────────────────────────────────────────────────────────────────────
+.mono { font-family: 'Roboto Mono', monospace; }
 
+// ════════════════════════════════════════════════════════════
+// CLIENT INVOICES BLOCK
+// ════════════════════════════════════════════════════════════
+
+.client-invoices-block {
+  width: calc(100% - 64px);
+  max-width: 680px;
+  margin: 0 auto 40px;
+}
+
+.invoices-block-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 12px;
+}
+
+.invoices-block-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-light);
+}
+
+.invoices-block-count {
+  margin-left: auto;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  min-width: 22px;
+  height: 22px;
+  line-height: 22px;
+  text-align: center;
+  padding: 0 6px;
+  border-radius: 11px;
+}
+
+.inv-loading {
+  display: flex;
+  justify-content: center;
+  padding: 32px;
+}
+
+.inv-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--color-text-light);
+  font-size: 0.875rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.inv-empty-icon {
+  font-size: 40px;
+  width: 40px;
+  height: 40px;
+  color: var(--color-border-strong);
+}
+
+.inv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.inv-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: box-shadow 0.15s, border-color 0.15s;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-primary);
+    outline: none;
+  }
+}
+
+.inv-card-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  min-width: 0;
+}
+
+.inv-card-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.inv-serial {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.inv-status-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 2px 8px;
+  border-radius: 12px;
+
+  &.inv-status-draft     { background: var(--color-warning-light); color: var(--color-warning-text); }
+  &.inv-status-issued    { background: var(--color-info-light); color: var(--color-info); }
+  &.inv-status-finalized { background: var(--color-success-bg); color: var(--color-success-dark); }
+}
+
+.inv-dates {
+  font-size: 0.72rem;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.inv-total {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+// ── Responsive ────────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
   .clients-layout {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
+    height: auto;
+    overflow: visible;
   }
 
   .clients-sidebar {
     border-right: none;
-    border-bottom: 1px solid var(--color-border, #e0e0e0);
+    border-bottom: 1px solid var(--color-border);
     max-height: 260px;
   }
 
-  .detail-header {
+  .client-sheet {
+    width: calc(100% - 32px);
+    margin: 16px;
+  }
+
+  .sheet-header {
     flex-direction: column;
-    align-items: flex-start;
+    padding: 20px;
     gap: 16px;
   }
 
-  .detail-header__stats {
-    gap: 20px;
-  }
+  .stats-block { width: 100%; }
 
-  .stat {
-    align-items: flex-start;
-  }
+  .sheet-form { padding: 0 20px 20px; }
 
-  .form-grid {
-    grid-template-columns: 1fr;
-
-    .field-full {
-      grid-column: 1;
-    }
-  }
-
-  .detail-form {
-    padding: 20px 16px;
-  }
+  .field-row { grid-template-columns: 110px 1fr; }
 }

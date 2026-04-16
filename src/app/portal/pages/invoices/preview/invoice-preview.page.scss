@@ -1,0 +1,287 @@
+// ── Loading / error states ─────────────────────────────────────────────────────
+.preview-loading,
+.preview-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 40vh;
+  gap: 16px;
+  color: var(--color-text-muted);
+}
+
+// ── Print toolbar (hidden during print) ───────────────────────────────────────
+.print-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .toolbar-spacer { flex: 1; }
+}
+
+.serial-label {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+  padding: 4px 12px;
+  background: var(--color-bg-subtle);
+  border-radius: 4px;
+}
+
+// ── A4 sheet ───────────────────────────────────────────────────────────────────
+// Always renders as a paper document regardless of user theme preference.
+.a4-preview {
+  color-scheme: light;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 24px auto;
+  padding: 20mm 20mm 16mm;
+  background: #fff;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.14);
+  font-family: 'Roboto', sans-serif;
+  font-size: 10pt;
+  color: #1a1a1a;
+
+  @media (max-width: 900px) {
+    width: 100%;
+    margin: 0;
+    padding: 24px 16px;
+    box-shadow: none;
+  }
+}
+
+.pv-divider {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 20px 0;
+}
+
+// ── Header ─────────────────────────────────────────────────────────────────────
+.pv-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.pv-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pv-title {
+  font-size: 28pt;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+.vat-label-pill {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  background: #f3e5f5;
+  color: #6a1b9a;
+  font-size: 8pt;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.pv-meta-block {
+  min-width: 240px;
+}
+
+.meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.meta-row {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 8px;
+
+  dt {
+    font-size: 7pt;
+    font-weight: 700;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding-top: 2px;
+  }
+
+  dd {
+    font-size: 9pt;
+    margin: 0;
+    color: #111;
+
+    &.mono { font-family: 'Roboto Mono', monospace; }
+    &.status-finalized { color: #2e7d32; font-weight: 600; }
+    &.status-draft     { color: #e65100; }
+    &.status-issued    { color: #1565c0; }
+  }
+}
+
+// ── Parties ────────────────────────────────────────────────────────────────────
+.pv-parties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+
+  @media (max-width: 600px) { grid-template-columns: 1fr; }
+}
+
+.pv-party-label {
+  font-size: 7pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #888;
+  margin: 0 0 6px;
+}
+
+.pv-party-name {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #111;
+  margin: 0;
+}
+
+.pv-party-detail {
+  font-size: 9pt;
+  color: #555;
+  margin: 2px 0 0;
+}
+
+// ── Items table ────────────────────────────────────────────────────────────────
+.pv-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+
+  thead tr {
+    border-bottom: 2px solid #111;
+  }
+
+  th {
+    padding: 8px 6px;
+    text-align: left;
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #555;
+  }
+
+  .col-num {
+    text-align: right;
+  }
+
+  .pv-item-row {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  td {
+    padding: 7px 6px;
+    vertical-align: middle;
+  }
+}
+
+.mono { font-family: 'Roboto Mono', monospace; }
+
+// ── Totals ─────────────────────────────────────────────────────────────────────
+.pv-totals-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.pv-totals-block {
+  width: 50%;
+  min-width: 280px;
+
+  @media (max-width: 600px) { width: 100%; }
+}
+
+.pv-totals-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  font-size: 9pt;
+  border-bottom: 1px solid #f0f0f0;
+
+  &.discount-row { color: #e65100; }
+  &.vat-row      { color: #555; font-size: 8pt; }
+}
+
+.pv-total-row {
+  padding: 10px 0 6px;
+  border-top: 2px solid #111;
+  border-bottom: none;
+  font-size: 11pt;
+}
+
+.pv-grand-total { font-size: 13pt; }
+
+.pv-words {
+  font-size: 8pt;
+  color: #888;
+  font-style: italic;
+  text-align: right;
+}
+
+// ── Footer ─────────────────────────────────────────────────────────────────────
+.pv-footer {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pv-notes-label {
+  font-size: 8pt;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #888;
+  margin: 0 0 4px;
+}
+
+.pv-generated {
+  font-size: 7pt;
+  color: #bbb;
+  text-align: right;
+  margin: 0;
+}
+
+// ── Print overrides ────────────────────────────────────────────────────────────
+@media print {
+  .print-toolbar { display: none !important; }
+
+  .a4-preview {
+    margin: 0;
+    box-shadow: none;
+    padding: 15mm 20mm;
+    width: 210mm;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}

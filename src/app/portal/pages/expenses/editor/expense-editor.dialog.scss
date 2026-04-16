@@ -1,0 +1,337 @@
+// ── Shell ──────────────────────────────────────────────────────────────────────
+.editor-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 90vh;
+  background: var(--color-surface);
+}
+
+// ── Header ─────────────────────────────────────────────────────────────────────
+.editor-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 24px 28px 16px;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.editor-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 2px;
+  padding: 0;
+}
+
+.editor-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.close-btn {
+  color: var(--color-text-muted);
+  margin: -4px -8px 0 0;
+  flex-shrink: 0;
+}
+
+// ── Content scroll ─────────────────────────────────────────────────────────────
+.editor-content {
+  padding: 0 !important;
+  overflow-y: auto;
+  flex: 1;
+}
+
+// ── Sections ───────────────────────────────────────────────────────────────────
+.section {
+  border-bottom: 1px solid var(--color-border);
+  padding: 20px 28px;
+
+  &:last-child { border-bottom: none; }
+
+  &--asset {
+    background: var(--color-asset-bg);
+    border-top: 1px solid var(--color-asset-border);
+    border-bottom: 1px solid var(--color-asset-border);
+  }
+}
+
+.section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  &--asset {
+    color: var(--color-asset-text);
+    mat-icon { font-size: 16px; width: 16px; height: 16px; }
+  }
+}
+
+.section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+// ── Type tabs ──────────────────────────────────────────────────────────────────
+.type-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+
+  @media (max-width: 500px) { grid-template-columns: 1fr 1fr; }
+}
+
+.type-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  transition: all 0.15s;
+  text-align: center;
+
+  &:hover {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+  }
+
+  &--active {
+    border-color: var(--color-primary);
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+}
+
+.type-tab-icon {
+  font-size: 22px;
+  width: 22px;
+  height: 22px;
+}
+
+// ── Form rows and fields ────────────────────────────────────────────────────────
+.form-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+
+  &--grow { flex: 1 1 180px; }
+  &--center { justify-content: center; padding-top: 22px; }
+}
+
+.field-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.required-mark { color: var(--color-error-text); margin-left: 2px; }
+
+.field-input {
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  outline: none;
+  transition: border-color 0.15s;
+  width: 100%;
+  box-sizing: border-box;
+
+  &:focus { border-color: var(--color-primary); }
+
+  &--error { border-color: var(--color-error-text); }
+
+  &--prefix { padding-left: 28px; }
+  &--suffix  { padding-right: 42px; }
+}
+
+.field-select {
+  height: 38px;
+  padding: 0 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: var(--color-text);
+  background: var(--color-surface);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23888' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+
+  &:focus { border-color: var(--color-primary); }
+}
+
+.field-error {
+  font-size: 0.72rem;
+  color: var(--color-error-text);
+}
+
+// ── Input prefix / suffix ──────────────────────────────────────────────────────
+.input-prefix-wrap,
+.input-suffix-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-prefix {
+  position: absolute;
+  left: 10px;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.input-suffix {
+  position: absolute;
+  right: 10px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+// ── VAT rate selector ──────────────────────────────────────────────────────────
+.vat-rate-selector {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.vat-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-surface);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+  &--active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+}
+
+// ── Calculation summary (live totals) ──────────────────────────────────────────
+.calc-summary {
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.82rem;
+
+  &--total {
+    border-top: 1px solid var(--color-border);
+    padding-top: 8px;
+    margin-top: 2px;
+  }
+}
+
+.calc-label { color: var(--color-text-muted); }
+
+.calc-value {
+  color: var(--color-text);
+
+  &--total {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+}
+
+// ── Toggle (isPaid checkbox) ───────────────────────────────────────────────────
+.toggle-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--color-text);
+  user-select: none;
+}
+
+.toggle-checkbox { display: none; }
+
+.toggle-track {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  background: var(--color-toggle-track);
+  border-radius: 11px;
+  transition: background 0.2s;
+  flex-shrink: 0;
+
+  .toggle-checkbox:checked + & { background: var(--color-primary); }
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  .toggle-checkbox:checked + .toggle-track & { transform: translateX(18px); }
+}
+
+// ── Actions bar ────────────────────────────────────────────────────────────────
+.editor-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 28px;
+  border-top: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.mono { font-family: 'Roboto Mono', monospace; }

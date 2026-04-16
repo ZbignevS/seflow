@@ -1,0 +1,442 @@
+<!-- Loading skeleton -->
+@if (activeLoading()) {
+  <div class="editor-loading" role="status"
+       [attr.aria-label]="'portal.invoices.loadingInvoice' | translate">
+    <mat-spinner diameter="40" />
+  </div>
+}
+
+@if (!activeLoading()) {
+  <div class="editor-shell">
+
+    <!-- ── Top action bar ─────────────────────────────── -->
+    <header class="editor-topbar" role="banner">
+      <a routerLink="/portal/invoices" class="back-link"
+         [attr.aria-label]="'portal.invoices.backToInvoices' | translate">
+        <mat-icon aria-hidden="true">arrow_back</mat-icon>
+        {{ 'portal.invoices.backToInvoices' | translate }}
+      </a>
+
+      @if (invoice(); as inv) {
+        <div class="topbar-meta">
+          <span class="serial-badge"
+                [class.serial-draft]="inv.status === 'draft'"
+                [class.serial-final]="inv.status === 'finalized'">
+            {{ inv.serialNumber }}
+          </span>
+          <span class="status-badge status-{{ inv.status }}">
+            {{ 'portal.invoices.status.' + inv.status | translate }}
+          </span>
+        </div>
+      }
+
+      <div class="topbar-actions" role="toolbar" aria-label="Invoice actions">
+        @if (!isFinalized()) {
+          <button mat-stroked-button (click)="saveDraft()" [disabled]="saving()"
+                  [attr.aria-label]="'portal.invoices.saveDraft' | translate">
+            @if (saving()) { <mat-spinner diameter="16" /> }
+            @else { <mat-icon aria-hidden="true">save</mat-icon> }
+            {{ 'portal.invoices.saveDraft' | translate }}
+          </button>
+          <button mat-stroked-button (click)="openPreview()" [disabled]="!invoice()"
+                  [attr.aria-label]="'portal.invoices.previewAction' | translate">
+            <mat-icon aria-hidden="true">visibility</mat-icon>
+            {{ 'portal.invoices.previewAction' | translate }}
+          </button>
+          <button mat-flat-button color="primary" (click)="generateInvoice()"
+                  [disabled]="finalizing() || saving()"
+                  [attr.aria-label]="'portal.invoices.issueInvoice' | translate">
+            @if (finalizing()) { <mat-spinner diameter="16" /> }
+            @else { <mat-icon aria-hidden="true">check_circle</mat-icon> }
+            {{ 'portal.invoices.issueInvoice' | translate }}
+          </button>
+        }
+        @if (isFinalized()) {
+          <button mat-stroked-button (click)="openPreview()"
+                  [attr.aria-label]="'portal.invoices.printExport' | translate">
+            <mat-icon aria-hidden="true">print</mat-icon>
+            {{ 'portal.invoices.printExport' | translate }}
+          </button>
+        }
+      </div>
+    </header>
+
+    <!-- ── A4 invoice sheet ────────────────────────────── -->
+    <main class="a4-sheet" role="main" aria-label="Invoice document">
+
+      <!-- ══ HEADER ══ -->
+      <section class="inv-header" aria-label="Invoice header">
+        <div class="inv-title-block">
+          <h1 class="inv-title">
+            @if (invoice()?.type === 'credit') {
+              {{ 'portal.invoices.type.credit' | translate }}
+            } @else if (invoice()?.type === 'advance') {
+              {{ 'portal.invoices.type.advance' | translate }}
+            } @else {
+              {{ 'portal.invoices.type.standard' | translate }}
+            }
+          </h1>
+          @if (!isFinalized()) {
+            <mat-form-field appearance="outline" class="field-sm">
+              <mat-label>{{ 'portal.invoices.editor.invoiceType' | translate }}</mat-label>
+              <mat-select [formControl]="headerForm.controls.type"
+                          [attr.aria-label]="'portal.invoices.editor.invoiceType' | translate">
+                @for (key of invoiceTypeKeys; track key) {
+                  <mat-option [value]="key">
+                    {{ 'portal.invoices.type.' + key | translate }}
+                  </mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          }
+        </div>
+
+        <div class="inv-meta-grid">
+          <div class="meta-row">
+            <span class="meta-label">{{ 'portal.invoices.editor.invoiceNo' | translate }}</span>
+            <span class="meta-value mono">{{ invoice()?.serialNumber ?? '—' }}</span>
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">{{ 'portal.invoices.editor.issueDate' | translate }}</span>
+            @if (!isFinalized()) {
+              <input class="date-field" type="date" [formControl]="headerForm.controls.issueDate"
+                     [attr.aria-label]="'portal.invoices.editor.issueDate' | translate" />
+            } @else {
+              <span class="meta-value">{{ invoice()?.issueDate | date:'d MMM yyyy' }}</span>
+            }
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">{{ 'portal.invoices.editor.dueDate' | translate }}</span>
+            @if (!isFinalized()) {
+              <input class="date-field" type="date" [formControl]="headerForm.controls.dueDate"
+                     [attr.aria-label]="'portal.invoices.editor.dueDate' | translate" />
+            } @else {
+              <span class="meta-value">{{ invoice()?.dueDate | date:'d MMM yyyy' }}</span>
+            }
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">{{ 'portal.invoices.editor.currency' | translate }}</span>
+            @if (!isFinalized()) {
+              <mat-select [formControl]="headerForm.controls.currency" class="currency-select"
+                          [attr.aria-label]="'portal.invoices.editor.currency' | translate">
+                @for (c of currencies; track c) {
+                  <mat-option [value]="c">{{ 'portal.invoices.currency.' + c | translate }}</mat-option>
+                }
+              </mat-select>
+            } @else {
+              <span class="meta-value">{{ invoice()?.currency }}</span>
+            }
+          </div>
+          <div class="meta-row">
+            <span class="meta-label">{{ 'portal.invoices.editor.vatScheme' | translate }}</span>
+            @if (!isFinalized()) {
+              <mat-select [formControl]="headerForm.controls.vatMode" class="vat-select"
+                          [attr.aria-label]="'portal.invoices.editor.vatScheme' | translate">
+                @for (key of vatModeKeys; track key) {
+                  <mat-option [value]="key">
+                    {{ 'portal.invoices.vatMode.' + key | translate }}
+                  </mat-option>
+                }
+              </mat-select>
+            } @else {
+              <span class="meta-value">{{ 'portal.invoices.vatMode.' + invoice()?.vatMode | translate }}</span>
+            }
+          </div>
+        </div>
+      </section>
+
+      <hr class="divider" aria-hidden="true" />
+
+      <!-- ══ PARTIES ══ -->
+      <section class="inv-parties" aria-label="Invoice parties">
+
+        <!-- FROM -->
+        <div class="party-block">
+          <h2 class="party-label">{{ 'portal.invoices.editor.from' | translate }}</h2>
+          <p class="party-name">{{ user()?.fullName ?? user()?.name ?? '—' }}</p>
+          <p class="party-detail">{{ user()?.email }}</p>
+          @if (user()?.phone) {
+            <p class="party-detail">{{ user()?.phone }}</p>
+          }
+          @if (invoice(); as inv) {
+            <div class="vat-badge vat-{{ inv.vatStatus.effectiveRate > 0 ? 'rated' : 'zero' }}"
+                 role="note">
+              @if (inv.vatStatus.exempt) {
+                <mat-icon aria-hidden="true" class="badge-icon">info</mat-icon>
+                {{ 'portal.invoices.editor.vatExempt' | translate }}
+              } @else if (inv.vatStatus.reverseCharge) {
+                <mat-icon aria-hidden="true" class="badge-icon">swap_horiz</mat-icon>
+                {{ 'portal.invoices.editor.reverseCharge' | translate }}
+              } @else if (inv.vatStatus.effectiveRate > 0) {
+                <mat-icon aria-hidden="true" class="badge-icon">percent</mat-icon>
+                VAT {{ inv.vatStatus.effectiveRate }}%
+              } @else {
+                <mat-icon aria-hidden="true" class="badge-icon">remove_circle_outline</mat-icon>
+                {{ 'portal.invoices.editor.zeroRated' | translate }}
+              }
+            </div>
+          }
+        </div>
+
+        <!-- TO -->
+        <div class="party-block party-receiver">
+          <h2 class="party-label">{{ 'portal.invoices.editor.to' | translate }}</h2>
+
+          @if (!isFinalized()) {
+            <div class="client-search-wrap">
+              <mat-form-field appearance="outline" class="client-field">
+                <mat-label>{{ 'portal.invoices.editor.clientName' | translate }}</mat-label>
+                <input matInput
+                       [value]="clientQuery()"
+                       (input)="onClientQueryChange($event)"
+                       (focus)="showClientPanel.set(true)"
+                       [placeholder]="'portal.invoices.editor.clientSearchPlaceholder' | translate"
+                       [formControl]="receiverForm.controls.name"
+                       [attr.aria-label]="'portal.invoices.editor.clientName' | translate"
+                       aria-autocomplete="list"
+                       [attr.aria-expanded]="showClientPanel() && filteredClients().length > 0" />
+                @if (clientQuery()) {
+                  <button matSuffix mat-icon-button (click)="clearClient()"
+                          [attr.aria-label]="'portal.invoices.editor.clearClient' | translate">
+                    <mat-icon aria-hidden="true">close</mat-icon>
+                  </button>
+                }
+                <mat-error>{{ 'portal.invoices.editor.clientNameRequired' | translate }}</mat-error>
+              </mat-form-field>
+
+              @if (showClientPanel() && filteredClients().length > 0) {
+                <ul class="client-dropdown" role="listbox">
+                  @for (c of filteredClients(); track c.id) {
+                    <li class="client-option" role="option" (click)="selectClient(c)"
+                        (keydown.enter)="selectClient(c)" tabindex="0">
+                      <span class="option-name">{{ c.name }}</span>
+                      <span class="option-type">{{ c.clientType }} · {{ c.taxResidency }}</span>
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+
+            <div class="receiver-fields">
+              <mat-form-field appearance="outline" class="field-sm">
+                <mat-label>{{ 'portal.invoices.editor.receiverType' | translate }}</mat-label>
+                <mat-select [formControl]="receiverForm.controls.type"
+                            [attr.aria-label]="'portal.invoices.editor.receiverType' | translate">
+                  @for (key of receiverTypeKeys; track key) {
+                    <mat-option [value]="key">
+                      {{ 'portal.invoices.receiverType.' + key | translate }}
+                    </mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="field-full">
+                <mat-label>{{ 'portal.invoices.editor.address' | translate }}</mat-label>
+                <input matInput [formControl]="receiverForm.controls.address"
+                       [attr.aria-label]="'portal.invoices.editor.address' | translate" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="field-half">
+                <mat-label>{{ 'portal.invoices.editor.companyReg' | translate }}</mat-label>
+                <input matInput [formControl]="receiverForm.controls.companyCode"
+                       [attr.aria-label]="'portal.invoices.editor.companyReg' | translate" />
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" class="field-half">
+                <mat-label>{{ 'portal.invoices.editor.vatNumber' | translate }}</mat-label>
+                <input matInput [formControl]="receiverForm.controls.vatNumber"
+                       [placeholder]="'portal.invoices.editor.vatNumberPlaceholder' | translate"
+                       [attr.aria-label]="'portal.invoices.editor.vatNumber' | translate" />
+              </mat-form-field>
+            </div>
+          } @else {
+            @if (invoice()?.receiver; as r) {
+              <p class="party-name">{{ r.name }}</p>
+              @if (r.address) { <p class="party-detail">{{ r.address }}</p> }
+              @if (r.companyCode) { <p class="party-detail">Reg: {{ r.companyCode }}</p> }
+              @if (r.vatNumber) { <p class="party-detail">VAT: {{ r.vatNumber }}</p> }
+            }
+          }
+        </div>
+      </section>
+
+      <hr class="divider" aria-hidden="true" />
+
+      <!-- ══ ITEMS TABLE ══ -->
+      <section class="inv-items" aria-label="Invoice items">
+        <table class="items-table" role="table"
+               [attr.aria-label]="'portal.invoices.editor.colDescription' | translate">
+          <thead>
+            <tr role="row">
+              <th role="columnheader" class="col-desc">
+                {{ 'portal.invoices.editor.colDescription' | translate }}
+              </th>
+              <th role="columnheader" class="col-unit">
+                {{ 'portal.invoices.editor.colUnit' | translate }}
+              </th>
+              <th role="columnheader" class="col-num">
+                {{ 'portal.invoices.editor.colQty' | translate }}
+              </th>
+              <th role="columnheader" class="col-num">
+                {{ 'portal.invoices.editor.colPrice' | translate }}
+              </th>
+              <th role="columnheader" class="col-num">
+                {{ 'portal.invoices.editor.colDisc' | translate }}
+              </th>
+              <th role="columnheader" class="col-num">
+                {{ 'portal.invoices.editor.colSubtotal' | translate }}
+              </th>
+              @if (!isFinalized()) {
+                <th role="columnheader" class="col-action" aria-label="Actions"></th>
+              }
+            </tr>
+          </thead>
+          <tbody>
+            @if (!isFinalized()) {
+              @for (ctrl of itemControls; track ctrl; let i = $index) {
+                <tr class="item-row" role="row">
+                  <td class="col-desc">
+                    <input class="cell-input" [formControl]="ctrl.controls.title"
+                           [attr.aria-label]="'portal.invoices.editor.colDescription' | translate" />
+                  </td>
+                  <td class="col-unit">
+                    <input class="cell-input cell-sm" [formControl]="ctrl.controls.unit"
+                           [attr.aria-label]="'portal.invoices.editor.colUnit' | translate" />
+                  </td>
+                  <td class="col-num">
+                    <input class="cell-input cell-num" type="number" min="0" step="0.01"
+                           [formControl]="ctrl.controls.quantity"
+                           [attr.aria-label]="'portal.invoices.editor.colQty' | translate" />
+                  </td>
+                  <td class="col-num">
+                    <input class="cell-input cell-num" type="number" min="0" step="0.01"
+                           [formControl]="ctrl.controls.price"
+                           [attr.aria-label]="'portal.invoices.editor.colPrice' | translate" />
+                  </td>
+                  <td class="col-num">
+                    <input class="cell-input cell-num" type="number" min="0" max="100" step="1"
+                           [formControl]="ctrl.controls.discount"
+                           [attr.aria-label]="'portal.invoices.editor.colDisc' | translate" />
+                  </td>
+                  <td class="col-num subtotal-cell">
+                    {{ lineSubtotal(i) | number:'1.2-2' }}
+                  </td>
+                  <td class="col-action">
+                    <button mat-icon-button (click)="removeItem(i)"
+                            [attr.aria-label]="'portal.invoices.editor.colDescription' | translate"
+                            [disabled]="itemControls.length === 1">
+                      <mat-icon aria-hidden="true">delete_outline</mat-icon>
+                    </button>
+                  </td>
+                </tr>
+              }
+            } @else {
+              @for (item of invoice()?.items ?? []; track item.id) {
+                <tr class="item-row" role="row">
+                  <td class="col-desc">{{ item.title }}</td>
+                  <td class="col-unit">{{ item.unit }}</td>
+                  <td class="col-num">{{ item.quantity | number:'1.0-2' }}</td>
+                  <td class="col-num">{{ item.price | number:'1.2-2' }}</td>
+                  <td class="col-num">{{ item.discount }}%</td>
+                  <td class="col-num subtotal-cell">{{ item.subtotal | number:'1.2-2' }}</td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+
+        @if (!isFinalized()) {
+          <button mat-button (click)="addItem()" class="add-item-btn"
+                  [attr.aria-label]="'portal.invoices.editor.addItem' | translate">
+            <mat-icon aria-hidden="true">add</mat-icon>
+            {{ 'portal.invoices.editor.addItem' | translate }}
+          </button>
+        }
+      </section>
+
+      <hr class="divider" aria-hidden="true" />
+
+      <!-- ══ TOTALS ══ -->
+      @if (invoice(); as inv) {
+        <section class="inv-totals" aria-label="Invoice totals">
+          <div class="totals-block" role="table" aria-label="Financial summary">
+
+            <div class="totals-row" role="row">
+              <span role="rowheader">{{ 'portal.invoices.editor.subtotal' | translate }}</span>
+              <span role="cell" class="mono">
+                {{ liveCurrency() }} {{ liveTotals().subtotal | number:'1.2-2' }}
+              </span>
+            </div>
+
+            @if (liveTotals().discountTotal > 0) {
+              <div class="totals-row discount-row" role="row">
+                <span role="rowheader">{{ 'portal.invoices.editor.discount' | translate }}</span>
+                <span role="cell" class="mono">
+                  − {{ liveCurrency() }} {{ liveTotals().discountTotal | number:'1.2-2' }}
+                </span>
+              </div>
+            }
+
+            @if (liveTotals().vatRate > 0) {
+              <div class="totals-row vat-row" role="row">
+                <span role="rowheader">VAT {{ liveTotals().vatRate }}%</span>
+                <span role="cell" class="mono">
+                  {{ liveCurrency() }} {{ liveTotals().vatAmount | number:'1.2-2' }}
+                </span>
+              </div>
+            } @else if (inv.vatStatus.label) {
+              <div class="totals-row vat-row" role="row">
+                <span role="rowheader">{{ inv.vatStatus.label }}</span>
+                <span role="cell" class="mono">{{ liveCurrency() }} 0.00</span>
+              </div>
+            }
+
+            <div class="totals-row total-row" role="row">
+              <span role="rowheader">
+                <strong>{{ 'portal.invoices.editor.total' | translate }}</strong>
+              </span>
+              <span role="cell" class="mono total-amount">
+                <strong>{{ liveCurrency() }} {{ liveTotals().total | number:'1.2-2' }}</strong>
+              </span>
+            </div>
+          </div>
+
+          @if (liveAmountInWords()) {
+            <p class="amount-words"
+               [attr.aria-label]="'portal.invoices.editor.amountInWords' | translate">
+              {{ liveAmountInWords() }}
+            </p>
+          }
+        </section>
+      }
+
+      <!-- ══ FOOTER ══ -->
+      <section class="inv-footer" aria-label="Invoice footer">
+        <div class="footer-fields">
+          @if (!isFinalized()) {
+            <mat-form-field appearance="outline" class="field-full">
+              <mat-label>{{ 'portal.invoices.editor.notes' | translate }}</mat-label>
+              <textarea matInput rows="3" [formControl]="headerForm.controls.notes"
+                        [attr.aria-label]="'portal.invoices.editor.notes' | translate"></textarea>
+            </mat-form-field>
+
+            <mat-checkbox [formControl]="headerForm.controls.isAccounting">
+              {{ 'portal.invoices.editor.isAccounting' | translate }}
+            </mat-checkbox>
+          } @else {
+            @if (invoice()?.notes) {
+              <p class="notes-text">{{ invoice()!.notes }}</p>
+            }
+            @if (invoice()?.isAccounting) {
+              <p class="accounting-flag">
+                <mat-icon aria-hidden="true">check_circle</mat-icon>
+                {{ 'portal.invoices.editor.accountingFlag' | translate }}
+              </p>
+            }
+          }
+        </div>
+      </section>
+
+    </main>
+  </div>
+}

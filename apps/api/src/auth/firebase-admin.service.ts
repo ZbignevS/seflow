@@ -37,6 +37,10 @@ export class FirebaseAdminService implements OnModuleInit {
       this.app = getApp();
       this.logger.log('Reusing existing Firebase Admin app');
     }
+
+    // Firestore throws on undefined field values by default — ignore them so
+    // optional fields (notes, dueDate, etc.) don't need explicit null-checks.
+    getFirestore(this.app).settings({ ignoreUndefinedProperties: true });
   }
 
   get auth(): Auth {

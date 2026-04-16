@@ -348,11 +348,13 @@
       "incomeExpenses": "Dħul / Spejjeż",
       "clients": "Klijenti",
       "profile": "Profil",
-      "signOut": "Oħroġ"
+      "signOut": "Oħroġ",
+      "switchToDark": "Aqleb għad-dlam",
+      "switchToLight": "Aqleb għad-dawl"
     },
     "dashboard": {
       "welcome": "Merhba lura",
-      "subtitle": "Dan huwa s-sommarju tal-impjieg tiegħek għal April 2026",
+      "subtitle": "Dan huwa s-sommarju tan-negozju tiegħek",
       "quickActions": {
         "heading": "Azzjonijiet rapidi",
         "createInvoice": "Oħloq fattura",
@@ -360,14 +362,15 @@
         "manageClients": "Immaniġġja l-klijenti"
       },
       "stats": {
-        "heading": "Dan ix-xahar",
-        "income": "Dħul ta' kull xahar",
-        "expenses": "Spejjeż",
-        "estimatedTax": "Taxxa stmata",
-        "netProfit": "Qligħ nett"
+        "heading": "Ħarsa ġenerali",
+        "income": "Dħul totali",
+        "expenses": "Spejjeż totali",
+        "netProfit": "Qligħ nett",
+        "clients": "Klijenti totali"
       },
       "recentInvoices": {
         "heading": "Fatturi riċenti",
+        "empty": "L-ebda fattura għalissa.",
         "columns": {
           "number": "Fattura #",
           "client": "Klijent",
@@ -378,14 +381,20 @@
       },
       "recentClients": {
         "heading": "Klijenti",
+        "empty": "L-ebda klijent għalissa.",
         "columns": {
           "name": "Isem",
-          "email": "Email",
+          "type": "Tip",
           "invoices": "Fatturi"
         }
       },
+      "charts": {
+        "heading": "Tendenzi",
+        "activeClients": "Klijenti attivi"
+      },
       "recentActivity": {
-        "heading": "Attività riċenti"
+        "heading": "Attività riċenti",
+        "empty": "L-ebda attività għalissa."
       }
     },
     "clients": {
@@ -401,6 +410,12 @@
       "save": "Issejvja",
       "saving": "Qed tissejvja…",
       "delete": "Ħassar il-klijent",
+      "deleteConfirm": {
+        "title": "Ħassar il-klijent",
+        "message": "Din l-azzjoni ma tistax tiġi rriversata.",
+        "confirm": "Ħassar",
+        "cancel": "Ikkanċella"
+      },
       "createSuccess": "Klijent maħluq",
       "updateSuccess": "Klijent aġġornat",
       "deleteSuccess": "Klijent imħassar",
@@ -411,6 +426,10 @@
       "residency": {
         "domestic": "Domestiku",
         "foreign": "Barrani"
+      },
+      "sections": {
+        "details": "Dettalji",
+        "classification": "Klassifikazzjoni"
       },
       "fields": {
         "name": "Isem",
@@ -426,6 +445,229 @@
         "invoices": "Fatturi",
         "total": "Total fatturati",
         "unpaid": "Mhux imħallsa"
+      }
+    },
+    "invoices": {
+      "title": "Fatturi",
+      "subtitle": "Immaniġġja u segwi l-fatturi kollha tiegħek",
+      "newInvoice": "Fattura Ġdida",
+      "saveDraft": "Issejvja Abbozz",
+      "previewAction": "Anteprima",
+      "printExport": "Ipprintja / Esporta",
+      "issueInvoice": "Oħroġ Fattura",
+      "backToInvoices": "Fatturi",
+      "saveSuccess": "Abbozz issejvjat",
+      "finalizeError": "Żid mill-inqas oġġett wieħed qabel tiffinalizza.",
+      "finalizeInvalidFields": "Imla l-oqsma meħtieġa kollha qabel toħroġ il-fattura.",
+      "finalizeTotalZero": "It-total tal-fattura ma jistax ikun żero.",
+      "deleteConfirmTitle": "Ħassar abbozz tal-fattura",
+      "deleteConfirm": "Dan l-abbozz se jiġi mħassar permanentement. Din l-azzjoni ma tistax tiġi rriversjata.",
+      "deleteConfirmBtn": "Ħassar",
+      "deleteCancelBtn": "Ikkanċella",
+      "deleteSuccess": "Abbozz imħassar.",
+      "loadingInvoice": "Qed jillowdja l-fattura",
+      "loadingInvoices": "Qed jillowdja l-fatturi",
+      "list": {
+        "totalRevenue": "Dħul Total",
+        "finalized": "Finalizzati",
+        "drafts": "Abbozzi",
+        "total": "Total",
+        "filterAll": "Kollha",
+        "filterDrafts": "Abbozzi",
+        "filterIssued": "Maħruġa",
+        "filterFinalized": "Finalizzati",
+        "searchPlaceholder": "Fittex bil-klijent jew in-numru…",
+        "empty": "L-ebda fattura għalissa. Oħloq l-ewwel fattura biex tibda.",
+        "noResults": "L-ebda fattura ma taqbel mal-filtru tiegħek.",
+        "createFirst": "Oħloq Fattura",
+        "deleteInvoice": "Ħassar abbozz"
+      },
+      "editor": {
+        "invoiceNo": "Nru. Fattura",
+        "issueDate": "Data tal-Ħruġ",
+        "dueDate": "Data ta' Skadenza",
+        "currency": "Munita",
+        "vatScheme": "Skema VAT",
+        "invoiceType": "Tip ta' fattura",
+        "from": "Minn",
+        "to": "Lil",
+        "clientName": "Isem il-klijent",
+        "clientSearchPlaceholder": "Fittex jew ikteb l-isem tal-klijent…",
+        "clearClient": "Neħħi l-klijent",
+        "receiverType": "Tip ta' riċevitur",
+        "address": "Indirizz",
+        "companyReg": "Nru. tar-Reġistrazzjoni",
+        "vatNumber": "Numru tal-VAT",
+        "vatNumberPlaceholder": "p.eż. MT12345678",
+        "colDescription": "Deskrizzjoni",
+        "colUnit": "Unità",
+        "colQty": "Kwant.",
+        "colPrice": "Prezz",
+        "colDisc": "Skont %",
+        "colSubtotal": "Subtotal",
+        "addItem": "Żid Oġġett",
+        "subtotal": "Subtotal",
+        "discount": "Skont",
+        "total": "Total",
+        "notes": "Noti / Istruzzjonijiet ta' ħlas",
+        "isAccounting": "Inkudi fir-rekords kontabbli",
+        "vatPercent": "VAT {{rate}}%",
+        "vatExempt": "Eżenti mill-VAT (Artikolu 11)",
+        "reverseCharge": "Reverse Charge",
+        "zeroRated": "Rata żero",
+        "accountingFlag": "Inkluż fir-rekords kontabbli",
+        "amountInWords": "Ammont bil-kliem",
+        "clientNameRequired": "L-isem tal-klijent huwa meħtieġ"
+      },
+      "preview": {
+        "backToEditor": "Lura għall-editur",
+        "print": "Ipprintja",
+        "from": "Minn",
+        "to": "Lil",
+        "invoiceNo": "Nru. Fattura",
+        "issueDate": "Data tal-Ħruġ",
+        "dueDate": "Data ta' Skadenza",
+        "currency": "Munita",
+        "status": "Status",
+        "colDescription": "Deskrizzjoni",
+        "colUnit": "Unità",
+        "colQty": "Kwant.",
+        "colUnitPrice": "Prezz l-Unità",
+        "colDisc": "Skont %",
+        "colNet": "Nett",
+        "colVat": "VAT",
+        "colTotal": "Total",
+        "subtotalNet": "Subtotal (nett)",
+        "totalDiscount": "Skont Total",
+        "amountDue": "Ammont Dovut",
+        "notes": "Noti",
+        "generated": "Maħluq"
+      },
+      "type": {
+        "standard": "Fattura Fiskali",
+        "advance": "Fattura bil-Quddiem",
+        "credit": "Nota ta' Kreditu"
+      },
+      "vatMode": {
+        "article_10": "Artikolu 10 (VAT Standard)",
+        "article_11": "Artikolu 11 (Eżenti mill-VAT)",
+        "not_registered": "Mhux Irreġistrat għall-VAT"
+      },
+      "receiverType": {
+        "local": "Lokali (Malta)",
+        "eu_business": "Negozju tal-UE",
+        "foreign_company": "Kumpanija Barranija (Barra l-UE)",
+        "foreign_person": "Individwu Barrani (Barra l-UE)"
+      },
+      "currency": {
+        "EUR": "EUR — Euro",
+        "USD": "USD — Dollaru Amerikan",
+        "GBP": "GBP — Lira Brittanika"
+      },
+      "status": {
+        "draft": "Abbozz",
+        "issued": "Maħruġa",
+        "finalized": "Finalizzata"
+      }
+    },
+    "expenses": {
+      "title": "Spejjeż",
+      "subtitle": "Segwi u mmaniġġja l-ispejjeż tan-negozju tiegħek kollha",
+      "addExpense": "Żid Spiża",
+      "loading": "Qed jillowdja l-ispejjeż",
+      "createSuccess": "Spiża miżjuda",
+      "updateSuccess": "Spiża aġġornata",
+      "deleteSuccess": "Spiża mħassra",
+      "markedPaid": "Immarkat bħala mħallas",
+      "markedUnpaid": "Immarkat bħala mhux imħallas",
+      "edit": "Editja spiża",
+      "delete": "Ħassar spiża",
+      "markPaid": "Immark bħala mħallas",
+      "markUnpaid": "Immark bħala mhux imħallas",
+      "totalLabel": "Total",
+      "type": {
+        "general": "Ġenerali",
+        "representation": "Rappreżentanza",
+        "supplies": "Provvisti",
+        "fixed_asset": "Assi Fissi"
+      },
+      "status": {
+        "paid": "Imħallas",
+        "unpaid": "Mhux Imħallas"
+      },
+      "filter": {
+        "typeLabel": "Tip",
+        "dateLabel": "Perjodu",
+        "all": "Kollha",
+        "thisMonth": "Dan ix-Xahar",
+        "thisYear": "Din is-Sena",
+        "prevMonth": "Xahar ta' Qabel",
+        "prevYear": "Sena ta' Qabel",
+        "allTime": "Kollha"
+      },
+      "stats": {
+        "totalExpenses": "Spejjeż Totali",
+        "records": "Rekords",
+        "paid": "Imħallsa",
+        "unpaid": "Mhux Imħallsa"
+      },
+      "col": {
+        "date": "Data",
+        "supplier": "Fornitur",
+        "type": "Tip",
+        "description": "Deskrizzjoni",
+        "receipt": "Riċevuta #",
+        "vat": "VAT",
+        "total": "Total",
+        "status": "Status"
+      },
+      "empty": {
+        "title": "M'għandekx l-ebda spiża għalissa",
+        "subtitle": "Żid l-ewwel spiża biex tibda ssegwi l-ispejjeż tan-negozju tiegħek.",
+        "noResults": "L-ebda spiża ma taqbel mal-filtri attwali."
+      },
+      "editor": {
+        "titleAdd": "Żid Spiża",
+        "titleEdit": "Editja Spiża",
+        "subtitle": "Irreġistra spejjeż tan-negozju bid-dettalji tal-fornitur u l-VAT",
+        "close": "Agħlaq",
+        "typeLabel": "Tip ta' Spiża",
+        "supplierSection": "Informazzjoni tal-Fornitur",
+        "supplierName": "Isem il-Fornitur",
+        "supplierNamePlaceholder": "p.eż. Office Depot",
+        "supplierNameRequired": "Isem il-fornitur huwa meħtieġ",
+        "supplierCode": "Kodiċi tal-Kumpanija",
+        "supplierCodePlaceholder": "p.eż. MT12345",
+        "receiptNumber": "Nru. Riċevuta / Fattura",
+        "receiptNumberPlaceholder": "p.eż. INV-2026-001",
+        "detailsSection": "Dettalji tal-Ispiża",
+        "name": "Deskrizzjoni",
+        "namePlaceholder": "p.eż. Karti tal-uffiċċju",
+        "nameRequired": "Id-deskrizzjoni hija meħtieġa",
+        "amount": "Ammont Nett",
+        "vatRate": "Rata tal-VAT",
+        "netAmount": "Ammont Nett",
+        "vatAmount": "VAT",
+        "totalAmount": "Ammont Totali",
+        "calculation": "Tqassim tal-ammont",
+        "dateSection": "Data u Ħlas",
+        "date": "Data tal-Ispiża",
+        "markAsPaid": "Immark bħala Mħallas",
+        "fixedAssetSection": "Dettalji tal-Assi Fissi",
+        "assetGroup": "Grupp tal-Assi",
+        "selectGroup": "Agħżel grupp",
+        "assetName": "Isem l-Assi",
+        "assetNamePlaceholder": "p.eż. MacBook Pro 14\"",
+        "acquisitionDate": "Data tal-Akkwist",
+        "depreciationPeriod": "Perjodu ta' Deprezzament",
+        "months": "xhur",
+        "usagePercent": "% ta' Użu tan-Negozju",
+        "attachmentSection": "Allegat",
+        "attachmentUrl": "URL tal-Allegat",
+        "attachmentUrlPlaceholder": "https://...",
+        "cancel": "Ikkanċella",
+        "save": "Żid Spiża",
+        "update": "Issejvja l-Bidliet"
       }
     },
     "profile": {

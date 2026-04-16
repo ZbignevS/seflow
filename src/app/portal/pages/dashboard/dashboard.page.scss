@@ -134,10 +134,31 @@
   font-weight: 700;
   line-height: 1;
 
-  &--income { color: var(--color-text); }
+  &--income  { color: var(--color-text); }
   &--expense { color: var(--color-warning); }
-  &--tax { color: var(--color-primary); }
-  &--profit { color: var(--color-success); }
+  &--profit  { color: var(--color-success); }
+  &--clients { color: var(--color-primary); }
+}
+
+.stat-skeleton {
+  display: block;
+  height: 1.875rem;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--color-border) 25%, var(--color-bg-alt) 50%, var(--color-border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  width: 70%;
+}
+
+// ─── Overview chart ───────────────────────────────────────────────────────────
+
+.overview-chart-card {
+  background: var(--color-white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px 24px 16px;
+  height: 300px;
+  position: relative;
 }
 
 // ─── Tables row ───────────────────────────────────────────────────────────────
@@ -167,6 +188,35 @@
 
 .table-wrapper {
   overflow-x: auto;
+}
+
+.table-loading {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.row-skeleton {
+  height: 20px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--color-border) 25%, var(--color-bg-alt) 50%, var(--color-border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+}
+
+.empty-state {
+  padding: 24px 20px;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+  margin: 0;
+
+  &--padded {
+    padding: 20px 24px;
+    background: var(--color-white);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
 }
 
 table {
@@ -215,6 +265,8 @@ tr:last-child td {
   font-size: 0.8125rem;
 }
 
+// ─── Status badges ────────────────────────────────────────────────────────────
+
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -224,27 +276,46 @@ tr:last-child td {
   font-weight: 600;
   white-space: nowrap;
 
-  &--paid {
-    background: var(--color-success-light);
-    color: var(--color-success-text);
-  }
-
-  &--pending {
-    background: #fef9c3;
-    color: #854d0e;
-  }
-
-  &--overdue {
-    background: var(--color-error-light);
-    color: var(--color-error);
-  }
-
   &--draft {
     background: var(--color-bg-alt);
     color: var(--color-text-muted);
     border: 1px solid var(--color-border);
   }
+
+  &--issued {
+    background: var(--color-notice-bg);
+    color: var(--color-notice-text);
+  }
+
+  &--finalized {
+    background: var(--color-success-light);
+    color: var(--color-success-text);
+  }
 }
+
+// ─── Client type badges ───────────────────────────────────────────────────────
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &--company {
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+  }
+
+  &--individual {
+    background: var(--color-purple-light);
+    color: var(--color-purple);
+  }
+}
+
+// ─── Client info ──────────────────────────────────────────────────────────────
 
 .client-info {
   display: flex;
@@ -266,11 +337,6 @@ tr:last-child td {
   flex-shrink: 0;
 }
 
-.client-email {
-  color: var(--color-text-muted);
-  font-size: 0.8125rem;
-}
-
 // ─── Activity feed ────────────────────────────────────────────────────────────
 
 .activity-feed {
@@ -281,6 +347,21 @@ tr:last-child td {
   list-style: none;
   padding: 0;
   margin: 0;
+
+  &--loading {
+    padding: 16px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.activity-skeleton {
+  height: 36px;
+  border-radius: var(--radius);
+  background: linear-gradient(90deg, var(--color-border) 25%, var(--color-bg-alt) 50%, var(--color-border) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
 }
 
 .activity-item {
@@ -302,10 +383,8 @@ tr:last-child td {
   flex-shrink: 0;
   margin-top: 5px;
 
-  &--payment_received { background: var(--color-success); }
   &--invoice_created { background: var(--color-primary); }
-  &--expense_added { background: var(--color-warning); }
-  &--client_added { background: var(--color-purple); }
+  &--expense_added   { background: var(--color-warning); }
 }
 
 .activity-content {
@@ -317,6 +396,9 @@ tr:last-child td {
   color: var(--color-text);
   font-size: 0.875rem;
   margin: 0 0 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .activity-meta {
@@ -336,6 +418,13 @@ tr:last-child td {
   color: var(--color-text-light);
 }
 
+// ─── Shimmer animation ────────────────────────────────────────────────────────
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 // ─── Responsive ───────────────────────────────────────────────────────────────
 
 @media (max-width: 1100px) {
@@ -347,6 +436,7 @@ tr:last-child td {
     grid-template-columns: 1fr;
   }
 }
+
 
 @media (max-width: 640px) {
   .dashboard {

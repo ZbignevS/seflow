@@ -348,11 +348,13 @@
       "incomeExpenses": "Income / Expenses",
       "clients": "Clients",
       "profile": "Profile",
-      "signOut": "Sign out"
+      "signOut": "Sign out",
+      "switchToDark": "Switch to dark mode",
+      "switchToLight": "Switch to light mode"
     },
     "dashboard": {
       "welcome": "Welcome back",
-      "subtitle": "Here's your self-employment overview for April 2026",
+      "subtitle": "Here's your business overview",
       "quickActions": {
         "heading": "Quick actions",
         "createInvoice": "Create invoice",
@@ -360,14 +362,15 @@
         "manageClients": "Manage clients"
       },
       "stats": {
-        "heading": "This month",
-        "income": "Monthly income",
-        "expenses": "Expenses",
-        "estimatedTax": "Estimated tax",
-        "netProfit": "Net profit"
+        "heading": "Overview",
+        "income": "Total revenue",
+        "expenses": "Total expenses",
+        "netProfit": "Net profit",
+        "clients": "Total clients"
       },
       "recentInvoices": {
         "heading": "Recent invoices",
+        "empty": "No invoices yet.",
         "columns": {
           "number": "Invoice #",
           "client": "Client",
@@ -378,14 +381,20 @@
       },
       "recentClients": {
         "heading": "Clients",
+        "empty": "No clients yet.",
         "columns": {
           "name": "Name",
-          "email": "Email",
+          "type": "Type",
           "invoices": "Invoices"
         }
       },
+      "charts": {
+        "heading": "Trends",
+        "activeClients": "Active clients"
+      },
       "recentActivity": {
-        "heading": "Recent activity"
+        "heading": "Recent activity",
+        "empty": "No activity yet."
       }
     },
     "clients": {
@@ -401,6 +410,12 @@
       "save": "Save",
       "saving": "Saving…",
       "delete": "Delete client",
+      "deleteConfirm": {
+        "title": "Delete client",
+        "message": "This action cannot be undone.",
+        "confirm": "Delete",
+        "cancel": "Cancel"
+      },
       "createSuccess": "Client created",
       "updateSuccess": "Client updated",
       "deleteSuccess": "Client deleted",
@@ -411,6 +426,10 @@
       "residency": {
         "domestic": "Domestic",
         "foreign": "Foreign"
+      },
+      "sections": {
+        "details": "Details",
+        "classification": "Classification"
       },
       "fields": {
         "name": "Name",
@@ -426,6 +445,229 @@
         "invoices": "Invoices",
         "total": "Total billed",
         "unpaid": "Unpaid"
+      }
+    },
+    "invoices": {
+      "title": "Invoices",
+      "subtitle": "Manage and track all your invoices",
+      "newInvoice": "New Invoice",
+      "saveDraft": "Save Draft",
+      "previewAction": "Preview",
+      "printExport": "Print / Export",
+      "issueInvoice": "Issue Invoice",
+      "backToInvoices": "Invoices",
+      "saveSuccess": "Draft saved",
+      "finalizeError": "Add at least one item before finalizing.",
+      "finalizeInvalidFields": "Fill in all required fields before issuing.",
+      "finalizeTotalZero": "Invoice total cannot be zero.",
+      "deleteConfirmTitle": "Delete draft invoice",
+      "deleteConfirm": "This draft will be permanently deleted. This action cannot be undone.",
+      "deleteConfirmBtn": "Delete",
+      "deleteCancelBtn": "Cancel",
+      "deleteSuccess": "Draft deleted.",
+      "loadingInvoice": "Loading invoice",
+      "loadingInvoices": "Loading invoices",
+      "list": {
+        "totalRevenue": "Total Revenue",
+        "finalized": "Finalized",
+        "drafts": "Drafts",
+        "total": "Total",
+        "filterAll": "All",
+        "filterDrafts": "Drafts",
+        "filterIssued": "Issued",
+        "filterFinalized": "Finalized",
+        "searchPlaceholder": "Search by client or number…",
+        "empty": "No invoices yet. Create your first invoice to get started.",
+        "noResults": "No invoices match your filter.",
+        "createFirst": "Create Invoice",
+        "deleteInvoice": "Delete draft"
+      },
+      "editor": {
+        "invoiceNo": "Invoice No.",
+        "issueDate": "Issue Date",
+        "dueDate": "Due Date",
+        "currency": "Currency",
+        "vatScheme": "VAT Scheme",
+        "invoiceType": "Invoice type",
+        "from": "From",
+        "to": "To",
+        "clientName": "Client name",
+        "clientSearchPlaceholder": "Search or type client name…",
+        "clearClient": "Clear client",
+        "receiverType": "Receiver type",
+        "address": "Address",
+        "companyReg": "Company Reg. No.",
+        "vatNumber": "VAT Number",
+        "vatNumberPlaceholder": "e.g. MT12345678",
+        "colDescription": "Description",
+        "colUnit": "Unit",
+        "colQty": "Qty",
+        "colPrice": "Price",
+        "colDisc": "Disc %",
+        "colSubtotal": "Subtotal",
+        "addItem": "Add Item",
+        "subtotal": "Subtotal",
+        "discount": "Discount",
+        "total": "Total",
+        "notes": "Notes / Payment instructions",
+        "isAccounting": "Include in accounting records",
+        "vatPercent": "VAT {{rate}}%",
+        "vatExempt": "VAT Exempt (Article 11)",
+        "reverseCharge": "Reverse Charge",
+        "zeroRated": "Zero-rated",
+        "accountingFlag": "Included in accounting records",
+        "amountInWords": "Amount in words",
+        "clientNameRequired": "Client name is required"
+      },
+      "preview": {
+        "backToEditor": "Back to editor",
+        "print": "Print",
+        "from": "From",
+        "to": "To",
+        "invoiceNo": "Invoice No.",
+        "issueDate": "Issue Date",
+        "dueDate": "Due Date",
+        "currency": "Currency",
+        "status": "Status",
+        "colDescription": "Description",
+        "colUnit": "Unit",
+        "colQty": "Qty",
+        "colUnitPrice": "Unit Price",
+        "colDisc": "Disc.%",
+        "colNet": "Net",
+        "colVat": "VAT",
+        "colTotal": "Total",
+        "subtotalNet": "Subtotal (net)",
+        "totalDiscount": "Total Discount",
+        "amountDue": "Amount Due",
+        "notes": "Notes",
+        "generated": "Generated"
+      },
+      "type": {
+        "standard": "Tax Invoice",
+        "advance": "Advance Invoice",
+        "credit": "Credit Note"
+      },
+      "vatMode": {
+        "article_10": "Article 10 (Standard VAT)",
+        "article_11": "Article 11 (VAT Exempt)",
+        "not_registered": "Not Registered for VAT"
+      },
+      "receiverType": {
+        "local": "Local (Malta)",
+        "eu_business": "EU Business",
+        "foreign_company": "Foreign Company (Non-EU)",
+        "foreign_person": "Foreign Individual (Non-EU)"
+      },
+      "currency": {
+        "EUR": "EUR — Euro",
+        "USD": "USD — US Dollar",
+        "GBP": "GBP — British Pound"
+      },
+      "status": {
+        "draft": "Draft",
+        "issued": "Issued",
+        "finalized": "Finalized"
+      }
+    },
+    "expenses": {
+      "title": "Expenses",
+      "subtitle": "Track and manage all your business expenditures",
+      "addExpense": "Add Expense",
+      "loading": "Loading expenses",
+      "createSuccess": "Expense added",
+      "updateSuccess": "Expense updated",
+      "deleteSuccess": "Expense deleted",
+      "markedPaid": "Marked as paid",
+      "markedUnpaid": "Marked as unpaid",
+      "edit": "Edit expense",
+      "delete": "Delete expense",
+      "markPaid": "Mark as paid",
+      "markUnpaid": "Mark as unpaid",
+      "totalLabel": "Total",
+      "type": {
+        "general": "General",
+        "representation": "Representation",
+        "supplies": "Supplies",
+        "fixed_asset": "Fixed Asset"
+      },
+      "status": {
+        "paid": "Paid",
+        "unpaid": "Unpaid"
+      },
+      "filter": {
+        "typeLabel": "Type",
+        "dateLabel": "Period",
+        "all": "All",
+        "thisMonth": "This Month",
+        "thisYear": "This Year",
+        "prevMonth": "Prev Month",
+        "prevYear": "Prev Year",
+        "allTime": "All Time"
+      },
+      "stats": {
+        "totalExpenses": "Total Expenses",
+        "records": "Records",
+        "paid": "Paid",
+        "unpaid": "Unpaid"
+      },
+      "col": {
+        "date": "Date",
+        "supplier": "Supplier",
+        "type": "Type",
+        "description": "Description",
+        "receipt": "Receipt #",
+        "vat": "VAT",
+        "total": "Total",
+        "status": "Status"
+      },
+      "empty": {
+        "title": "You don't have any expenses yet",
+        "subtitle": "Add your first expense to start tracking your business expenditures.",
+        "noResults": "No expenses match the current filters."
+      },
+      "editor": {
+        "titleAdd": "Add Expense",
+        "titleEdit": "Edit Expense",
+        "subtitle": "Record a business expenditure with supplier and VAT details",
+        "close": "Close",
+        "typeLabel": "Expense Type",
+        "supplierSection": "Supplier Information",
+        "supplierName": "Supplier Name",
+        "supplierNamePlaceholder": "e.g. Office Depot",
+        "supplierNameRequired": "Supplier name is required",
+        "supplierCode": "Company Code",
+        "supplierCodePlaceholder": "e.g. MT12345",
+        "receiptNumber": "Receipt / Invoice No.",
+        "receiptNumberPlaceholder": "e.g. INV-2026-001",
+        "detailsSection": "Expense Details",
+        "name": "Description",
+        "namePlaceholder": "e.g. Office stationery",
+        "nameRequired": "Description is required",
+        "amount": "Net Amount",
+        "vatRate": "VAT Rate",
+        "netAmount": "Net Amount",
+        "vatAmount": "VAT",
+        "totalAmount": "Total Amount",
+        "calculation": "Amount breakdown",
+        "dateSection": "Date & Payment",
+        "date": "Expense Date",
+        "markAsPaid": "Mark as Paid",
+        "fixedAssetSection": "Fixed Asset Details",
+        "assetGroup": "Asset Group",
+        "selectGroup": "Select group",
+        "assetName": "Asset Name",
+        "assetNamePlaceholder": "e.g. MacBook Pro 14\"",
+        "acquisitionDate": "Acquisition Date",
+        "depreciationPeriod": "Depreciation Period",
+        "months": "months",
+        "usagePercent": "Business Use %",
+        "attachmentSection": "Attachment",
+        "attachmentUrl": "Attachment URL",
+        "attachmentUrlPlaceholder": "https://...",
+        "cancel": "Cancel",
+        "save": "Add Expense",
+        "update": "Save Changes"
       }
     },
     "profile": {

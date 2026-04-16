@@ -1,0 +1,331 @@
+<div class="editor-shell" [formGroup]="form">
+
+  <!-- ── Dialog header ────────────────────────────────────────────── -->
+  <div class="editor-header">
+    <div class="editor-header-text">
+      <h2 mat-dialog-title class="editor-title">
+        @if (isNew()) {
+          {{ 'portal.expenses.editor.titleAdd' | translate }}
+        } @else {
+          {{ 'portal.expenses.editor.titleEdit' | translate }}
+        }
+      </h2>
+      <p class="editor-subtitle">{{ 'portal.expenses.editor.subtitle' | translate }}</p>
+    </div>
+    <button mat-icon-button class="close-btn" (click)="cancel()"
+            [attr.aria-label]="'portal.expenses.editor.close' | translate">
+      <mat-icon aria-hidden="true">close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="editor-content">
+
+    <!-- ── Expense type tabs ─────────────────────────────────────── -->
+    <section class="section">
+      <div class="type-tabs" role="group" [attr.aria-label]="'portal.expenses.editor.typeLabel' | translate">
+        @for (type of expenseTypes; track type) {
+          <button type="button"
+                  class="type-tab"
+                  [class.type-tab--active]="selectedType() === type"
+                  (click)="selectType(type)"
+                  [attr.aria-pressed]="selectedType() === type">
+            <mat-icon class="type-tab-icon" aria-hidden="true">
+              @switch (type) {
+                @case ('general')        { receipt }
+                @case ('representation') { people }
+                @case ('supplies')       { inventory_2 }
+                @case ('fixed_asset')    { business_center }
+              }
+            </mat-icon>
+            <span>{{ 'portal.expenses.type.' + type | translate }}</span>
+          </button>
+        }
+      </div>
+    </section>
+
+    <!-- ── Supplier info ─────────────────────────────────────────── -->
+    <section class="section">
+      <h3 class="section-title">{{ 'portal.expenses.editor.supplierSection' | translate }}</h3>
+      <div class="section-body">
+
+        <div class="form-row">
+          <div class="form-field form-field--grow">
+            <label class="field-label" for="supplierName">
+              {{ 'portal.expenses.editor.supplierName' | translate }}
+              <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+            <input id="supplierName"
+                   class="field-input"
+                   [class.field-input--error]="hasError('supplierName', 'required')"
+                   type="text"
+                   formControlName="supplierName"
+                   [placeholder]="'portal.expenses.editor.supplierNamePlaceholder' | translate"
+                   autocomplete="organization" />
+            @if (hasError('supplierName', 'required')) {
+              <span class="field-error" role="alert">
+                {{ 'portal.expenses.editor.supplierNameRequired' | translate }}
+              </span>
+            }
+          </div>
+
+          <div class="form-field">
+            <label class="field-label" for="supplierCode">
+              {{ 'portal.expenses.editor.supplierCode' | translate }}
+            </label>
+            <input id="supplierCode"
+                   class="field-input"
+                   type="text"
+                   formControlName="supplierCode"
+                   [placeholder]="'portal.expenses.editor.supplierCodePlaceholder' | translate" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="field-label" for="receiptNumber">
+              {{ 'portal.expenses.editor.receiptNumber' | translate }}
+            </label>
+            <input id="receiptNumber"
+                   class="field-input mono"
+                   type="text"
+                   formControlName="receiptNumber"
+                   [placeholder]="'portal.expenses.editor.receiptNumberPlaceholder' | translate" />
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Expense details ───────────────────────────────────────── -->
+    <section class="section">
+      <h3 class="section-title">{{ 'portal.expenses.editor.detailsSection' | translate }}</h3>
+      <div class="section-body">
+
+        <div class="form-row">
+          <div class="form-field form-field--grow">
+            <label class="field-label" for="name">
+              {{ 'portal.expenses.editor.name' | translate }}
+              <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+            <input id="name"
+                   class="field-input"
+                   [class.field-input--error]="hasError('name', 'required')"
+                   type="text"
+                   formControlName="name"
+                   [placeholder]="'portal.expenses.editor.namePlaceholder' | translate" />
+            @if (hasError('name', 'required')) {
+              <span class="field-error" role="alert">
+                {{ 'portal.expenses.editor.nameRequired' | translate }}
+              </span>
+            }
+          </div>
+        </div>
+
+        <!-- Amount + VAT rate row -->
+        <div class="form-row">
+          <div class="form-field">
+            <label class="field-label" for="amount">
+              {{ 'portal.expenses.editor.amount' | translate }}
+              <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+            <div class="input-prefix-wrap">
+              <span class="input-prefix" aria-hidden="true">€</span>
+              <input id="amount"
+                     class="field-input field-input--prefix"
+                     [class.field-input--error]="hasError('amount', 'min')"
+                     type="number"
+                     min="0"
+                     step="0.01"
+                     formControlName="amount"
+                     placeholder="0.00" />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label">{{ 'portal.expenses.editor.vatRate' | translate }}</label>
+            <div class="vat-rate-selector" role="group"
+                 [attr.aria-label]="'portal.expenses.editor.vatRate' | translate">
+              @for (rate of vatRates; track rate) {
+                <button type="button"
+                        class="vat-btn"
+                        [class.vat-btn--active]="form.controls.vatRate.value === rate"
+                        (click)="setVatRate(rate)"
+                        [attr.aria-pressed]="form.controls.vatRate.value === rate">
+                  {{ rate }}%
+                </button>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Live calculation display -->
+        <div class="calc-summary" role="region" [attr.aria-label]="'portal.expenses.editor.calculation' | translate">
+          <div class="calc-row">
+            <span class="calc-label">{{ 'portal.expenses.editor.netAmount' | translate }}</span>
+            <span class="calc-value mono">€ {{ liveAmount() | number:'1.2-2' }}</span>
+          </div>
+          @if (liveVatRate() && liveVatRate()! > 0) {
+            <div class="calc-row">
+              <span class="calc-label">
+                {{ 'portal.expenses.editor.vatAmount' | translate }}
+                ({{ liveVatRate() }}%)
+              </span>
+              <span class="calc-value mono">€ {{ liveCalc().vatAmount | number:'1.2-2' }}</span>
+            </div>
+          }
+          <div class="calc-row calc-row--total">
+            <span class="calc-label">{{ 'portal.expenses.editor.totalAmount' | translate }}</span>
+            <span class="calc-value calc-value--total mono">€ {{ liveCalc().totalAmount | number:'1.2-2' }}</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Date & Payment ────────────────────────────────────────── -->
+    <section class="section">
+      <h3 class="section-title">{{ 'portal.expenses.editor.dateSection' | translate }}</h3>
+      <div class="section-body">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label class="field-label" for="expDate">
+              {{ 'portal.expenses.editor.date' | translate }}
+              <span class="required-mark" aria-hidden="true">*</span>
+            </label>
+            <input id="expDate"
+                   class="field-input"
+                   type="date"
+                   formControlName="date" />
+          </div>
+
+          <div class="form-field form-field--center">
+            <label class="toggle-label">
+              <input type="checkbox" formControlName="isPaid" class="toggle-checkbox" />
+              <span class="toggle-track" aria-hidden="true">
+                <span class="toggle-thumb"></span>
+              </span>
+              <span>{{ 'portal.expenses.editor.markAsPaid' | translate }}</span>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ── Fixed Asset (conditional) ─────────────────────────────── -->
+    @if (isFixedAsset()) {
+      <section class="section section--asset">
+        <h3 class="section-title section-title--asset">
+          <mat-icon aria-hidden="true">business_center</mat-icon>
+          {{ 'portal.expenses.editor.fixedAssetSection' | translate }}
+        </h3>
+        <div class="section-body">
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="field-label" for="assetGroup">
+                {{ 'portal.expenses.editor.assetGroup' | translate }}
+              </label>
+              <select id="assetGroup" class="field-select" formControlName="assetGroup">
+                <option value="">— {{ 'portal.expenses.editor.selectGroup' | translate }} —</option>
+                @for (grp of assetGroups; track grp) {
+                  <option [value]="grp">{{ grp }}</option>
+                }
+              </select>
+            </div>
+
+            <div class="form-field form-field--grow">
+              <label class="field-label" for="assetName">
+                {{ 'portal.expenses.editor.assetName' | translate }}
+              </label>
+              <input id="assetName"
+                     class="field-input"
+                     type="text"
+                     formControlName="assetName"
+                     [placeholder]="'portal.expenses.editor.assetNamePlaceholder' | translate" />
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-field">
+              <label class="field-label" for="acquisitionDate">
+                {{ 'portal.expenses.editor.acquisitionDate' | translate }}
+              </label>
+              <input id="acquisitionDate"
+                     class="field-input"
+                     type="date"
+                     formControlName="acquisitionDate" />
+            </div>
+
+            <div class="form-field">
+              <label class="field-label" for="depreciationPeriod">
+                {{ 'portal.expenses.editor.depreciationPeriod' | translate }}
+              </label>
+              <div class="input-suffix-wrap">
+                <input id="depreciationPeriod"
+                       class="field-input field-input--suffix"
+                       type="number"
+                       min="1"
+                       formControlName="depreciationPeriod" />
+                <span class="input-suffix">{{ 'portal.expenses.editor.months' | translate }}</span>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label class="field-label" for="usagePercent">
+                {{ 'portal.expenses.editor.usagePercent' | translate }}
+              </label>
+              <div class="input-suffix-wrap">
+                <input id="usagePercent"
+                       class="field-input field-input--suffix"
+                       type="number"
+                       min="0"
+                       max="100"
+                       formControlName="usagePercent" />
+                <span class="input-suffix">%</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    }
+
+    <!-- ── Attachment ────────────────────────────────────────────── -->
+    <section class="section">
+      <h3 class="section-title">{{ 'portal.expenses.editor.attachmentSection' | translate }}</h3>
+      <div class="section-body">
+        <div class="form-field form-field--grow">
+          <label class="field-label" for="attachmentUrl">
+            {{ 'portal.expenses.editor.attachmentUrl' | translate }}
+          </label>
+          <input id="attachmentUrl"
+                 class="field-input"
+                 type="url"
+                 formControlName="attachmentUrl"
+                 [placeholder]="'portal.expenses.editor.attachmentUrlPlaceholder' | translate" />
+        </div>
+      </div>
+    </section>
+
+  </mat-dialog-content>
+
+  <!-- ── Actions ──────────────────────────────────────────────────── -->
+  <div class="editor-actions" mat-dialog-actions>
+    <button mat-stroked-button type="button" (click)="cancel()">
+      {{ 'portal.expenses.editor.cancel' | translate }}
+    </button>
+    <button mat-flat-button color="primary" type="button"
+            [disabled]="form.invalid || saving()"
+            (click)="submit()">
+      @if (saving()) { <mat-spinner diameter="16" /> }
+      @if (isNew()) {
+        {{ 'portal.expenses.editor.save' | translate }}
+      } @else {
+        {{ 'portal.expenses.editor.update' | translate }}
+      }
+    </button>
+  </div>
+
+</div>

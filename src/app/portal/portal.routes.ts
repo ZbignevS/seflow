@@ -16,9 +16,9 @@ export const portalRoutes: Routes = [
       },
       {
         path: 'invoices',
-        loadComponent: () =>
-          import('./pages/invoices/invoices.page').then(
-            (m) => m.InvoicesPageComponent,
+        loadChildren: () =>
+          import('./pages/invoices/invoices.routes').then(
+            (m) => m.invoicesRoutes,
           ),
       },
       {
@@ -26,6 +26,13 @@ export const portalRoutes: Routes = [
         loadComponent: () =>
           import('./pages/income-expenses/income-expenses.page').then(
             (m) => m.IncomeExpensesPageComponent,
+          ),
+      },
+      {
+        path: 'expenses',
+        loadChildren: () =>
+          import('./pages/expenses/expenses.routes').then(
+            (m) => m.expensesRoutes,
           ),
       },
       {
